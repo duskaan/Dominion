@@ -11,7 +11,7 @@ public class DataBaseCredentials {
 		try {
 			// Set Properties Values
 			prop.setProperty("login", "root");
-			prop.setProperty("password", "Feb@FH-774");
+			prop.setProperty("password", "");
 
 			// Save Properties
 			prop.store(new FileOutputStream("config.properties"), null);

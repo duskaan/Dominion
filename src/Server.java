@@ -1,3 +1,4 @@
+import Handlers.MessageHandlerFactory;
 
 /**
  * Created by Tim on 21.08.2017.
@@ -11,7 +12,7 @@ public class Server {
     }
 
     private static void initServer() {
-        //initiates the server with the messageHandlers, the DataBase connection and the logger
+        //initiates the server with the messageHandlers, the DataBasePackage.DataBase connection and the logger
         addMessageHandler();
         //todo: database connection + logger
     }
@@ -19,16 +20,16 @@ public class Server {
     private static void addMessageHandler() {
 
         //add all messsagehandler
-        MessageHandlerFactory.addHandler("GameMessageHandler");
+        MessageHandlerFactory.addHandler("Handlers.GameMessageHandler");
         MessageHandlerFactory.addHandler("GameActionMessageHandler");
 
-        MessageHandlerFactory.addHandler("ServerMessageHandler");
-        MessageHandlerFactory.addHandler("ServerConnectedMessageHandler");
-        MessageHandlerFactory.addHandler("ServerDisconnectMessageHandler");
-        MessageHandlerFactory.addHandler("ServerLoginMessageHandler");
-        MessageHandlerFactory.addHandler("ServerOkMessageHandler");
-        MessageHandlerFactory.addHandler("ServerFailedMessageHandler");
-        MessageHandlerFactory.addHandler("ServerRegisterMessageHandler");
+        MessageHandlerFactory.addHandler("Handlers.ServerMessageHandler");
+        MessageHandlerFactory.addHandler("Handlers.ServerConnectedMessageHandler");
+        MessageHandlerFactory.addHandler("Handlers.ServerDisconnectMessageHandler");
+        MessageHandlerFactory.addHandler("Handlers.ServerLoginMessageHandler");
+        MessageHandlerFactory.addHandler("Handlers.ServerOkMessageHandler");
+        MessageHandlerFactory.addHandler("Handlers.ServerFailedMessageHandler");
+        MessageHandlerFactory.addHandler("Handlers.ServerRegisterMessageHandler");
 
         //TODO:und so weiter
     }
