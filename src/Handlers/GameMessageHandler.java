@@ -15,7 +15,7 @@ public class GameMessageHandler extends MessageHandler {
     }
 
     @Override
-    public String handleMsg(String message) throws UnknownFormatException {
+    public void handleMsg(String message) throws UnknownFormatException {
         String returnMessage = null;
 
         //get the game name --> String gameName = splitMessage(message,3);
@@ -23,10 +23,10 @@ public class GameMessageHandler extends MessageHandler {
         //returnMessage = game.handleMessage()
 
         //die unteren muessen zu damiano in das jeweilige Game
-        String subHandler = splitMessage(message, subHandlerIndex);
+        String subHandler = splitMessage(message, SUBHANDLER);
         MessageHandler handler = MessageHandlerFactory.getMessageHandler(subHandler);
         handler.handleMsg(message);
-        return returnMessage;
+
     }
 
 

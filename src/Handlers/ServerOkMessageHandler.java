@@ -1,9 +1,13 @@
 package Handlers;
 
+import Server.ClientThread;
+
+
 /**
  * Created by Tim on 13.09.2017.
  */
-public class ServerOkMessageHandler extends MessageHandler{
+public class ServerOkMessageHandler extends MessageHandler {
+    private String message =null;
     private final String CLASSNAME = ServerMessageType.OK.toString();
 
     public ServerOkMessageHandler(String message) throws UnknownFormatException {
@@ -13,12 +17,16 @@ public class ServerOkMessageHandler extends MessageHandler{
     }
 
     @Override
-    public String handleMsg(String msgIn) throws UnknownFormatException {
-        String returnMessage = null;
+    public void handleMsg(String msgIn) throws UnknownFormatException {
+        message=msgIn;
 
         //send message login successful
         //show lobby with option of opening new game or entering a game + chat
+        //put the username and the socket into a map while damiano has the game and username
+        //ClientThread.addPlayer();
 
-        return returnMessage;
+    }
+    public String getMessage(){
+        return message;
     }
 }

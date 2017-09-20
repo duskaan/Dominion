@@ -1,5 +1,6 @@
 package DataBasePackage;
 
+import javax.xml.crypto.Data;
 import java.io.FileInputStream;
 import java.sql.*;
 import java.util.Properties;
@@ -7,13 +8,14 @@ import java.util.Properties;
 /**
  * Created by Tim on 13.09.2017.
  */
-public class DataBase {
+public class Database {
     private String login = null;
     private String password = null;
     private Connection con = null;
     private PreparedStatement preparedStatement = null;
     private  Properties prop = new Properties(); // Create Properties-Object
     private ResultSet resultSet = null;
+    private static final Database snDatabase= null;
 
     private final String userName= "userName";
     private final String userPassword= "userPassword";
@@ -21,8 +23,10 @@ public class DataBase {
     private final String gamesWon= "gamesWon";
     private final String gamesHighScore= "gamesHighScore";
 
+    private Database(){
 
-    private void createConnection() {
+    }
+    public void createConnection() {
         try {
             prop.load(new FileInputStream("config.properties"));
             login = prop.getProperty("login");
@@ -32,18 +36,19 @@ public class DataBase {
             con = DriverManager.getConnection("jdbc:mysql://localhost:3306/test", login, password);
         } catch (Exception e) {
             e.printStackTrace();
+            closeConnection();
         }
     }
 
     public boolean insert(String insertUserName, String insertUserPassword) {
-        createConnection();
+         //todo close and open connection just once
         boolean successful = false;
         if (search(insertUserName)) { //if username is already present
             return successful;
         }
         successful=tryInsert(insertUserName, insertUserPassword);
 
-        closeConnection();
+
         return successful;
     }
 
@@ -82,7 +87,7 @@ public class DataBase {
     }
 
     public boolean login(String userName, String password) {
-        createConnection();
+
         boolean successful = false;
         try {
             resultSet = getResultSet(userName);
@@ -92,7 +97,7 @@ public class DataBase {
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        closeConnection();
+
         return successful;
         //todo somehow send a message or store the info of the players clientsocket and the players username
         //maybe a class which takes clientthreads and players
@@ -155,6 +160,14 @@ public class DataBase {
 
         } catch (SQLException e) {
             e.printStackTrace();
+        }
+    }
+    public static Database getDatabase(){
+        if(snDatabase==null){
+            return new Database();
+        }
+        else {
+            return snDatabase;
         }
     }
 }

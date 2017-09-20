@@ -1,3 +1,5 @@
+package Server;
+
 import java.io.IOException;
 import java.net.ServerSocket;
 import java.net.Socket;
@@ -16,7 +18,7 @@ public class DominionServer extends Thread{
     public void start() {
         try{
             ServerSocket serverSocket = new ServerSocket(PORT);
-            ExecutorService executor = Executors.newCachedThreadPool();
+            ExecutorService executor = Executors.newSingleThreadExecutor();
             while(true) {
                 Socket clientSocket = serverSocket.accept();
                 executor.submit(new ClientThread(clientSocket));

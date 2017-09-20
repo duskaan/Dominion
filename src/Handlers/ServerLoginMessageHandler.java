@@ -1,45 +1,53 @@
 package Handlers;
-import DataBasePackage.DataBase;
+
+import DataBasePackage.Database;
+import Handlers.MessageHandler;
+import Handlers.MessageHandlerFactory;
+import Handlers.ServerMessageType;
+import Handlers.UnknownFormatException;
+import Models.LoginModel;
+import javafx.beans.InvalidationListener;
+import javafx.beans.Observable;
+import javafx.beans.value.ObservableStringValue;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Observer;
 
 /**
  * Created by Tim on 12.09.2017.
  */
-public class ServerLoginMessageHandler extends MessageHandler{
+public class ServerLoginMessageHandler extends MessageHandler  {
     private final String CLASSNAME = ServerMessageType.LOGIN.toString();
+    private String message = null;
+    //List<Observer> observers;
+
 
     public ServerLoginMessageHandler(String message) throws UnknownFormatException {
-        if(!CLASSNAME.equals(message)){
+        if (!CLASSNAME.equals(message)) {
             throw new UnknownFormatException(message);
         }
     }
+    public ServerLoginMessageHandler(){
+
+    }
+    public void write(String outMessage) {
+        String tempMessage = addDelimiter(outMessage);
+        String newMessage = CLASSNAME + tempMessage;
+        super.write(newMessage);
+    }
 
     @Override
-    public String handleMsg(String msgIn) throws UnknownFormatException {
-        String returnMessage=null;
+    public  void handleMsg(String msgIn) throws UnknownFormatException {
+        message = msgIn;
+        setChanged();
+        notifyObservers(this);
+        //code with observable and observer -- notify and update() -- send this with it write getMessage Method to return the string to the model
 
-        if(loginCheck(msgIn)) {//if successful
-            String message = alterMessage(msgIn,"okMessageHandler",3);
-            MessageHandler handler = MessageHandlerFactory.getMessageHandler(message);
-            returnMessage= handler.handleMsg(message);
-            //send message to okMessageHandler with first altering the original msgIn and then handler.HandleMessage...
-        }else{ //if login failed
-            String message = alterMessage(msgIn,"failedMessageHandler",3);
-            MessageHandler handler = MessageHandlerFactory.getMessageHandler(message);
-            returnMessage= handler.handleMsg(message);
-            //send message to failedMessageHandler
-        }
 
-        return returnMessage;
     }
-    public boolean loginCheck(String msgIn){
-        boolean loginSuccessful = false;
-        int userNameIndex = 0;
-        String userName= splitMessage(msgIn,4);
-        String password = splitMessage(msgIn, 5);
-        DataBase dataBase = new DataBase();
-        loginSuccessful = dataBase.login(userName, password);
-        //todo create player+ socket map
-        return loginSuccessful;
+
+    public String getMessage(){
+        return message;
     }
 }
-

@@ -1,7 +1,11 @@
 package Handlers;
 
+import Handlers.MessageHandler;
+
 import java.lang.reflect.Constructor;
+import java.net.Socket;
 import java.util.HashSet;
+import java.util.Observer;
 import java.util.Set;
 
 /**
@@ -42,5 +46,10 @@ public class MessageHandlerFactory {
             }
         }
         return messageHandler;
+    }
+    public static void createCommunicate(Socket clientSocket){
+        MessageHandler handler = new MessageHandler(clientSocket);
+        handler.openResources();
+
     }
 }
