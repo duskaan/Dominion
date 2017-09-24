@@ -6,7 +6,7 @@ import Server.ClientThread;
 /**
  * Created by Tim on 13.09.2017.
  */
-public class ServerOkMessageHandler extends MessageHandler {
+public class ServerOkMessageHandler extends ServerMessageHandler {
     private String message =null;
     private final String CLASSNAME = ServerMessageType.OK.toString();
 

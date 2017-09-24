@@ -7,7 +7,7 @@ import Handlers.UnknownFormatException;
 /**
  * Created by Tim on 12.09.2017.
  */
-public class ServerDisconnectMessageHandler extends MessageHandler{
+public class ServerDisconnectMessageHandler extends ServerMessageHandler{
    private final String CLASSNAME = ServerMessageType.DISCONNECT.toString();
     private String message =null;
 

@@ -1,10 +1,9 @@
 package Server;
 
-import DataBasePackage.Database;
+import Database.Database;
 import Handlers.MessageHandlerFactory;
 
 import java.util.logging.Level;
-import java.util.logging.Logger;
 
 /**
  * Created by Tim on 21.08.2017.
@@ -12,25 +11,32 @@ import java.util.logging.Logger;
 public class Server {
 
 
-    public static void main(String [ ] args){
+    public static void main(String[] args) {
 
         initServer();
+        LogHandling.logOnFile(Level.INFO, "MessageHandler are added");
+        //Application.launch(ServerGUI.class, args);
         new DominionServer().start();
+
+        LogHandling.closeResources();
     }
 
     private static void initServer() {
-        Logger logger= Logger.getLogger("Server");
-        logger.log(Level.INFO,"Server.Server application started");
+
+        LogHandling.logOnFile(Level.INFO, "Server.Server application starts now");
+
+        //todo see that it gets called
+
         Database.getDatabase().createConnection();
-        //initiates the server with the messageHandlers, the DataBasePackage.DataBase connection and the logger
+        //initiates the server with the messageHandlers, the Database.DataBase connection and the logger
         addMessageHandler();
-        //todo: database connection + logger
+
     }
 
     private static void addMessageHandler() {
 
         //add all messsagehandler
-        MessageHandlerFactory.addHandler("Handlers.GameMessageHandler"); //todo see if i can keep
+        MessageHandlerFactory.addHandler("Handlers.GameMessageHandler");
         MessageHandlerFactory.addHandler("Handlers.ServerMessageHandler");
         MessageHandlerFactory.addHandler("Handlers.ServerConnectedMessageHandler");
         MessageHandlerFactory.addHandler("Handlers.ServerDisconnectMessageHandler");
@@ -40,5 +46,6 @@ public class Server {
         MessageHandlerFactory.addHandler("Handlers.ServerRegisterMessageHandler");
 
         //TODO:und so weiter
+
     }
 }

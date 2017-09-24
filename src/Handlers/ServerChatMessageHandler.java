@@ -1,22 +1,22 @@
 package Handlers;
 
 /**
- * Created by Tim on 12.09.2017.
+ * Created by Tim on 23.09.2017.
  */
-public class ServerLoginMessageHandler extends ServerMessageHandler  {
-    private final String CLASSNAME = ServerMessageType.LOGIN.toString();
+public class ServerChatMessageHandler extends ServerMessageHandler {
+    private final String CLASSNAME = ServerMessageType.CHAT.toString();
     private String message = null;
     //List<Observer> observers;
 
 
-    public ServerLoginMessageHandler(String message) throws UnknownFormatException {
+    public ServerChatMessageHandler(String message) throws UnknownFormatException {
         if (!CLASSNAME.equals(message)) {
             throw new UnknownFormatException(message);
         }
     }
-    public ServerLoginMessageHandler(){
-    }
+    public ServerChatMessageHandler(){
 
+    }
     public void write(String outMessage) {
         String tempMessage = addDelimiter(outMessage);
         String newMessage = CLASSNAME + tempMessage;
@@ -36,4 +36,6 @@ public class ServerLoginMessageHandler extends ServerMessageHandler  {
     public String getMessage(){
         return message;
     }
+
+
 }

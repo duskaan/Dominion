@@ -1,21 +1,20 @@
 package Models;
 
-import DataBasePackage.Database;
-import Handlers.MessageHandler;
-import Handlers.MessageHandlerFactory;
+import Database.Database;
 import Handlers.ServerLoginMessageHandler;
-import javafx.beans.value.ObservableStringValue;
+import Server.LogHandling;
 
 import java.util.Observable;
 import java.util.Observer;
+import java.util.logging.Level;
 
 /**
  * Created by Tim on 20.09.2017.
  */
 public class LoginModel implements Observer {
-    private String observableMessage = null;
     public static final int USERNAMEINDEX = 4;
     public static final int PASSWORDINDEX = 5;
+    String userName;
 
     public LoginModel() {
         //this.observableMessage = observableMessage;
@@ -25,36 +24,33 @@ public class LoginModel implements Observer {
     @Override
     public void update(Observable o, Object handler) {
         if (handler instanceof ServerLoginMessageHandler) {
+            LogHandling.logOnFile(Level.INFO,"Login into Database is started");
             ServerLoginMessageHandler newHandler = (ServerLoginMessageHandler) handler;
             String[] sMessage = newHandler.splitMessage(newHandler.getMessage());
-            login(sMessage);
+            boolean successful = tryToLogin(sMessage);
+            informAboutLogin(successful, newHandler);
+
         }
 
     }
 
-    public void login(String[] sMessage) {
-        if (loginCheck(sMessage)) {//if successful
-            //String message = handler.alterMessage(msgIn,"okMessageHandler",3);
-            //MessageHandler handler = MessageHandlerFactory.getMessageHandler(message);
-            //handler.handleMsg(message);
-            //send message to okMessageHandler with first altering the original msgIn and then handler.HandleMessage...
-        } else { //if login failed
-            //String message = alterMessage(msgIn,"failedMessageHandler",3);
-            //MessageHandler handler = MessageHandlerFactory.getMessageHandler(message);
-            //handler.handleMsg(message);
-            //send message to failedMessageHandler
-
-
+    private void informAboutLogin(boolean successful, ServerLoginMessageHandler newHandler) {
+        if(successful){
+            LogHandling.logOnFile(Level.INFO,"Login of "+userName +"was successful");
+            WriteOtherClients.getMessageHandler().setUserName(userName); //todo does this work?
+            newHandler.write("");//login was successful
+        }else{
+            LogHandling.logOnFile(Level.INFO,"Login of "+userName +"was NOT successful");
+            newHandler.write("");//login was not successful
         }
-
 
     }
 
 
-    public boolean loginCheck(String[] sMessage) {
-        boolean loginSuccessful = false;
+    public boolean tryToLogin(String[] sMessage) {
+        boolean loginSuccessful;
 
-        String userName = sMessage[USERNAMEINDEX];
+        userName = sMessage[USERNAMEINDEX];
         String password = sMessage[PASSWORDINDEX];
         loginSuccessful = Database.getDatabase().login(userName, password);
 

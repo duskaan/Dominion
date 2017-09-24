@@ -1,20 +1,22 @@
 package Handlers;
 
 /**
- * Created by Tim on 12.09.2017.
+ * Created by Tim on 23.09.2017.
  */
-public class ServerLoginMessageHandler extends ServerMessageHandler  {
-    private final String CLASSNAME = ServerMessageType.LOGIN.toString();
+public class GameActionMessageHandler extends GameMessageHandler {
+    private final String CLASSNAME = GameMessageType.ACTION.toString();
     private String message = null;
     //List<Observer> observers;
 
 
-    public ServerLoginMessageHandler(String message) throws UnknownFormatException {
+    public GameActionMessageHandler(String message) throws UnknownFormatException {
         if (!CLASSNAME.equals(message)) {
             throw new UnknownFormatException(message);
         }
     }
-    public ServerLoginMessageHandler(){
+
+    public GameActionMessageHandler() {
+
     }
 
     public void write(String outMessage) {
@@ -24,7 +26,7 @@ public class ServerLoginMessageHandler extends ServerMessageHandler  {
     }
 
     @Override
-    public  void handleMsg(String msgIn) throws UnknownFormatException {
+    public void handleMsg(String msgIn) throws UnknownFormatException {
         message = msgIn;
         setChanged();
         notifyObservers(this);
@@ -33,7 +35,9 @@ public class ServerLoginMessageHandler extends ServerMessageHandler  {
 
     }
 
-    public String getMessage(){
+    public String getMessage() {
         return message;
     }
 }
+
+

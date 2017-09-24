@@ -1,29 +1,36 @@
 package Handlers;
 
+import Models.WriteOtherClients;
+import Server.ClientThread;
+import Server.LogHandling;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 
 import java.io.*;
 import java.net.Socket;
-import java.util.Observable;
+import java.util.*;
+import java.util.logging.Level;
 
 /**
  * Created by Tim on 23.08.2017.
  */
-public class MessageHandler extends Observable{
+public class MessageHandler extends Observable {
     public final int MAINHANDLER = 0;
     public final int SUBHANDLER = 1;
     private Socket clientSocket;
-    private boolean running;
+    private boolean running = true;
     private BufferedWriter output;
     private BufferedReader input;
-    private volatile StringProperty outMessage;
+    private static String userName;
+    private WriteOtherClients writeOtherClients;
+
 
     private static final String DELIMITER = "@"; //todo set this one with the teammates
 
     public MessageHandler() {
 
     }
+
     public MessageHandler(Socket clientSocket) {
         this.clientSocket = clientSocket;
     }
@@ -42,12 +49,6 @@ public class MessageHandler extends Observable{
         return splitMessage(message)[tokenIndex];
     }
 
-    public String alterMessage(String message, String newValue, int tokenIndex) {
-        String[] msgIn = splitMessage(message);
-        msgIn[tokenIndex] = newValue;
-        message = String.join(DELIMITER, msgIn);
-        return message;
-    }
 
     public void write(String outMessage) {
         try {
@@ -57,11 +58,11 @@ public class MessageHandler extends Observable{
             e.printStackTrace();
         }
     }
-    public static String addDelimiter(String message){
+
+    public static String addDelimiter(String message) {
         String newMessage = DELIMITER + message;
         return newMessage;
     }
-
 
 
     public void openResources() {
@@ -79,11 +80,6 @@ public class MessageHandler extends Observable{
     }
     /*the OutputListener is to react if the value changes, therefore it can send a message to the client
     * with every update from the value outMessage, this method is called.       */
-
-
-    private void sendMessageToClient(String outMessage) {
-
-    }
 
     private void read(BufferedReader input) {
         new Thread(() -> {
@@ -109,16 +105,36 @@ public class MessageHandler extends Observable{
         } catch (IOException e) {
             e.printStackTrace();
         } catch (UnknownFormatException e) {
+            LogHandling.logOnFile(Level.INFO, e.getMessage());
             //TODO: Log this message
             e.getMessage();
         }
     }
+
+    public void setUserName(String userName) {
+        this.userName = userName;
+    }
+
+    public String getUserName() {
+        return userName;
+    }
+
+    public void setWriteOtherClients(MessageHandler messageHandler) { //todo geht das?
+        writeOtherClients = new WriteOtherClients(messageHandler);
+    }
+
+    public WriteOtherClients getWriteOtherClients() {
+        return writeOtherClients;
+    }
+
 
     private void closeResources() {
         try {
             input.close();
             output.close();
             clientSocket.close();
+            LogHandling.closeResources();
+            // todo close Database connection?
 
         } catch (IOException e) {
             e.printStackTrace();

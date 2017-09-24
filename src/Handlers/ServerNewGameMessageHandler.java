@@ -9,12 +9,12 @@ import java.net.Socket;
 /**
  * Created by Tim on 14.09.2017.
  */
-public class ServerNewGameMessageType extends MessageHandler {
+public class ServerNewGameMessageHandler extends ServerMessageHandler {
 
     private final String CLASSNAME = ServerMessageType.NEWGAME.toString();
     private String message =null;
 
-    public ServerNewGameMessageType(String message) throws UnknownFormatException {
+    public ServerNewGameMessageHandler(String message) throws UnknownFormatException {
         if(!CLASSNAME.equals(message)){
             throw new UnknownFormatException(message);
         }

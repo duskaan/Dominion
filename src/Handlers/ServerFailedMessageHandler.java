@@ -7,7 +7,7 @@ import Handlers.UnknownFormatException;
 /**
  * Created by Tim on 13.09.2017.
  */
-public class ServerFailedMessageHandler extends MessageHandler {
+public class ServerFailedMessageHandler extends ServerMessageHandler {
     private final String CLASSNAME = ServerMessageType.FAILED.toString();
     private String message =null;
 

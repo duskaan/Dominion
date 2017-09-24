@@ -1,10 +1,13 @@
 package Server;
 
+import javafx.application.Application;
+
 import java.io.IOException;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
+import java.util.logging.Level;
 
 /**
  * Created by Tim on 23.08.2017.
@@ -19,6 +22,9 @@ public class DominionServer extends Thread{
         try{
             ServerSocket serverSocket = new ServerSocket(PORT);
             ExecutorService executor = Executors.newSingleThreadExecutor();
+            LogHandling.logOnFile(Level.INFO,"ServerSocket is open");
+            //LogHandling.closeResources(); todo just as testing
+
             while(true) {
                 Socket clientSocket = serverSocket.accept();
                 executor.submit(new ClientThread(clientSocket));

@@ -1,14 +1,11 @@
 package Handlers;
 
-import DataBasePackage.Database;
-import Handlers.MessageHandler;
-import Handlers.ServerMessageType;
-import Handlers.UnknownFormatException;
+import Database.Database;
 
 /**
  * Created by Tim on 13.09.2017.
  */
-public class ServerRegisterMessageHandler extends MessageHandler {
+public class ServerRegisterMessageHandler extends ServerMessageHandler {
     private String message =null;
     private final String CLASSNAME = ServerMessageType.REGISTER.toString();
 
@@ -17,31 +14,15 @@ public class ServerRegisterMessageHandler extends MessageHandler {
             throw new UnknownFormatException(message);
         }
     }
-
-    @Override
-    public void handleMsg(String msgIn) throws UnknownFormatException {
-        message=msgIn;
-        String returnMessage = null;
-
-        if (register(msgIn)) {//if register successful
-            returnMessage = "register successful";
-            //send message to okMessageHandler with first altering the original msgIn and then handler.HandleMessage...
-        } else { //if register failed
-            returnMessage = "Username already in use";
-        }
-
+    public ServerRegisterMessageHandler(){
 
     }
 
-    public boolean register(String msgIn) {
-        boolean registerSuccessful = false;
+    @Override
+    public void handleMsg(String msgIn) throws UnknownFormatException {
+        message = msgIn;
+        String returnMessage = null;
 
-        String userName = splitMessage(msgIn, 4);
-        String password = splitMessage(msgIn, 5);
-
-        registerSuccessful = Database.getDatabase().insert(userName, password); //only registers if the name does not exist
-
-        return registerSuccessful;
     }
 
     public void write(String outMessage) {

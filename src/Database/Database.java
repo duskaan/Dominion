@@ -1,6 +1,5 @@
-package DataBasePackage;
+package Database;
 
-import javax.xml.crypto.Data;
 import java.io.FileInputStream;
 import java.sql.*;
 import java.util.Properties;

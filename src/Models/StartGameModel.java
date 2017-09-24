@@ -1,6 +1,8 @@
 package Models;
 
-import Handlers.ServerNewGameMessageHandler;
+import Handlers.GameMessageHandler;
+import Handlers.GameStartGameMessageHandler;
+import Handlers.ServerLoginMessageHandler;
 import Server.LogHandling;
 
 import java.util.Observable;
@@ -8,15 +10,17 @@ import java.util.Observer;
 import java.util.logging.Level;
 
 /**
- * Created by Tim on 20.09.2017.
+ * Created by Tim on 23.09.2017.
  */
-public class NewGameModel implements Observer{
+public class StartGameModel implements Observer {
+    public StartGameModel(){
+
+    }
     @Override
     public void update(Observable o, Object handler) {
-        LogHandling.logOnFile(Level.INFO, "New Game is initiated");
-        if (handler instanceof ServerNewGameMessageHandler) {
+        if (handler instanceof GameStartGameMessageHandler) {
             LogHandling.logOnFile(Level.INFO, "Login into Database is started");
-            ServerNewGameMessageHandler newHandler = (ServerNewGameMessageHandler) handler;
+            GameStartGameMessageHandler newHandler = (GameStartGameMessageHandler) handler;
             String[] sMessage = newHandler.splitMessage(newHandler.getMessage());
 //todo programm handling
 
