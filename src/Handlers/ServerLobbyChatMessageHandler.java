@@ -3,18 +3,18 @@ package Handlers;
 /**
  * Created by Tim on 23.09.2017.
  */
-public class ServerChatMessageHandler extends ServerMessageHandler {
-    private final String CLASSNAME = ServerMessageType.CHAT.toString();
+public class ServerLobbyChatMessageHandler extends ServerMessageHandler {
+    private final String CLASSNAME = ServerMessageType.LOBBYCHAT.toString();
     private String message = null;
-    //List<Observer> observers;
 
 
-    public ServerChatMessageHandler(String message) throws UnknownFormatException {
+
+    public ServerLobbyChatMessageHandler(String message) throws UnknownFormatException {
         if (!CLASSNAME.equals(message)) {
             throw new UnknownFormatException(message);
         }
     }
-    public ServerChatMessageHandler(){
+    public ServerLobbyChatMessageHandler(){
 
     }
     public void write(String outMessage) {

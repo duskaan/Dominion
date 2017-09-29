@@ -14,6 +14,8 @@ import java.util.List;
 public class GameMessageHandler extends MessageHandler {
 
     private final String CLASSNAME = MessageType.GAME.toString();
+    private Game game = null;
+
 
 
     public GameMessageHandler(String message) throws UnknownFormatException {
@@ -36,6 +38,7 @@ public class GameMessageHandler extends MessageHandler {
         //die unteren muessen zu damiano in das jeweilige Game
         String subHandler = splitMessage(message, SUBHANDLER);
         MessageHandler handler = MessageHandlerFactory.getMessageHandler(subHandler);
+        handler.setClientSocket(clientSocket);
         handler.handleMsg(message);
 
     }
@@ -43,9 +46,12 @@ public class GameMessageHandler extends MessageHandler {
     public void write(String outMessage) {
         String tempMessage = addDelimiter(outMessage);
         String newMessage = CLASSNAME + tempMessage;
-        getWriteOtherClients().writeToGameClients(newMessage); //todo should i have it here or at the new writer for new cards or played cards (in case the turn isnt allowed)
+        //getWriteOtherClients().writeToGameClients(); //todo should i have it here or at the new writer for new cards or played cards (in case the turn isnt allowed)
         super.write(newMessage);
     }
+    public void createGame(String gameName, boolean computer, String ... userNames){
+        game = new Game(gameName, computer, userNames);
+    }//sobald nachricht hierhin kommt muss geprüft werden ob game = null ist. wenn ja dann wird diese method ausgelöst?
 
 
 }

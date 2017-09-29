@@ -1,46 +1,58 @@
 package Models;
 
 import Handlers.MessageHandler;
+import Server.LogHandling;
 
 
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
+import java.util.logging.Level;
 
 /**
  * Created by Tim on 24.09.2017.
  */
 public class WriteOtherClients {
-    public ArrayList waiting; //todo is the arraylist saved across the different writeotherclients instances?
-    public ArrayList playing;
-    public ArrayList lobby;
+    public ArrayList<MessageHandler> waitingList;
+    public ArrayList<MessageHandler> playingList;
+    public ArrayList<MessageHandler> lobbyList;
     public static MessageHandler messageHandler;
 
     public WriteOtherClients(MessageHandler messageHandler) { //todo do i need to create a singleton?
         this.messageHandler = messageHandler;
     }
+
     public void addWaitingClient() {
-        if (waiting == null) {
-            waiting = (ArrayList) Collections.synchronizedList(new ArrayList<MessageHandler>());
+
+        if (waitingList == null) {
+            waitingList = new ArrayList<>();
+            //waiting = (ArrayList) Collections.synchronizedList(waitingList);;
+            LogHandling.logOnFile(Level.INFO, "waitingList is initiated");
+
         }
-        waiting.add(messageHandler);
+        waitingList.add(messageHandler);
+        System.out.println("Add waiting client");
+        LogHandling.logOnFile(Level.INFO, "messageHandler is added");
     }
 
     public void addLobbyClient() { //todo if i add a client
-        if (lobby == null) {
-            lobby = (ArrayList) Collections.synchronizedList(new ArrayList<MessageHandler>());
+        if (lobbyList == null) {
+            lobbyList = new ArrayList<>();
+            //waiting = (ArrayList) Collections.synchronizedList(waitingList);;
+            LogHandling.logOnFile(Level.INFO, "lobbyList is initiated");
         }
-        lobby.add(messageHandler);
-        remove(waiting, messageHandler);
+        lobbyList.add(messageHandler);
+        remove(waitingList, messageHandler);
     }
 
     public void addPlayingClient() {
-        if (playing == null) {
-            playing = (ArrayList) Collections.synchronizedList(new ArrayList<MessageHandler>());
+        if (playingList == null) {
+            playingList = new ArrayList<>();
+            LogHandling.logOnFile(Level.INFO, "playingList is initiated");
         }
-        playing.add(messageHandler);
-        remove(lobby, messageHandler);
+        playingList.add(messageHandler);
+        remove(lobbyList, messageHandler);
     }
 
     public void remove(ArrayList arrayList, MessageHandler messageHandler) { //todo return arraylist?
@@ -52,27 +64,32 @@ public class WriteOtherClients {
         }
     }
 
-    public void writeToGameClients(String message) {
+    public void writeToGameClients(String message, String[] userNames) {
         String[] splitMessage = messageHandler.splitMessage(message);
-        String userName = splitMessage[4];
-        Iterator iterator = playing.iterator();
-        if (iterator.hasNext()) {
-            MessageHandler messageHandler = (MessageHandler) iterator.next();
-            if (messageHandler.getUserName() == userName) {
-                messageHandler.write(message);
+
+        Iterator iterator = playingList.iterator();
+        while(iterator.hasNext()) {
+            MessageHandler messageHandlerFromList = (MessageHandler) iterator.next(); //does this work?
+            int i = 0;
+            while(i<=userNames.length){
+                if (messageHandlerFromList.getUserName() == userNames[i]) {
+                    messageHandlerFromList.write(message);
+                }
+                i++;
             }
         }
     }
 
     public void writeToLobbyClients(String message) {
-        Iterator iterator = lobby.iterator();
+        Iterator iterator = lobbyList.iterator();
         if (iterator.hasNext()) {
             MessageHandler messageHandler = (MessageHandler) iterator.next();
             messageHandler.write(message);
 
         }
     }
-    public static MessageHandler getMessageHandler(){
+
+    public static MessageHandler getMessageHandler() {
         return messageHandler;
     }
 }

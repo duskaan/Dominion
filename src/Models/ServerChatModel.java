@@ -1,7 +1,6 @@
 package Models;
 
-import Handlers.ServerChatMessageHandler;
-import Handlers.ServerNewGameMessageHandler;
+import Handlers.ServerLobbyChatMessageHandler;
 import Server.LogHandling;
 
 import java.util.Observable;
@@ -15,12 +14,16 @@ public class ServerChatModel implements Observer {
     @Override
     public void update(Observable o, Object handler) {
         LogHandling.logOnFile(Level.INFO, "New Game is initiated");
-        if (handler instanceof ServerChatMessageHandler) {
+        if (handler instanceof ServerLobbyChatMessageHandler) {
             LogHandling.logOnFile(Level.INFO, "Login into Database is started");
-            ServerChatMessageHandler newHandler = (ServerChatMessageHandler) handler;
-            String[] sMessage = newHandler.splitMessage(newHandler.getMessage());
+            ServerLobbyChatMessageHandler newHandler = (ServerLobbyChatMessageHandler) handler;
+            chatting(newHandler);
 
 //todo programm handling
         }
+    }
+    private void chatting(ServerLobbyChatMessageHandler newHandler) {
+        String sMessage = newHandler.getMessage();
+        newHandler.getWriteOtherClients().writeToLobbyClients(sMessage);
     }
 }

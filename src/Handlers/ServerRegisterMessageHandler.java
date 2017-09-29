@@ -21,6 +21,7 @@ public class ServerRegisterMessageHandler extends ServerMessageHandler {
     @Override
     public void handleMsg(String msgIn) throws UnknownFormatException {
         message = msgIn;
+
         String returnMessage = null;
 
     }

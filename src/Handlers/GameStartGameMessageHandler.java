@@ -6,6 +6,7 @@ package Handlers;
 public class GameStartGameMessageHandler extends  GameMessageHandler{
     private final String CLASSNAME = GameMessageType.STARTGAME.toString();
     private String message = null;
+
     //List<Observer> observers;
 
 
@@ -38,5 +39,8 @@ public class GameStartGameMessageHandler extends  GameMessageHandler{
     public String getMessage() {
         return message;
     }
+
+
+
 
 }

@@ -23,7 +23,7 @@ public class ClientThread implements Runnable {
     /*opens the readers and writers as well as an outputListener */
     @Override
     public void run() {
-        LogHandling.closeResources();
+        //LogHandling.closeResources();
         MessageHandlerFactory.createCommunicate(clientSocket);
     }
 

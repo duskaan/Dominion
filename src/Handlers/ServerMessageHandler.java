@@ -2,6 +2,9 @@ package Handlers;
 
 import Models.LoginModel;
 import Models.RegisterModel;
+import Server.LogHandling;
+
+import java.util.logging.Level;
 
 /**
  * Created by Tim on 12.09.2017.
@@ -26,6 +29,8 @@ public class ServerMessageHandler extends MessageHandler {
     //why cant i have this method just locally in the super class because all subHandlers are responsible themselves.
     @Override
     public void handleMsg(String msgIn) throws UnknownFormatException {
+        LogHandling.logOnFile(Level.INFO,msgIn);
+        LogHandling.closeResources();
         String subHandler = splitMessage(msgIn, SUBHANDLER);
         MessageHandler handler = MessageHandlerFactory.getMessageHandler(subHandler);
         checkForModels(msgIn);
@@ -37,6 +42,7 @@ public class ServerMessageHandler extends MessageHandler {
     public void write(String outMessage) {
         String tempMessage = addDelimiter(outMessage);
         String newMessage = CLASSNAME + tempMessage;
+        //getWriteOtherClients().writeToLobbyClients(outMessage);
         super.write(newMessage);
         //todo writeToLobby?
     }
@@ -48,10 +54,12 @@ public class ServerMessageHandler extends MessageHandler {
             observedLoginMessageHandler.addObserver(loginModel);
 
         }
-        if (splitMessage(msgIn, SUBHANDLER) == "REGISTER" && observedRegisterMessageHandler == null) {
+        System.out.println(splitMessage(msgIn, SUBHANDLER));
+        if (splitMessage(msgIn, SUBHANDLER).equals("REGISTER") && observedRegisterMessageHandler == null) {
+            System.out.println("I got into the checkformodel");
             observedRegisterMessageHandler = new ServerRegisterMessageHandler();
             RegisterModel registerModel = new RegisterModel();
-            observedLoginMessageHandler.addObserver(registerModel);
+            observedRegisterMessageHandler.addObserver(registerModel);
 
         }
     }

@@ -21,6 +21,7 @@ public class ServerFailedMessageHandler extends ServerMessageHandler {
     @Override
     public void handleMsg(String msgIn) throws UnknownFormatException {
         message=msgIn;
+        write("I want to break free");
     }
     public void write(String outMessage) {
         String tempMessage = addDelimiter(outMessage);

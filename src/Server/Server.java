@@ -27,7 +27,7 @@ public class Server {
 
         //todo see that it gets called
 
-        Database.getDatabase().createConnection();
+        //Database.getDatabase().createConnection();
         //initiates the server with the messageHandlers, the Database.DataBase connection and the logger
         addMessageHandler();
 
@@ -44,6 +44,16 @@ public class Server {
         MessageHandlerFactory.addHandler("Handlers.ServerOkMessageHandler");
         MessageHandlerFactory.addHandler("Handlers.ServerFailedMessageHandler");
         MessageHandlerFactory.addHandler("Handlers.ServerRegisterMessageHandler");
+        MessageHandlerFactory.addHandler("Handlers.ServerNewGameMessageHandler");
+
+
+        MessageHandlerFactory.addHandler("Handlers.GameStartGameMessageHandler");
+        MessageHandlerFactory.addHandler("Handlers.GameActionMessageHandler");
+        MessageHandlerFactory.addHandler("Handlers.GameBuyMessageHandler");
+        MessageHandlerFactory.addHandler("Handlers.ServerGameChatMessageHandler");
+        MessageHandlerFactory.addHandler("Handlers.GameEndGameMessageHandler");
+        //MessageHandlerFactory.addHandler("Handlers.GameMessageHandler");
+        //MessageHandlerFactory.addHandler("Handlers.GameMessageHandler");
 
         //TODO:und so weiter
 

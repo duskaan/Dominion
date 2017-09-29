@@ -1,10 +1,12 @@
 package Handlers;
 
 import Models.WriteOtherClients;
+import Server.LogHandling;
 
 import java.lang.reflect.Constructor;
 import java.net.Socket;
 import java.util.*;
+import java.util.logging.Level;
 
 /**
  * Created by Tim on 23.08.2017.
@@ -49,10 +51,15 @@ public class MessageHandlerFactory {
     }
 
     public static void createCommunicate(Socket clientSocket) {
+        LogHandling.logOnFile(Level.INFO, "Communication is created");
+        System.out.println("Communication is created "+clientSocket);
+        //LogHandling.closeResources();
         MessageHandler handler = new MessageHandler(clientSocket);
+
         handler.setWriteOtherClients(handler); //todo does this make sense?
         handler.getWriteOtherClients().addWaitingClient();
         handler.openResources();
+        handler.read();
 
     }
 }

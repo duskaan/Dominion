@@ -3,19 +3,19 @@ package Handlers;
 /**
  * Created by Tim on 23.09.2017.
  */
-public class GameChatMessageHandler extends GameMessageHandler{
-    private final String CLASSNAME = GameMessageType.CHAT.toString();
+public class ServerGameChatMessageHandler extends GameMessageHandler{
+    private final String CLASSNAME = ServerMessageType.GAMECHAT.toString();
     private String message = null;
     //List<Observer> observers;
 
 
-    public GameChatMessageHandler(String message) throws UnknownFormatException {
+    public ServerGameChatMessageHandler(String message) throws UnknownFormatException {
         if (!CLASSNAME.equals(message)) {
             throw new UnknownFormatException(message);
         }
     }
 
-    public GameChatMessageHandler() {
+    public ServerGameChatMessageHandler() {
 
     }
 

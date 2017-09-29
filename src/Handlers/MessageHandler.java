@@ -1,14 +1,12 @@
 package Handlers;
 
+import Models.ReadingThread;
 import Models.WriteOtherClients;
-import Server.ClientThread;
 import Server.LogHandling;
-import javafx.beans.property.SimpleStringProperty;
-import javafx.beans.property.StringProperty;
 
 import java.io.*;
 import java.net.Socket;
-import java.util.*;
+import java.util.Observable;
 import java.util.logging.Level;
 
 /**
@@ -17,12 +15,13 @@ import java.util.logging.Level;
 public class MessageHandler extends Observable {
     public final int MAINHANDLER = 0;
     public final int SUBHANDLER = 1;
-    private Socket clientSocket;
+    static Socket clientSocket;
     private boolean running = true;
     private BufferedWriter output;
     private BufferedReader input;
     private static String userName;
     private WriteOtherClients writeOtherClients;
+    private ReadingThread readingThread;
 
 
     private static final String DELIMITER = "@"; //todo set this one with the teammates
@@ -34,6 +33,7 @@ public class MessageHandler extends Observable {
     public MessageHandler(Socket clientSocket) {
         this.clientSocket = clientSocket;
     }
+
 
     public void handleMsg(String msgIn) throws UnknownFormatException {
 
@@ -51,8 +51,12 @@ public class MessageHandler extends Observable {
 
 
     public void write(String outMessage) {
+        if(output==null){
+            openResources();
+        }
         try {
-            output.write(outMessage); //todo send message to other clients of the game, how do i get the info here?
+            System.out.println("writing " + clientSocket);
+            output.write(outMessage + clientSocket + "\n"); //todo send message to other clients of the game, how do i get the info here?
             output.flush();
         } catch (IOException e) {
             e.printStackTrace();
@@ -67,42 +71,56 @@ public class MessageHandler extends Observable {
 
     public void openResources() {
         try {
+            System.out.println(clientSocket);
+            LogHandling.logOnFile(Level.INFO, "Resources are open");
             input = new BufferedReader(new InputStreamReader(clientSocket.getInputStream()));
             output = new BufferedWriter(new OutputStreamWriter(clientSocket.getOutputStream())); //TODO: messages to client
 
             //send connected message to client open login window
             //create a map of player
 
-            read(input);
+
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
+
     /*the OutputListener is to react if the value changes, therefore it can send a message to the client
     * with every update from the value outMessage, this method is called.       */
-
-    private void read(BufferedReader input) {
-        new Thread(() -> {
+    public void read() {
+        new Thread(() -> { //todo after this there is no clientsocket anymore so i cant write
+            System.out.println("Here the clientSocket is still there" + clientSocket);
+            System.out.println("Starts listening");
+            LogHandling.logOnFile(Level.INFO, "new reading-thread is initiated");
             while (running) {
+                System.out.println("is listening");
                 tryReadMessage(input);
+
             }
-            closeResources();
+
         }).start();
     }
 
-    //TODO: create or use exception to turn the boolean running into false, so that the thread stops.
     private void tryReadMessage(BufferedReader input) {
         String message;
+        System.out.println("try to read message");
+        System.out.println(input);
         try {
             while ((message = input.readLine()) != null) {
-                MessageHandler handler = MessageHandlerFactory.getMessageHandler(message); // solved dont i need to just send in the splitted msg?
+                System.out.println("received first message");
+                System.out.println(message);
+                MessageHandler handler = MessageHandlerFactory.getMessageHandler(message); // todo create new handler without clientsocket..
+                // solved dont i need to just send in the splitted msg?
                 /*String hostAndPort = clientSocket.getInetAddress().getHostAddress();
                 hostAndPort= hostAndPort+":"+clientSocket.getPort();
                 message = handler.addClientSocket(hostAndPort, message);*/
+                handler.setClientSocket(clientSocket);
                 handler.handleMsg(message);
 
             }
+            System.out.println("get out of it already");
         } catch (IOException e) {
+            closeResources();
             e.printStackTrace();
         } catch (UnknownFormatException e) {
             LogHandling.logOnFile(Level.INFO, e.getMessage());
@@ -110,6 +128,7 @@ public class MessageHandler extends Observable {
             e.getMessage();
         }
     }
+
 
     public void setUserName(String userName) {
         this.userName = userName;
@@ -121,12 +140,18 @@ public class MessageHandler extends Observable {
 
     public void setWriteOtherClients(MessageHandler messageHandler) { //todo geht das?
         writeOtherClients = new WriteOtherClients(messageHandler);
+        LogHandling.logOnFile(Level.INFO, "WriteOtherClients is added");
+        //LogHandling.closeResources();
     }
 
     public WriteOtherClients getWriteOtherClients() {
+        LogHandling.logOnFile(Level.INFO, "MessageHandler is in the waitingList");
         return writeOtherClients;
     }
 
+    public void setClientSocket(Socket clientSocket) {
+        this.clientSocket = clientSocket;
+    }
 
     private void closeResources() {
         try {

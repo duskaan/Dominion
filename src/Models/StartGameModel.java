@@ -26,4 +26,8 @@ public class StartGameModel implements Observer {
 
         }
     }
+    public void startGame(){
+        //Game game = new Game();
+
+    }
 }
