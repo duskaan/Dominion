@@ -6,6 +6,7 @@ package Handlers;
 public class ServerConnectedMessageHandler extends ServerMessageHandler {
     private final String CLASSNAME = ServerMessageType.CONNECTED.toString();
     private String message = null;
+    private MessageHandler superHandler;
 
     public ServerConnectedMessageHandler(String message) throws UnknownFormatException {
         if (!CLASSNAME.equals(message)) {
@@ -14,16 +15,17 @@ public class ServerConnectedMessageHandler extends ServerMessageHandler {
     }
 
     @Override
-    public void handleMsg(String msgIn) throws UnknownFormatException {
+    public void handleMessage(String msgIn, MessageHandler superHandler) throws UnknownFormatException {
+        this.superHandler = superHandler;
         message = msgIn;
         //bring player into loginField
 
     }
 
-    public void write(String outMessage) {
-        String tempMessage = addDelimiter(outMessage);
+    public void write(String message) {
+        String tempMessage = addDelimiter(message);
         String newMessage = CLASSNAME + tempMessage;
-        super.write(newMessage);
+        superHandler.write(newMessage);
     }
 
     public String getMessage() {

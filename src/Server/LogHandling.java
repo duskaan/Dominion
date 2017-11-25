@@ -33,12 +33,15 @@ public class LogHandling {
                 writer = new BufferedWriter(new FileWriter(fileName));
             }
             writer.write(date +" " + className + " method: " + methodName +  "\n" + level.toString() + ": " + message+"\n");
+            System.out.println(message);
 
         } catch (IOException e) {
         }
     }
 
     public static String getDate() {
+        //TODO: The Date object is outdated. You should use LocalDateTime, LocalTime or LocalDate
+        //TODO: Also everyTime you write to file, this creates a new Date object, which uses a lot of memory.
         Date date = new Date();
 
         DateFormat fmt = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");

@@ -6,6 +6,7 @@ package Handlers;
 public class ServerGameChatMessageHandler extends GameMessageHandler{
     private final String CLASSNAME = ServerMessageType.GAMECHAT.toString();
     private String message = null;
+    private MessageHandler superHandler;
     //List<Observer> observers;
 
 
@@ -19,14 +20,15 @@ public class ServerGameChatMessageHandler extends GameMessageHandler{
 
     }
 
-    public void write(String outMessage) {
-        String tempMessage = addDelimiter(outMessage);
+    public void write(String message) {
+        String tempMessage = addDelimiter(message);
         String newMessage = CLASSNAME + tempMessage;
-        super.write(newMessage);
+        superHandler.write(newMessage);
     }
 
     @Override
-    public void handleMsg(String msgIn) throws UnknownFormatException {
+    public void handleMessage(String msgIn, MessageHandler superHandler) throws UnknownFormatException {
+        this.superHandler = superHandler;
         message = msgIn;
         setChanged();
         notifyObservers(this);

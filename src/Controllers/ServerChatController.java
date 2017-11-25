@@ -1,4 +1,4 @@
-package Models;
+package Controllers;
 
 import Handlers.ServerLobbyChatMessageHandler;
 import Server.LogHandling;
@@ -10,10 +10,10 @@ import java.util.logging.Level;
 /**
  * Created by Tim on 23.09.2017.
  */
-public class ServerChatModel implements Observer {
+public class ServerChatController implements Observer {
     @Override
     public void update(Observable o, Object handler) {
-        LogHandling.logOnFile(Level.INFO, "New Game is initiated");
+        LogHandling.logOnFile(Level.INFO, "New GameHandlers is initiated");
         if (handler instanceof ServerLobbyChatMessageHandler) {
             LogHandling.logOnFile(Level.INFO, "Login into Database is started");
             ServerLobbyChatMessageHandler newHandler = (ServerLobbyChatMessageHandler) handler;
@@ -24,6 +24,6 @@ public class ServerChatModel implements Observer {
     }
     private void chatting(ServerLobbyChatMessageHandler newHandler) {
         String sMessage = newHandler.getMessage();
-        newHandler.getWriteOtherClients().writeToLobbyClients(sMessage);
+        //newHandler.getWriteOtherClients().writeToLobbyClients(sMessage);
     }
 }

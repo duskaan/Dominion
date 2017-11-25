@@ -16,11 +16,7 @@ public class Database {
     private ResultSet resultSet = null;
     private static final Database snDatabase= null;
 
-    private final String userName= "userName";
-    private final String userPassword= "userPassword";
-    private final String gamesPlayed= "gamesPlayed";
-    private final String gamesWon= "gamesWon";
-    private final String gamesHighScore= "gamesHighScore";
+
 
     private Database(){
 
@@ -52,7 +48,7 @@ public class Database {
     }
 
     private boolean tryInsert(String insertUserName, String insertUserPassword) {
-        String query = "insert into player("+userName+"," +userPassword+","+ gamesPlayed+"," +gamesWon+","+ gamesHighScore+") values(?, ?, ?, ?,?)";
+        String query = "insert into player(userName,userPassword,gamesPlayed,gamesWon,gamesHighScore) values(?, ?, ?, ?,?)";
 
         boolean successful;
         try {
@@ -118,15 +114,15 @@ public class Database {
         int newHighScore;
         resultSet = getResultSet(inUserName);
         try {
-            int newGamesPlayed = resultSet.getInt(gamesPlayed) + 1;
-            int newGamesWon = resultSet.getInt(gamesWon);
+            int newGamesPlayed = resultSet.getInt("gamesPlayed") + 1;
+            int newGamesWon = resultSet.getInt("gamesWon");
             if(won){
              newGamesWon++;
             }
-            if (highScore > resultSet.getInt(gamesHighScore)) {
+            if (highScore > resultSet.getInt("gamesHighScore")) {
                 newHighScore = highScore;
             } else {
-                newHighScore = resultSet.getInt(gamesHighScore);
+                newHighScore = resultSet.getInt("gamesHighScore");
             }
             update(inUserName, newGamesPlayed, newGamesWon, newHighScore);
         } catch (SQLException e) {
@@ -136,7 +132,7 @@ public class Database {
 
     public ResultSet getResultSet(String userName) {
         try {
-            String query = "Select * From Player where userName = ? values(?)";
+            String query = "Select * From Player where userName = ?";
             preparedStatement = con.prepareStatement(query); // Create Prepared Statement
             preparedStatement.setString(1, userName); // Set Parameter 1
             resultSet = preparedStatement.executeQuery();
@@ -148,7 +144,7 @@ public class Database {
     }
 
     private void update(String userName, int newGamesPlayed, int newGamesWon, int newHighScore) {
-        String query = "UPDATE player(gamesPlayed, gamesWon, gamesHighscore) where userName = ? values(?, ?, ?, ?)";
+        String query = "UPDATE player set gamesPlayed =?, gamesWon= ?, gamesHighscore=? where userName = ? "; //todo fix the fucking database
         try {
             preparedStatement = con.prepareStatement(query); // Create Prepared Statement
             preparedStatement.setInt(1, newGamesPlayed); // Set Parameter 3

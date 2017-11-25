@@ -10,6 +10,7 @@ import Handlers.UnknownFormatException;
 public class ServerDisconnectMessageHandler extends ServerMessageHandler{
    private final String CLASSNAME = ServerMessageType.DISCONNECT.toString();
     private String message =null;
+    private MessageHandler superHandler;
 
     public ServerDisconnectMessageHandler(String message) throws UnknownFormatException {
         if(!CLASSNAME.equals(message)){
@@ -18,15 +19,15 @@ public class ServerDisconnectMessageHandler extends ServerMessageHandler{
     }
 
     @Override
-    public void handleMsg(String msgIn) throws UnknownFormatException {
-
+    public void handleMessage(String msgIn, MessageHandler superHandler) throws UnknownFormatException {
+        this.superHandler = superHandler;
         //return player to loginField +end game+ end thread
 
     }
-    public void write(String outMessage) {
-        String tempMessage = addDelimiter(outMessage);
+    public void write(String message) {
+        String tempMessage = addDelimiter(message);
         String newMessage = CLASSNAME + tempMessage;
-        super.write(newMessage);
+        superHandler.write(newMessage);
     }
     public String getMessage(){
         return message;

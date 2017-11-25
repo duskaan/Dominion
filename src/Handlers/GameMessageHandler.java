@@ -1,25 +1,23 @@
 package Handlers;
 
-import Server.ClientThread;
-import com.sun.deploy.util.SessionState;
+import Server.Player;
 
 import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Iterator;
-import java.util.List;
+import java.util.Hashtable;
 
 /**
  * Created by Tim on 23.08.2017.
  */
 public class GameMessageHandler extends MessageHandler {
+    private MessageHandler superHandler;
 
     private final String CLASSNAME = MessageType.GAME.toString();
-    private Game game = null;
-
+    private Game game = null; //todo arraylist mit den Games
+    public static ArrayList<Game> games= new ArrayList<>();
 
 
     public GameMessageHandler(String message) throws UnknownFormatException {
-        String mainHandler = splitMessage(message, 0);
+        String mainHandler = splitMessage(message, MAIN_HANDLER_INDEX);
         if (!CLASSNAME.equals(mainHandler)) {
             throw new UnknownFormatException(message);
         }
@@ -30,28 +28,30 @@ public class GameMessageHandler extends MessageHandler {
     }
 
     @Override
-    public void handleMsg(String message) throws UnknownFormatException {
+    public void handleMessage(String message, MessageHandler superHandler) throws UnknownFormatException {
+        this.superHandler = superHandler;
         //get the game name --> String gameName = splitMessage(message,3);
-        //Game game = GameManager.getGame(gameName);
+        //GameHandlers game = GameManager.getGame(gameName);
         //returnMessage = game.handleMessage()
 
-        //die unteren muessen zu damiano in das jeweilige Game
-        String subHandler = splitMessage(message, SUBHANDLER);
+        //die unteren muessen zu damiano in das jeweilige GameHandlers
+        String subHandler = splitMessage(message, SUB_HANDLER_INDEX);
         MessageHandler handler = MessageHandlerFactory.getMessageHandler(subHandler);
-        handler.setClientSocket(clientSocket);
-        handler.handleMsg(message);
+        handler.handleMessage(message,this);
+
 
     }
 
-    public void write(String outMessage) {
-        String tempMessage = addDelimiter(outMessage);
+    public void write(String message) {
+        String tempMessage = addDelimiter(message);
         String newMessage = CLASSNAME + tempMessage;
         //getWriteOtherClients().writeToGameClients(); //todo should i have it here or at the new writer for new cards or played cards (in case the turn isnt allowed)
-        super.write(newMessage);
+        superHandler.write(newMessage);
     }
-    public void createGame(String gameName, boolean computer, String ... userNames){
-        game = new Game(gameName, computer, userNames);
-    }//sobald nachricht hierhin kommt muss geprüft werden ob game = null ist. wenn ja dann wird diese method ausgelöst?
+    public void createGame(String gameName, boolean computer, String userNames){
+        game = new Game(gameName, computer, userNames); //game hat player. wenn nachricht von
+    }
+    //sobald nachricht hierhin kommt muss geprüft werden ob game = null ist. wenn ja dann wird diese method ausgelöst?
 
 
 }

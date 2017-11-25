@@ -1,7 +1,6 @@
 package Handlers;
 
-import Models.LoginModel;
-import Models.RegisterModel;
+import Controllers.RegisterController;
 import Server.LogHandling;
 
 import java.util.logging.Level;
@@ -12,53 +11,49 @@ import java.util.logging.Level;
 public class ServerMessageHandler extends MessageHandler {
 
     private final String CLASSNAME = MessageType.SERVER.toString();
-    ServerLoginMessageHandler observedLoginMessageHandler;
-    ServerRegisterMessageHandler observedRegisterMessageHandler;
+    private ServerLoginMessageHandler observedLoginMessageHandler;
+    private ServerRegisterMessageHandler observedRegisterMessageHandler;
+    private MessageHandler superHandler;
 
     public ServerMessageHandler(String message) throws UnknownFormatException {
-        String mainHandler = splitMessage(message, MAINHANDLER);
+        String mainHandler = splitMessage(message, MAIN_HANDLER_INDEX);
         if (!CLASSNAME.equals(mainHandler)) {
             throw new UnknownFormatException(message);
         }
     }
 
     public ServerMessageHandler() {
-
     }
 
     //why cant i have this method just locally in the super class because all subHandlers are responsible themselves.
     @Override
-    public void handleMsg(String msgIn) throws UnknownFormatException {
+    public void handleMessage(String msgIn, MessageHandler superHandler) throws UnknownFormatException {
+        this.superHandler= superHandler;
         LogHandling.logOnFile(Level.INFO,msgIn);
-        LogHandling.closeResources();
-        String subHandler = splitMessage(msgIn, SUBHANDLER);
+        //LogHandling.closeResources();
+        String subHandler = splitMessage(msgIn, SUB_HANDLER_INDEX);
         MessageHandler handler = MessageHandlerFactory.getMessageHandler(subHandler);
-        checkForModels(msgIn);
-        handler.handleMsg(msgIn);
+        //checkForModels(msgIn);
+        handler.handleMessage(msgIn,this);
     }
 
 
     @Override //explain
-    public void write(String outMessage) {
-        String tempMessage = addDelimiter(outMessage);
+    public void write(String message) {
+        String tempMessage = addDelimiter(message);
         String newMessage = CLASSNAME + tempMessage;
-        //getWriteOtherClients().writeToLobbyClients(outMessage);
-        super.write(newMessage);
-        //todo writeToLobby?
+        superHandler.write(newMessage);
     }
 
-    private void checkForModels(String msgIn) { //use an indiv int as counter if first tiem or not
-        if (splitMessage(msgIn, SUBHANDLER) == "LOGIN" && observedLoginMessageHandler == null) {
+    private void checkForModels(String msgIn) { //use an indiv int as counter if first time or not
+        if (splitMessage(msgIn, SUB_HANDLER_INDEX).equalsIgnoreCase("LOGIN") && observedLoginMessageHandler == null) {
             observedLoginMessageHandler = new ServerLoginMessageHandler();
-            LoginModel loginModel = new LoginModel();
-            observedLoginMessageHandler.addObserver(loginModel);
 
         }
-        System.out.println(splitMessage(msgIn, SUBHANDLER));
-        if (splitMessage(msgIn, SUBHANDLER).equals("REGISTER") && observedRegisterMessageHandler == null) {
-            System.out.println("I got into the checkformodel");
+        System.out.println(splitMessage(msgIn, SUB_HANDLER_INDEX));
+        if (splitMessage(msgIn, SUB_HANDLER_INDEX).equals("REGISTER") && observedRegisterMessageHandler == null) {
             observedRegisterMessageHandler = new ServerRegisterMessageHandler();
-            RegisterModel registerModel = new RegisterModel();
+            RegisterController registerModel = new RegisterController();
             observedRegisterMessageHandler.addObserver(registerModel);
 
         }

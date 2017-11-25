@@ -1,13 +1,11 @@
-package Models;
+package Controllers;
 
 import Handlers.MessageHandler;
 import Server.LogHandling;
 
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.Iterator;
-import java.util.List;
 import java.util.logging.Level;
 
 /**
@@ -29,7 +27,6 @@ public class WriteOtherClients {
             waitingList = new ArrayList<>();
             //waiting = (ArrayList) Collections.synchronizedList(waitingList);;
             LogHandling.logOnFile(Level.INFO, "waitingList is initiated");
-
         }
         waitingList.add(messageHandler);
         System.out.println("Add waiting client");
@@ -65,16 +62,16 @@ public class WriteOtherClients {
     }
 
     public void writeToGameClients(String message, String[] userNames) {
-        String[] splitMessage = messageHandler.splitMessage(message);
+        //String[] splitMessage = messageHandler.splitMessage(message);
 
         Iterator iterator = playingList.iterator();
         while(iterator.hasNext()) {
             MessageHandler messageHandlerFromList = (MessageHandler) iterator.next(); //does this work?
             int i = 0;
             while(i<=userNames.length){
-                if (messageHandlerFromList.getUserName() == userNames[i]) {
+                /*if (messageHandlerFromList.getUserName() == userNames[i]) {
                     messageHandlerFromList.write(message);
-                }
+                }*/
                 i++;
             }
         }

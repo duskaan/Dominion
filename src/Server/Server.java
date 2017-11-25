@@ -1,7 +1,7 @@
 package Server;
 
-import Database.Database;
 import Handlers.MessageHandlerFactory;
+import Database.*;
 
 import java.util.logging.Level;
 
@@ -14,38 +14,28 @@ public class Server {
     public static void main(String[] args) {
 
         initServer();
-        LogHandling.logOnFile(Level.INFO, "MessageHandler are added");
         //Application.launch(ServerGUI.class, args);
         new DominionServer().start();
-
         LogHandling.closeResources();
     }
 
     private static void initServer() {
-
-        LogHandling.logOnFile(Level.INFO, "Server.Server application starts now");
-
-        //todo see that it gets called
-
-        //Database.getDatabase().createConnection();
-        //initiates the server with the messageHandlers, the Database.DataBase connection and the logger
         addMessageHandler();
+        createDatabaseConnection();
 
     }
 
     private static void addMessageHandler() {
+        LogHandling.logOnFile(Level.INFO, "Adding MessageHandlers");
 
-        //add all messsagehandler
         MessageHandlerFactory.addHandler("Handlers.GameMessageHandler");
         MessageHandlerFactory.addHandler("Handlers.ServerMessageHandler");
         MessageHandlerFactory.addHandler("Handlers.ServerConnectedMessageHandler");
         MessageHandlerFactory.addHandler("Handlers.ServerDisconnectMessageHandler");
         MessageHandlerFactory.addHandler("Handlers.ServerLoginMessageHandler");
         MessageHandlerFactory.addHandler("Handlers.ServerOkMessageHandler");
-        MessageHandlerFactory.addHandler("Handlers.ServerFailedMessageHandler");
         MessageHandlerFactory.addHandler("Handlers.ServerRegisterMessageHandler");
         MessageHandlerFactory.addHandler("Handlers.ServerNewGameMessageHandler");
-
 
         MessageHandlerFactory.addHandler("Handlers.GameStartGameMessageHandler");
         MessageHandlerFactory.addHandler("Handlers.GameActionMessageHandler");
@@ -55,7 +45,12 @@ public class Server {
         //MessageHandlerFactory.addHandler("Handlers.GameMessageHandler");
         //MessageHandlerFactory.addHandler("Handlers.GameMessageHandler");
 
-        //TODO:und so weiter
+        LogHandling.logOnFile(Level.INFO, "All MessageHandlers added successfully");
+    }
 
+    private static void createDatabaseConnection() {
+        LogHandling.logOnFile(Level.INFO, "Creating Database connection");
+        //Database.getInstance().createConnection();
+        LogHandling.logOnFile(Level.INFO, "Database connection created successfully");
     }
 }

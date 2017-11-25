@@ -6,7 +6,7 @@ package Handlers;
 public class ServerLobbyChatMessageHandler extends ServerMessageHandler {
     private final String CLASSNAME = ServerMessageType.LOBBYCHAT.toString();
     private String message = null;
-
+    private MessageHandler superHandler;
 
 
     public ServerLobbyChatMessageHandler(String message) throws UnknownFormatException {
@@ -17,17 +17,20 @@ public class ServerLobbyChatMessageHandler extends ServerMessageHandler {
     public ServerLobbyChatMessageHandler(){
 
     }
-    public void write(String outMessage) {
-        String tempMessage = addDelimiter(outMessage);
+    public void write(String message) {
+        String tempMessage = addDelimiter(message);
         String newMessage = CLASSNAME + tempMessage;
-        super.write(newMessage);
+        superHandler.write(newMessage);
     }
 
     @Override
-    public  void handleMsg(String msgIn) throws UnknownFormatException {
+    public  void handleMessage(String msgIn, MessageHandler superHandler) throws UnknownFormatException {
+        this.superHandler = superHandler;
         message = msgIn;
-        setChanged();
-        notifyObservers(this);
+
+        write("you got till here");
+        //setChanged();
+        //notifyObservers(this);
         //code with observable and observer -- notify and update() -- send this with it write getMessage Method to return the string to the model
 
 

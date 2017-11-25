@@ -12,6 +12,7 @@ import java.net.Socket;
 public class ServerNewGameMessageHandler extends ServerMessageHandler {
 
     private final String CLASSNAME = ServerMessageType.NEWGAME.toString();
+    private  MessageHandler superHandler;
     private String message =null;
 
     public ServerNewGameMessageHandler(String message) throws UnknownFormatException {
@@ -21,19 +22,19 @@ public class ServerNewGameMessageHandler extends ServerMessageHandler {
     }
 
     @Override
-    public void handleMsg(String msgIn) throws UnknownFormatException {
+    public void handleMessage(String msgIn, MessageHandler superHandler) throws UnknownFormatException {
+        this.superHandler = superHandler;
         message=msgIn;
+        //GameMessageHandler.games.add(new Game(...))
 
-        splitMessage(msgIn);
+        //splitMessage(msgIn); todo fix it
         //initGame();
         //send message login successful
         //show lobby with option of opening new game or entering a game + chat
 
 
     }
-    private void initGame(Socket ClientSocket, String gameName){
 
-    }
     public String getMessage(){
         return message;
     }

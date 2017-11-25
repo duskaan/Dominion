@@ -19,11 +19,11 @@ public class Tester extends Application {
     String labelText;
 
     public static void main(String[] args) {
+        System.out.println("hi");
         launch(args);
 
 
     }
-
     public void connect() {
         try {
             ServerSocket s = new ServerSocket();
@@ -41,7 +41,6 @@ public class Tester extends Application {
         }
 
     }
-
     public void openResources(Socket socket) {
         try {
             System.out.println("resources are opened");
@@ -55,9 +54,8 @@ public class Tester extends Application {
             e.printStackTrace();
         }
     }
-
-    private void read() {
-        new Thread(() -> {
+    private void read(){
+        new Thread(()-> {
             System.out.println("Starts listening");
             boolean running = true;
             while (running) {
@@ -65,7 +63,14 @@ public class Tester extends Application {
                 tryReadMessage(input);
 
             }
-            closeResources();
+            try {
+                input.close();
+                output.close();
+                socket.close();
+            } catch (IOException e) {
+                // TODO Auto-generated catch block
+                e.printStackTrace();
+            }
 
         }).start();
     }
@@ -80,6 +85,7 @@ public class Tester extends Application {
                 System.out.println(message);
 
 
+
             }
             System.out.println("get out of it already");
         } catch (IOException e) {
@@ -91,20 +97,17 @@ public class Tester extends Application {
         label.setText(message);
 
     }
-
     public void send(String message) {
         try {
             output.write(message + "\n");
             output.flush();
-            System.out.println("Message is sent" + message);
+            System.out.println("Message is sent"+ message);
         } catch (IOException e) {
             // TODO Auto-generated catch block
             e.printStackTrace();
             this.closeResources();
         }
     }
-    //use send standard
-
     @Override
     public void start(Stage primaryStage) throws Exception {
         VBox vBox = new VBox();
@@ -112,31 +115,31 @@ public class Tester extends Application {
         TextField textField = new TextField();
         label = new Label("hi there");
 
-        btn.setOnAction(e -> {
+        btn.setOnAction(e->{
             connect();
         });
         Button sendButton = new Button("Send");
         Button sendStandardButton = new Button("Standard message");
 
-        sendButton.setOnAction(e -> {
+        sendButton.setOnAction(e->{
             String message = textField.getText();
 
         });
-        sendStandardButton.setOnAction(e -> {
+        sendStandardButton.setOnAction(e->{
 
             String msg = "SERVER@FAILED@HI@HI";
             send(msg);
         });
-        vBox.getChildren().addAll(btn, textField, sendButton, sendStandardButton, label);
+        vBox.getChildren().addAll(btn, textField, sendButton,sendStandardButton,  label);
 
-        Scene scene = new Scene(vBox, 400, 400);
+        Scene scene = new Scene(vBox,400,400);
 
         primaryStage.setScene(scene);
         primaryStage.show();
+        System.out.println("Hello");
 
 
     }
-
     public void closeResources() {
         try {
             output.close();
