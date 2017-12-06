@@ -33,14 +33,12 @@ public class Server {
         MessageHandlerFactory.addHandler("Handlers.ServerConnectedMessageHandler");
         MessageHandlerFactory.addHandler("Handlers.ServerDisconnectMessageHandler");
         MessageHandlerFactory.addHandler("Handlers.ServerLoginMessageHandler");
-        MessageHandlerFactory.addHandler("Handlers.ServerOkMessageHandler");
         MessageHandlerFactory.addHandler("Handlers.ServerRegisterMessageHandler");
         MessageHandlerFactory.addHandler("Handlers.ServerNewGameMessageHandler");
+        MessageHandlerFactory.addHandler("Handlers.ServerLobbyMessageHandler");
 
         MessageHandlerFactory.addHandler("Handlers.GameStartGameMessageHandler");
-        MessageHandlerFactory.addHandler("Handlers.GameActionMessageHandler");
-        MessageHandlerFactory.addHandler("Handlers.GameBuyMessageHandler");
-        MessageHandlerFactory.addHandler("Handlers.ServerGameChatMessageHandler");
+        MessageHandlerFactory.addHandler("Handlers.ServerChatMessageHandler");
         MessageHandlerFactory.addHandler("Handlers.GameEndGameMessageHandler");
         //MessageHandlerFactory.addHandler("Handlers.GameMessageHandler");
         //MessageHandlerFactory.addHandler("Handlers.GameMessageHandler");
@@ -50,7 +48,15 @@ public class Server {
 
     private static void createDatabaseConnection() {
         LogHandling.logOnFile(Level.INFO, "Creating Database connection");
-        //Database.getInstance().createConnection();
+        Database.getDatabase().initDatabase();
+        Database.getDatabase().createConnection();
+        test();
         LogHandling.logOnFile(Level.INFO, "Database connection created successfully");
+    }
+    public static void test(){
+        //System.out.println(Database.getDatabase().insert("Tim", "1234"));
+        //System.out.println(Database.getDatabase().login("Tim", "1234"));
+        //Database.getDatabase().updateAfterGame("Tim",10,true);
+        //System.out.println(Database.getDatabase().getTopFive());
     }
 }

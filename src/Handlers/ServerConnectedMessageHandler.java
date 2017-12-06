@@ -22,10 +22,10 @@ public class ServerConnectedMessageHandler extends ServerMessageHandler {
 
     }
 
-    public void write(String message) {
-        String tempMessage = addDelimiter(message);
-        String newMessage = CLASSNAME + tempMessage;
-        superHandler.write(newMessage);
+    public void write(String message,Boolean privateMessage) {
+        message = addDelimiter(message);
+        String newMessage = CLASSNAME + message;
+        superHandler.write(newMessage,privateMessage);
     }
 
     public String getMessage() {

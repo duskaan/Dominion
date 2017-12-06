@@ -1,24 +1,22 @@
 package Handlers;
 
-import Database.Database;
-
 /**
  * Created by Tim on 23.09.2017.
  */
-public class GameEndGameMessageHandler extends GameMessageHandler {
-    private final String CLASSNAME = GameMessageType.ENDGAME.toString();
+public class ServerChatMessageHandler extends GameMessageHandler{
+    private final String CLASSNAME = ServerMessageType.CHAT.toString();
     private String message = null;
     private MessageHandler superHandler;
     //List<Observer> observers;
 
 
-    public GameEndGameMessageHandler(String message) throws UnknownFormatException {
+    public ServerChatMessageHandler(String message) throws UnknownFormatException {
         if (!CLASSNAME.equals(message)) {
             throw new UnknownFormatException(message);
         }
     }
 
-    public GameEndGameMessageHandler() {
+    public ServerChatMessageHandler() {
 
     }
 
@@ -32,15 +30,18 @@ public class GameEndGameMessageHandler extends GameMessageHandler {
     public void handleMessage(String msgIn, MessageHandler superHandler) throws UnknownFormatException {
         this.superHandler = superHandler;
         message = msgIn;
-        //todo solve the following points
-        //write to clients, that the game is over and who won with how many points and so on.
-        //update database and send topFive
-        //remove the game out of the list and maps. put the players into the lobbylist again
-        //timer until i put them into the Lobby (is it a seperate window or new?) if they close the window they return to the lobby?
+
+        String chatMessage= splitMessage(message, 5); //todo set token
+        String playerName = splitMessage(message, 4); //todo set token
+        sendChat(chatMessage, playerName);
+
+        //code with observable and observer -- notify and update() -- send this with it write getMessage Method to return the string to the model
 
 
-        //Database.getDatabase().updateAfterGame();
+    }
 
+    private void sendChat(String chatMessage, String playerName) {
+        write(playerName+": "+chatMessage,false);
     }
 
     public String getMessage() {

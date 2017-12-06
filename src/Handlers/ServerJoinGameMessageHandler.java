@@ -1,48 +1,48 @@
 package Handlers;
 
+/**
+ * Created by Tim on 05.12.2017.
+ */
 import Handlers.MessageHandler;
 import Handlers.ServerMessageType;
 import Handlers.UnknownFormatException;
 import Server.Player;
-
 import java.net.Socket;
-import java.util.ArrayList;
 
 /**
  * Created by Tim on 14.09.2017.
  */
-public class ServerNewGameMessageHandler extends ServerMessageHandler {
+public class ServerJoinGameMessageHandler extends ServerMessageHandler {
 
     private final String CLASSNAME = ServerMessageType.NEWGAME.toString();
     private  MessageHandler superHandler;
     private String message =null;
 
-    public ServerNewGameMessageHandler(String message) throws UnknownFormatException {
+    public ServerJoinGameMessageHandler(String message) throws UnknownFormatException {
         if(!CLASSNAME.equals(message)){
             throw new UnknownFormatException(message);
         }
     }
-
-
     public void write(String message,Boolean privateMessage) {
         message = addDelimiter(message);
         String newMessage = CLASSNAME + message;
         superHandler.write(newMessage,privateMessage);
     }
-
     @Override
     public void handleMessage(String msgIn, MessageHandler superHandler) throws UnknownFormatException {
         this.superHandler = superHandler;
         message=msgIn;
         //GameMessageHandler.games.add(new TempGame(...))
-        String gameName = splitMessage(message,4); //todo define position
-        int cardNumbers= Integer.parseInt(splitMessage(message, 5)); //todo define position
-        int  maxPlayers= Integer.parseInt(splitMessage(message, 6));
-
+        String gameName = splitMessage(message, 5);//todo set Token
 
         Player player = socketPlayerHashMap.get(getClientSocket().getInetAddress());
+        for(int i = 0; ServerMessageHandler.gettempGameArrayList().size()<i; i++){
+            if(ServerMessageHandler.gettempGameArrayList().get(i).getGameName().equalsIgnoreCase(gameName)){
+                ServerMessageHandler.gettempGameArrayList().get(i).addPlayer(player);
+                player.setGameName(gameName);
+            }
+        }
 
-        gettempGameArrayList().add(new TempGame(gameName, cardNumbers, player, maxPlayers));
 
         //initGame();
         write(HandlerModel.gameListMessage(),false);

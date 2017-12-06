@@ -1,8 +1,14 @@
 package Database;
 
+import Server.LogHandling;
+
 import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.IOException;
 import java.sql.*;
 import java.util.Properties;
+import java.util.Scanner;
+import java.util.logging.Level;
 
 /**
  * Created by Tim on 13.09.2017.
@@ -10,17 +16,33 @@ import java.util.Properties;
 public class Database {
     private String login = null;
     private String password = null;
-    private Connection con = null;
+    private static Connection con=null;
     private PreparedStatement preparedStatement = null;
-    private  Properties prop = new Properties(); // Create Properties-Object
+    private Properties prop = new Properties(); // Create Properties-Object
     private ResultSet resultSet = null;
-    private static final Database snDatabase= null;
+    private static final Database snDatabase = null;
 
 
-
-    private Database(){
+    private Database() {
 
     }
+
+    public void initDatabase() {
+        Properties prop = new Properties();
+
+        try {
+            // Set Properties Values
+            prop.setProperty("login", "java");
+            prop.setProperty("password", "1234");
+
+            // Save Properties
+            prop.store(new FileOutputStream("config.properties"), null);
+
+        } catch (IOException ex) {
+            ex.printStackTrace();
+        }
+    }
+
     public void createConnection() {
         try {
             prop.load(new FileInputStream("config.properties"));
@@ -28,7 +50,8 @@ public class Database {
             password = prop.getProperty("password");
 
             Class.forName("com.mysql.jdbc.Driver").newInstance();
-            con = DriverManager.getConnection("jdbc:mysql://localhost:3306/test", login, password);
+            con = DriverManager.getConnection("jdbc:mysql://localhost:3306/mydb?useSSL=false", login, password);
+
         } catch (Exception e) {
             e.printStackTrace();
             closeConnection();
@@ -36,19 +59,19 @@ public class Database {
     }
 
     public boolean insert(String insertUserName, String insertUserPassword) {
-         //todo close and open connection just once
+
         boolean successful = false;
-        if (search(insertUserName)) { //if username is already present
-            return successful;
+        if (!search(insertUserName)) { //if username is already present
+            successful = tryInsert(insertUserName, insertUserPassword);
         }
-        successful=tryInsert(insertUserName, insertUserPassword);
 
 
+        LogHandling.logOnFile(Level.INFO, "insert "+successful+" Name: "+insertUserName+" Password: "+insertUserPassword);
         return successful;
     }
 
     private boolean tryInsert(String insertUserName, String insertUserPassword) {
-        String query = "insert into player(userName,userPassword,gamesPlayed,gamesWon,gamesHighScore) values(?, ?, ?, ?,?)";
+        String query = "INSERT INTO player(userName,password,gamesPlayed,gamesWon,HighScore) VALUES(?, ?, ?, ?,?)";
 
         boolean successful;
         try {
@@ -86,7 +109,7 @@ public class Database {
         boolean successful = false;
         try {
             resultSet = getResultSet(userName);
-            if (resultSet.getString(2).equals(password)) {
+            if (resultSet.next()&&resultSet.getString(2).equals(password)) {
                 successful = true;
             }
         } catch (SQLException e) {
@@ -94,8 +117,6 @@ public class Database {
         }
 
         return successful;
-        //todo somehow send a message or store the info of the players clientsocket and the players username
-        //maybe a class which takes clientthreads and players
     }
 
     private void closeConnection() {
@@ -113,18 +134,20 @@ public class Database {
     public void updateAfterGame(String inUserName, int highScore, boolean won) {
         int newHighScore;
         resultSet = getResultSet(inUserName);
+
         try {
+            if(resultSet.next()){
             int newGamesPlayed = resultSet.getInt("gamesPlayed") + 1;
             int newGamesWon = resultSet.getInt("gamesWon");
-            if(won){
-             newGamesWon++;
+            if (won) {
+                newGamesWon++;
             }
-            if (highScore > resultSet.getInt("gamesHighScore")) {
+            if (highScore > resultSet.getInt("HighScore")) {
                 newHighScore = highScore;
             } else {
-                newHighScore = resultSet.getInt("gamesHighScore");
+                newHighScore = resultSet.getInt("HighScore");
             }
-            update(inUserName, newGamesPlayed, newGamesWon, newHighScore);
+            update(inUserName, newGamesPlayed, newGamesWon, newHighScore);}
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -132,8 +155,8 @@ public class Database {
 
     public ResultSet getResultSet(String userName) {
         try {
-            String query = "Select * From Player where userName = ?";
-            preparedStatement = con.prepareStatement(query); // Create Prepared Statement
+            String query = "SELECT * FROM player WHERE userName = ?";
+            preparedStatement =con.prepareStatement(query); // Create Prepared Statement
             preparedStatement.setString(1, userName); // Set Parameter 1
             resultSet = preparedStatement.executeQuery();
 
@@ -143,8 +166,30 @@ public class Database {
         return resultSet;
     }
 
+    public String getTopFive() {
+        String returnMessage = "";
+        try {
+            String query = "SELECT * FROM player ORDER BY Highscore LIMIT 5";
+            preparedStatement = con.prepareStatement(query); // Create Prepared Statement
+            resultSet = preparedStatement.executeQuery();
+            while (resultSet.next()) {
+                returnMessage += resultSet.getString("userName") + ";";
+                returnMessage += resultSet.getInt("Highscore") + ";";
+                returnMessage += resultSet.getInt("gamesPlayed") + ";";
+                returnMessage += resultSet.getInt("gamesWon") + ";";
+                returnMessage += "/";
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return returnMessage;
+
+    }
+
+
     private void update(String userName, int newGamesPlayed, int newGamesWon, int newHighScore) {
-        String query = "UPDATE player set gamesPlayed =?, gamesWon= ?, gamesHighscore=? where userName = ? "; //todo fix the fucking database
+        String query = "UPDATE player SET gamesPlayed =?, gamesWon= ?, Highscore=? WHERE userName = ? ";
         try {
             preparedStatement = con.prepareStatement(query); // Create Prepared Statement
             preparedStatement.setInt(1, newGamesPlayed); // Set Parameter 3
@@ -157,11 +202,11 @@ public class Database {
             e.printStackTrace();
         }
     }
-    public static Database getDatabase(){
-        if(snDatabase==null){
+
+    public static Database getDatabase() {
+        if (snDatabase == null) {
             return new Database();
-        }
-        else {
+        } else {
             return snDatabase;
         }
     }

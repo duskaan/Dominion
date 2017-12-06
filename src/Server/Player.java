@@ -11,13 +11,12 @@ import java.net.Socket;
 public class Player implements Runnable {
     private Socket socket;
     public Status status;
-
-
-
+    public String gameName;
+    public String playerName;
     private MessageHandler messageHandler;
 
 
-    Player(Socket socket) {
+    public Player(Socket socket) {
         this.socket = socket;
     }
 
@@ -26,6 +25,7 @@ public class Player implements Runnable {
         messageHandler = new MessageHandler(socket);
         messageHandler.openResources();
         messageHandler.read();
+
     }
 
     public void close() {
@@ -35,13 +35,35 @@ public class Player implements Runnable {
             e.printStackTrace();
         }
     }
-    public Status getStatus(){
+
+    public Status getStatus() {
         return status;
     }
-    public void setStatus(Status status){
+
+    public void setStatus(Status status) {
         this.status = status;
     }
+
     public MessageHandler getMessageHandler() {
         return messageHandler;
     }
+
+    public void setGameName(String gameName) {
+        this.gameName = gameName;
+    }
+    public String getGameName(){
+        return gameName;
+    }
+    public String getPlayerName() {
+        return playerName;
+    }
+    public void setPlayerName(String playerName) {
+        this.playerName=playerName;
+    }
+
+/*
+    @Override
+    public String toString() {
+        return playerName;
+    }*/
 }

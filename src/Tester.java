@@ -36,7 +36,6 @@ public class Tester extends Application {
             read();
 
         } catch (IOException e) {
-            // TODO Auto-generated catch block
             e.printStackTrace();
         }
 
@@ -45,7 +44,7 @@ public class Tester extends Application {
         try {
             System.out.println("resources are opened");
             input = new BufferedReader(new InputStreamReader(socket.getInputStream()));
-            output = new BufferedWriter(new OutputStreamWriter(socket.getOutputStream())); //TODO: messages to client
+            output = new BufferedWriter(new OutputStreamWriter(socket.getOutputStream()));
 
             //send connected message to client open login window
             //create a map of player
@@ -68,7 +67,6 @@ public class Tester extends Application {
                 output.close();
                 socket.close();
             } catch (IOException e) {
-                // TODO Auto-generated catch block
                 e.printStackTrace();
             }
 
@@ -103,7 +101,6 @@ public class Tester extends Application {
             output.flush();
             System.out.println("Message is sent"+ message);
         } catch (IOException e) {
-            // TODO Auto-generated catch block
             e.printStackTrace();
             this.closeResources();
         }
@@ -146,7 +143,6 @@ public class Tester extends Application {
             input.close();
             socket.close();
         } catch (IOException e) {
-            // TODO Auto-generated catch block
             e.printStackTrace();
         }
 

@@ -15,6 +15,7 @@ import java.util.logging.Level;
 public class DominionServer extends Thread {
 
 	ServerSocket serverSocket;
+
 	/*starts the server with the corresponding serverSocket port for clients to address to build up a connection
 		the executors thread pool creates a pool of all the threads of this server. These threads are created in the next step*/
 	@Override
@@ -36,7 +37,8 @@ public class DominionServer extends Thread {
 			Socket clientSocket = serverSocket.accept();
 			LogHandling.logOnFile(Level.INFO, "Client connection accepted: " + clientSocket.getInetAddress());
 			Player player = new Player(clientSocket);
-			MessageHandler.clientList.add(player);
+			LogHandling.logOnFile(Level.INFO, player.toString());
+			MessageHandler.socketPlayerHashMap.put(clientSocket.getInetAddress(), player);
 			executor.submit(player);
 		}
 	}

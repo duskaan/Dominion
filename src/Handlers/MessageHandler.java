@@ -1,111 +1,164 @@
 package Handlers;
 
+import GameLogic.Game;
 import Server.Player;
 import Server.LogHandling;
+import com.mysql.jdbc.log.Log;
 import org.jetbrains.annotations.Contract;
 
 import java.io.*;
+import java.net.InetAddress;
 import java.net.Socket;
-import java.util.ArrayList;
+import java.util.*;
 
-import java.util.Observable;
 import java.util.logging.Level;
 
 /**
  * Created by Tim on 23.08.2017.
  */
-public class MessageHandler extends Observable {
-	public static ArrayList<Player> clientList = new ArrayList<>();
-	private Socket socket;
+public class MessageHandler implements Observer {
+    public static ArrayList<Player> lobbyList = new ArrayList<>();
+    public static HashMap<Player, Game> gameList = new HashMap<>();
+    public static HashMap<InetAddress, Player> socketPlayerHashMap = new HashMap<>();
+
+    private Socket socket;
 
 
-	private boolean running = true;
-	private BufferedWriter writer;
-	private BufferedReader reader;
+    private boolean running = true;
+    private BufferedWriter writer;
+    private BufferedReader reader;
 
-	public final int MAIN_HANDLER_INDEX = 0;
-	public final int SUB_HANDLER_INDEX = 1;
+    public final int MAIN_HANDLER_INDEX = 0;
+    public final int SUB_HANDLER_INDEX = 1;
 
-	private static final String DELIMITER = "@";
+    private static final String DELIMITER = "@";
 
-	public MessageHandler(){}
-	public MessageHandler(Socket socket){
-		this.socket = socket;
-	}
+    public MessageHandler() {
+    }
+
+    public MessageHandler(Socket socket) {
+        this.socket = socket;
+        LogHandling.logOnFile(Level.INFO, "MessageHandler is created for: "+socket);
+    }
 
 
-	public void openResources() {
-		try {
-			reader = new BufferedReader(new InputStreamReader(socket.getInputStream()));
-			writer = new BufferedWriter(new OutputStreamWriter(socket.getOutputStream()));
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-	}
+    public void openResources() {
+        try {
+            reader = new BufferedReader(new InputStreamReader(socket.getInputStream()));
+            writer = new BufferedWriter(new OutputStreamWriter(socket.getOutputStream()));
+            LogHandling.logOnFile(Level.INFO, "Resources are opened");
+        } catch (IOException e) {
+            LogHandling.logOnFile(Level.WARNING, e.getMessage());
+        }
+    }
 
-	public void read() {
-		new Thread(() -> {
-			while (running) {
-				tryReadMessage(reader);
-			}
-		}).start();
-	}
+    public void read() {
+        new Thread(() -> {
+            while (running) {
+                tryReadMessage(reader);
+            }
+        }).start();
+    }
 
-	private void tryReadMessage(BufferedReader input) {
-		String message;
-		try {
-			while ((message = input.readLine()) != null) {
-				MessageHandler handler = MessageHandlerFactory.getMessageHandler(message);
-				handler.handleMessage(message,this);
+    private void tryReadMessage(BufferedReader input) {
+        String message;
+        try {
+            while ((message = input.readLine()) != null) {
+                LogHandling.logOnFile(Level.INFO,"incoming message: "+message);
+                MessageHandler handler = MessageHandlerFactory.getMessageHandler(message);
+                handler.handleMessage(message, this);
 
-			}
-		} catch (IOException e) {
-			closeResources();
-			e.printStackTrace();
-		} catch (UnknownFormatException e) {
-			LogHandling.logOnFile(Level.INFO, e.getMessage());
-		}
-	}
+            }
+        } catch (IOException e) {
+            closeResources();
+            LogHandling.logOnFile(Level.WARNING,e.getMessage());
+        } catch (UnknownFormatException e) {
+            LogHandling.logOnFile(Level.WARNING, e.getMessage());
+        }
+    }
+    public void write(String message, Player player){
 
-	public void write(String message) { //todo set new
-		/*if (writer == null || reader == null) {
-			openResources();
-		}*/
-		try {
-			LogHandling.logOnFile(Level.INFO, message+socket);
-			writer.write(message+" " + socket + "\n");
-			writer.flush();
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-	}
-	public void writeAll(){
-		//todo write all method
-	}
+    }
+    public void write(String message, Boolean privateMessage) {
+        LogHandling.logOnFile(Level.INFO, "The message is: "+message+" It is a private message: "+privateMessage);
+        Player player = socketPlayerHashMap.get(socket.getInetAddress());
+        if (!privateMessage) {
+            if (lobbyList.contains(player)) {
+                writeToList(lobbyList, message);
+            } else {
+                Game game = gameList.get(player);
+                ArrayList<Player> playerInGame = getKeyByValue(gameList, game);
+                writeToList(playerInGame, message);
+            }
+        }
+        if (privateMessage) {
+            try {
+                player.getMessageHandler().getWriter().write(message);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+    }
 
-	@Contract(pure = true)
-	public static String addDelimiter(String message) {
-		return DELIMITER + message;
-	}
+    private void writeToList(ArrayList<Player> list, String message) {
 
-	public String splitMessage(String message, int tokenIndex) {
-		String[] tokens = message.split(DELIMITER);
-		return tokens[tokenIndex];
-	}
+        for (int i = 0; list.size() < i; i++) {
+            try {
+                LogHandling.logOnFile(Level.INFO, message + socket);
+                BufferedWriter tempWriter = list.get(i).getMessageHandler().getWriter();
+                tempWriter.write(message + " " + socket + "\n");
+                tempWriter.flush();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+    }
 
-	public void handleMessage(String msgIn, MessageHandler handler) throws UnknownFormatException {
-	}
+    public static String addDelimiter(String message) {
+        return DELIMITER + message;
+    }
 
-	private void closeResources() {
-		try {
-			reader.close();
-			writer.close();
-			socket.close();
-			LogHandling.closeResources();
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-	}
+    public String splitMessage(String message, int tokenIndex) {
+        String[] tokens = message.split(DELIMITER);
+        return tokens[tokenIndex];
+    }
+
+    public void handleMessage(String msgIn, MessageHandler handler) throws UnknownFormatException {
+    }
+
+    private void closeResources() {
+        try {
+            reader.close();
+            writer.close();
+            socket.close();
+            LogHandling.closeResources();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public Socket getClientSocket() {
+        return socket;
+    }
+
+    public BufferedWriter getWriter() {
+        return this.writer;
+    }
+
+    public static ArrayList<Player> getKeyByValue(HashMap<Player, Game> hashMap, Game game) {
+        ArrayList<Player> players = new ArrayList<>();
+        for (Map.Entry<Player, Game> entry : hashMap.entrySet()) {
+            if (entry.getValue().equals(game)) {
+                players.add(entry.getKey());
+            }
+        }
+        return players;
+    }
+
+    @Override
+    public void update(Observable o, Object arg) {
+
+    }
 }
 
 

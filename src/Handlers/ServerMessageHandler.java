@@ -1,8 +1,11 @@
 package Handlers;
 
-import Controllers.RegisterController;
-import Server.LogHandling;
 
+import Server.LogHandling;
+import sun.rmi.runtime.Log;
+
+import java.net.Socket;
+import java.util.ArrayList;
 import java.util.logging.Level;
 
 /**
@@ -11,6 +14,7 @@ import java.util.logging.Level;
 public class ServerMessageHandler extends MessageHandler {
 
     private final String CLASSNAME = MessageType.SERVER.toString();
+    public static ArrayList<TempGame> tempGameArrayList = new ArrayList<>();
     private ServerLoginMessageHandler observedLoginMessageHandler;
     private ServerRegisterMessageHandler observedRegisterMessageHandler;
     private MessageHandler superHandler;
@@ -28,25 +32,25 @@ public class ServerMessageHandler extends MessageHandler {
     //why cant i have this method just locally in the super class because all subHandlers are responsible themselves.
     @Override
     public void handleMessage(String msgIn, MessageHandler superHandler) throws UnknownFormatException {
-        this.superHandler= superHandler;
-        LogHandling.logOnFile(Level.INFO,msgIn);
-        //LogHandling.closeResources();
+        this.superHandler = superHandler;
+
         String subHandler = splitMessage(msgIn, SUB_HANDLER_INDEX);
         MessageHandler handler = MessageHandlerFactory.getMessageHandler(subHandler);
         //checkForModels(msgIn);
-        handler.handleMessage(msgIn,this);
+
+        handler.handleMessage(msgIn, this);
     }
 
 
     @Override //explain
-    public void write(String message) {
-        String tempMessage = addDelimiter(message);
-        String newMessage = CLASSNAME + tempMessage;
-        superHandler.write(newMessage);
+    public void write(String message,Boolean privateMessage) {
+        message = addDelimiter(message);
+        String newMessage = CLASSNAME + message;
+        superHandler.write(newMessage,privateMessage);
     }
 
     private void checkForModels(String msgIn) { //use an indiv int as counter if first time or not
-        if (splitMessage(msgIn, SUB_HANDLER_INDEX).equalsIgnoreCase("LOGIN") && observedLoginMessageHandler == null) {
+        /*if (splitMessage(msgIn, SUB_HANDLER_INDEX).equalsIgnoreCase("LOGIN") && observedLoginMessageHandler == null) {
             observedLoginMessageHandler = new ServerLoginMessageHandler();
 
         }
@@ -57,6 +61,16 @@ public class ServerMessageHandler extends MessageHandler {
             observedRegisterMessageHandler.addObserver(registerModel);
 
         }
+    }*/
+
+    }
+
+    public Socket getClientSocket() {
+        return superHandler.getClientSocket();
+    }
+    public static ArrayList<TempGame> gettempGameArrayList() {
+        return tempGameArrayList;
     }
 
 }
+

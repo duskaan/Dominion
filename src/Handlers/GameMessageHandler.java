@@ -1,19 +1,22 @@
 package Handlers;
 
+import Database.Database;
+import GameLogic.Game;
 import Server.Player;
 
+import java.io.Serializable;
+import java.net.Socket;
 import java.util.ArrayList;
-import java.util.Hashtable;
+import java.util.Observable;
+import java.util.Observer;
 
 /**
  * Created by Tim on 23.08.2017.
  */
-public class GameMessageHandler extends MessageHandler {
+public class GameMessageHandler extends MessageHandler implements Observer {
     private MessageHandler superHandler;
 
     private final String CLASSNAME = MessageType.GAME.toString();
-    private Game game = null; //todo arraylist mit den Games
-    public static ArrayList<Game> games= new ArrayList<>();
 
 
     public GameMessageHandler(String message) throws UnknownFormatException {
@@ -36,22 +39,59 @@ public class GameMessageHandler extends MessageHandler {
 
         //die unteren muessen zu damiano in das jeweilige GameHandlers
         String subHandler = splitMessage(message, SUB_HANDLER_INDEX);
-        MessageHandler handler = MessageHandlerFactory.getMessageHandler(subHandler);
-        handler.handleMessage(message,this);
+
+        Player player = socketPlayerHashMap.get(getClientSocket().getInetAddress());
+        if (gameList.get(player) == null || subHandler.equalsIgnoreCase("ENDGAME")) {
+            MessageHandler handler = MessageHandlerFactory.getMessageHandler(subHandler);
+            handler.handleMessage(message, this);
+        } else {
+            gameList.get(player).readMessage(message);
+        }
 
 
     }
 
-    public void write(String message) {
-        String tempMessage = addDelimiter(message);
-        String newMessage = CLASSNAME + tempMessage;
-        //getWriteOtherClients().writeToGameClients(); //todo should i have it here or at the new writer for new cards or played cards (in case the turn isnt allowed)
-        superHandler.write(newMessage);
+    public void write(String message,Boolean privateMessage) {
+        message = addDelimiter(message);
+        String newMessage = CLASSNAME + message;
+        superHandler.write(newMessage,privateMessage);
     }
-    public void createGame(String gameName, boolean computer, String userNames){
-        game = new Game(gameName, computer, userNames); //game hat player. wenn nachricht von
+
+
+    @Override
+    public void update(Observable o, Object arg) {
+        String response = (String) arg;
+        if (response.contains("endgame")) {
+            endGame();
+        }
+        write(response, false);
+        //todo what to do with the response?
     }
+
+    private void endGame() {
+
+        topFiveUpdate();
+        //showLobby();
+        deleteGameFromList();
+    }
+
+    private void topFiveUpdate() {
+
+        //Database.getDatabase().updateAfterGame();
+    }
+
+    private void deleteGameFromList() {
+        Player player = socketPlayerHashMap.get(getClientSocket().getInetAddress());
+        ArrayList<Player> listToRemove = getKeyByValue(gameList, gameList.get(player));
+        for (int i = 0; listToRemove.size() > i; i++) {
+            gameList.remove(listToRemove.get(i));
+        }
+    }
+
     //sobald nachricht hierhin kommt muss geprüft werden ob game = null ist. wenn ja dann wird diese method ausgelöst?
 
+    public Socket getClientSocket() {
+        return superHandler.getClientSocket();
+    }
 
 }

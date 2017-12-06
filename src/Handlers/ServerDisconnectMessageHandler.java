@@ -24,10 +24,10 @@ public class ServerDisconnectMessageHandler extends ServerMessageHandler{
         //return player to loginField +end game+ end thread
 
     }
-    public void write(String message) {
-        String tempMessage = addDelimiter(message);
-        String newMessage = CLASSNAME + tempMessage;
-        superHandler.write(newMessage);
+    public void write(String message,Boolean privateMessage) {
+        message = addDelimiter(message);
+        String newMessage = CLASSNAME + message;
+        superHandler.write(newMessage,privateMessage);
     }
     public String getMessage(){
         return message;

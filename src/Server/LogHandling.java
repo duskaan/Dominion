@@ -3,6 +3,9 @@ package Server;
 import java.io.*;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.Date;
 import java.util.logging.*;
 
@@ -13,17 +16,16 @@ public class LogHandling {
     static final String fileName = "logger.txt";
     static int indexOfNewElement = 2;
     static BufferedWriter writer = null;
-
-
+    static LocalDateTime date;
+    static String printMessage;
 
     public static void logOnFile(Level level, String message) {
 
-        String date = getDate();
         StackTraceElement[] stackTraceElements = Thread.currentThread().getStackTrace();
         String methodName = stackTraceElements[indexOfNewElement].getMethodName();
         String className = stackTraceElements[indexOfNewElement].getClassName();
 
-        tryWriteOnFile(level, message,methodName ,className , date);
+        tryWriteOnFile(level, message, methodName, className, getDate());
     }
 
     private static void tryWriteOnFile(Level level, String message, String methodName, String className, String date) {
@@ -32,20 +34,20 @@ public class LogHandling {
             if (writer == null) {
                 writer = new BufferedWriter(new FileWriter(fileName));
             }
-            writer.write(date +" " + className + " method: " + methodName +  "\n" + level.toString() + ": " + message+"\n");
-            System.out.println(message);
+            printMessage= date + " " + className + " method: " + methodName + "\n" + level.toString() + ": " + message + "\n";
+            writer.write(printMessage);
+            System.out.println(printMessage);
 
         } catch (IOException e) {
         }
     }
 
     public static String getDate() {
-        //TODO: The Date object is outdated. You should use LocalDateTime, LocalTime or LocalDate
-        //TODO: Also everyTime you write to file, this creates a new Date object, which uses a lot of memory.
-        Date date = new Date();
 
-        DateFormat fmt = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
-        String text = fmt.format(date);
+        date = LocalDateTime.now();
+
+        DateTimeFormatter fmt = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss");
+        String text = date.format(fmt);
 
         return text; //2016/11/16 12:08:43
     }
