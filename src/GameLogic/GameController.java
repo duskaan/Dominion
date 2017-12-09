@@ -33,7 +33,7 @@ public class GameController {
                 case "playTreasure": gameModel.playTreasures();
                                     break;
 
-                case "endTurn":
+                case "endTurn": gameModel.endTurn();
 
                 case "buy": gameModel.buyCard(secondSplit.get(i).get());
             }
