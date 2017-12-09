@@ -14,47 +14,44 @@ import java.util.ArrayList;
 public class ServerNewGameMessageHandler extends ServerMessageHandler {
 
     private final String CLASSNAME = ServerMessageType.NEWGAME.toString();
-    private  MessageHandler superHandler;
-    private String message =null;
+    private MessageHandler superHandler;
+    private String message = null;
 
     public ServerNewGameMessageHandler(String message) throws UnknownFormatException {
-        if(!CLASSNAME.equals(message)){
+        if (!CLASSNAME.equals(message)) {
             throw new UnknownFormatException(message);
         }
     }
 
 
-    public void write(String message,Boolean privateMessage) {
+    public void write(String message, Boolean privateMessage) {
         message = addDelimiter(message);
         String newMessage = CLASSNAME + message;
-        superHandler.write(newMessage,privateMessage);
+        superHandler.write(newMessage, privateMessage);
     }
 
     @Override
     public void handleMessage(String msgIn, MessageHandler superHandler) throws UnknownFormatException {
         this.superHandler = superHandler;
-        message=msgIn;
-        //GameMessageHandler.games.add(new TempGame(...))
-        String gameName = splitMessage(message,4); //todo define position
-        int cardNumbers= Integer.parseInt(splitMessage(message, 5)); //todo define position
-        int  maxPlayers= Integer.parseInt(splitMessage(message, 6));
-
+        message = msgIn;
+        String gameName = splitMessage(message, 4); //todo define position
+        int cardNumbers = Integer.parseInt(splitMessage(message, 5)); //todo define position
+        int maxPlayers = Integer.parseInt(splitMessage(message, 6));
 
         Player player = socketPlayerHashMap.get(getClientSocket().getInetAddress());
 
         gettempGameArrayList().add(new TempGame(gameName, cardNumbers, player, maxPlayers));
 
-        //initGame();
-        write(HandlerModel.gameListMessage(),false);
+        write(HandlerModel.gameListMessage(), false);
 
 
     }
 
-    public String getMessage(){
+    public String getMessage() {
         return message;
     }
 
-    public Socket getClientSocket(){
+    public Socket getClientSocket() {
         return superHandler.getClientSocket();
     }
 

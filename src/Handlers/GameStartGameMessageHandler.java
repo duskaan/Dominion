@@ -14,9 +14,6 @@ public class GameStartGameMessageHandler extends GameMessageHandler {
     private MessageHandler superHandler;
     ArrayList<TempGame> list;
 
-    //List<Observer> observers;
-
-
     public GameStartGameMessageHandler(String message) throws UnknownFormatException {
         if (!CLASSNAME.equals(message)) {
             throw new UnknownFormatException(message);
@@ -40,7 +37,7 @@ public class GameStartGameMessageHandler extends GameMessageHandler {
         String gameName = splitMessage(message, 5); //todo set token
 
         String[] playerArray = null;
-        ArrayList<Player> players;
+        ArrayList<Player> players = null;
         int cardsInGame=0;
         list = ServerMessageHandler.gettempGameArrayList();
         for (int i = 0; list.size() < i; i++) {
@@ -56,11 +53,10 @@ public class GameStartGameMessageHandler extends GameMessageHandler {
         if(playerArray!=null ||cardsInGame!=0){
             Game game= new Game(gameName, cardsInGame, playerArray);
             game.addObserver(superHandler);
-            //ServerMessageHandler.removeTempGame(gameName);
+            write(ServerMessageHandler.removeTempGame(gameName), false);
+            MessageHandler.removeFromLobbyList(playerArray);
+            MessageHandler.addToGameMap(players, game);
         }
-
-
-        //code with observable and observer -- notify and update() -- send this with it write getMessage Method to return the string to the model
     }
 
     public String getMessage() {

@@ -111,6 +111,9 @@ public class Database {
             resultSet = getResultSet(userName);
             if (resultSet.next()&&resultSet.getString(2).equals(password)) {
                 successful = true;
+                LogHandling.logOnFile(Level.INFO,"Login with Name: "+userName+" and Password: "+password + " was successful");
+            }else {
+                LogHandling.logOnFile(Level.INFO,"Login with Name: "+userName+" and Password: "+password + " failed");
             }
         } catch (SQLException e) {
             e.printStackTrace();

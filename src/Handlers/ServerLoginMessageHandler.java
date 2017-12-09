@@ -1,8 +1,10 @@
 package Handlers;
 
+import Server.LogHandling;
 import Server.Player;
 
 import java.net.Socket;
+import java.util.logging.Level;
 
 /**
  * Created by Tim on 12.09.2017.
@@ -47,10 +49,6 @@ public class ServerLoginMessageHandler extends ServerMessageHandler  {
         }else{
             write("loginfailed", true);
         }
-
-
-        //code with observable and observer -- notify and update() -- send this with it write getMessage Method to return the string to the model
-
     }
 
     public String getMessage(){

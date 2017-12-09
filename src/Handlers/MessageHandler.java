@@ -155,9 +155,29 @@ public class MessageHandler implements Observer {
         return players;
     }
 
+
     @Override
     public void update(Observable o, Object arg) {
 
+    }
+
+    public static void removeFromLobbyList(String... playerArray) {
+        Player player;
+        Iterator<Player> iterator= lobbyList.iterator();
+        while (iterator.hasNext()){
+            player=iterator.next();
+            for(int i=0; playerArray.length<i; i++){
+                if(player.getPlayerName().equalsIgnoreCase(playerArray[i])){
+                    iterator.remove();
+                }
+            }
+        }
+
+    }
+    public static void addToGameMap(ArrayList<Player> players, Game game){
+        for (Player player: players) {
+            gameList.put(player, game);
+        }
     }
 }
 

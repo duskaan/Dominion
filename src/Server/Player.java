@@ -61,9 +61,9 @@ public class Player implements Runnable {
         this.playerName=playerName;
     }
 
-/*
+
     @Override
     public String toString() {
         return playerName;
-    }*/
+    }
 }

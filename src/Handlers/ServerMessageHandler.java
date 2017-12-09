@@ -6,6 +6,7 @@ import sun.rmi.runtime.Log;
 
 import java.net.Socket;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.logging.Level;
 
 /**
@@ -29,15 +30,12 @@ public class ServerMessageHandler extends MessageHandler {
     public ServerMessageHandler() {
     }
 
-    //why cant i have this method just locally in the super class because all subHandlers are responsible themselves.
     @Override
     public void handleMessage(String msgIn, MessageHandler superHandler) throws UnknownFormatException {
         this.superHandler = superHandler;
 
         String subHandler = splitMessage(msgIn, SUB_HANDLER_INDEX);
         MessageHandler handler = MessageHandlerFactory.getMessageHandler(subHandler);
-        //checkForModels(msgIn);
-
         handler.handleMessage(msgIn, this);
     }
 
@@ -49,27 +47,21 @@ public class ServerMessageHandler extends MessageHandler {
         superHandler.write(newMessage,privateMessage);
     }
 
-    private void checkForModels(String msgIn) { //use an indiv int as counter if first time or not
-        /*if (splitMessage(msgIn, SUB_HANDLER_INDEX).equalsIgnoreCase("LOGIN") && observedLoginMessageHandler == null) {
-            observedLoginMessageHandler = new ServerLoginMessageHandler();
-
-        }
-        System.out.println(splitMessage(msgIn, SUB_HANDLER_INDEX));
-        if (splitMessage(msgIn, SUB_HANDLER_INDEX).equals("REGISTER") && observedRegisterMessageHandler == null) {
-            observedRegisterMessageHandler = new ServerRegisterMessageHandler();
-            RegisterController registerModel = new RegisterController();
-            observedRegisterMessageHandler.addObserver(registerModel);
-
-        }
-    }*/
-
-    }
-
     public Socket getClientSocket() {
         return superHandler.getClientSocket();
     }
     public static ArrayList<TempGame> gettempGameArrayList() {
         return tempGameArrayList;
+    }
+
+    public static String removeTempGame(String gameName){
+        Iterator<TempGame> iterator= tempGameArrayList.iterator();
+        while(iterator.hasNext()) {
+            if (iterator.next().getGameName().equalsIgnoreCase(gameName)) {
+                iterator.remove();
+            }
+        }
+        return HandlerModel.gameListMessage();
     }
 
 }

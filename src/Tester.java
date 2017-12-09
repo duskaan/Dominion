@@ -27,7 +27,6 @@ public class Tester extends Application {
     public void connect() {
         try {
             ServerSocket s = new ServerSocket();
-            int port = s.getLocalPort();
 
             socket = new Socket("127.0.0.1", 9000);
             System.out.println("Accepted connection : " + socket);
@@ -62,13 +61,7 @@ public class Tester extends Application {
                 tryReadMessage(input);
 
             }
-            try {
-                input.close();
-                output.close();
-                socket.close();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
+           closeResources();
 
         }).start();
     }

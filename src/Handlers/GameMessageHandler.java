@@ -7,6 +7,7 @@ import Server.Player;
 import java.io.Serializable;
 import java.net.Socket;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.Observable;
 import java.util.Observer;
 
@@ -33,11 +34,7 @@ public class GameMessageHandler extends MessageHandler implements Observer {
     @Override
     public void handleMessage(String message, MessageHandler superHandler) throws UnknownFormatException {
         this.superHandler = superHandler;
-        //get the game name --> String gameName = splitMessage(message,3);
-        //GameHandlers game = GameManager.getGame(gameName);
-        //returnMessage = game.handleMessage()
 
-        //die unteren muessen zu damiano in das jeweilige GameHandlers
         String subHandler = splitMessage(message, SUB_HANDLER_INDEX);
 
         Player player = socketPlayerHashMap.get(getClientSocket().getInetAddress());
@@ -61,7 +58,7 @@ public class GameMessageHandler extends MessageHandler implements Observer {
     @Override
     public void update(Observable o, Object arg) {
         String response = (String) arg;
-        if (response.contains("endgame")) {
+        if (splitMessage(response, 0).equalsIgnoreCase("end")) {
             endGame();
         }
         write(response, false);
@@ -71,8 +68,17 @@ public class GameMessageHandler extends MessageHandler implements Observer {
     private void endGame() {
 
         topFiveUpdate();
+
         //showLobby();
-        deleteGameFromList();
+        addAndRemoveFromLists();
+
+    }
+
+    private void addAndRemoveFromLists() {
+        Player player = socketPlayerHashMap.get(getClientSocket().getInetAddress());
+        ArrayList<Player> list = getKeyByValue(gameList, gameList.get(player));
+        addLobbyList(list);
+        deleteGameFromList(list);
     }
 
     private void topFiveUpdate() {
@@ -80,14 +86,17 @@ public class GameMessageHandler extends MessageHandler implements Observer {
         //Database.getDatabase().updateAfterGame();
     }
 
-    private void deleteGameFromList() {
-        Player player = socketPlayerHashMap.get(getClientSocket().getInetAddress());
-        ArrayList<Player> listToRemove = getKeyByValue(gameList, gameList.get(player));
+    private void deleteGameFromList(ArrayList<Player> listToRemove) {
+
         for (int i = 0; listToRemove.size() > i; i++) {
             gameList.remove(listToRemove.get(i));
         }
     }
-
+    private void addLobbyList(ArrayList<Player> listToAdd) {
+        for (int i = 0; listToAdd.size() > i; i++) {
+            lobbyList.add(listToAdd.get(i));
+        }
+    }
     //sobald nachricht hierhin kommt muss geprüft werden ob game = null ist. wenn ja dann wird diese method ausgelöst?
 
     public Socket getClientSocket() {

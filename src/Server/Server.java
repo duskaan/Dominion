@@ -30,8 +30,7 @@ public class Server {
 
         MessageHandlerFactory.addHandler("Handlers.GameMessageHandler");
         MessageHandlerFactory.addHandler("Handlers.ServerMessageHandler");
-        MessageHandlerFactory.addHandler("Handlers.ServerConnectedMessageHandler");
-        MessageHandlerFactory.addHandler("Handlers.ServerDisconnectMessageHandler");
+
         MessageHandlerFactory.addHandler("Handlers.ServerLoginMessageHandler");
         MessageHandlerFactory.addHandler("Handlers.ServerRegisterMessageHandler");
         MessageHandlerFactory.addHandler("Handlers.ServerNewGameMessageHandler");
