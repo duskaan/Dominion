@@ -12,14 +12,16 @@ public class GameModel {
     private Hashtable<CardName, Integer> actionCardList;
     private Hashtable<CardName, Integer> coinCardList;
     private Hashtable<CardName, Integer> victoryCardList;
+    private Hashtable<CardName, Integer> tempHandDeck;
     private String gameName;
     private int actionCardCount;
     private boolean aiPlayer;
-    private SimpleStringProperty gameResponseMessage;
+    private String gameResponseMessage;
 
 
-    GameModel(String gameName, SimpleStringProperty gameResponseMessage) {
+    GameModel(String gameName, String gameResponseMessage) {
         this.gameName = gameName;
+        this.gameResponseMessage = gameResponseMessage;
         playerList = new ArrayList<Player>();
     }
 
@@ -326,24 +328,33 @@ public class GameModel {
         }
     }
 
-//    public void tempBuyCard(CardName cardName) {
-//
-//    }
+    public void playTreasures(){
+        tempHandDeck = null;
+       tempHandDeck = playerList.get(getCurrentPlayer()).getHandDeck();
 
-    public void playCard(CardName cardName) { //TODO playCard method
+       for(Map.Entry<CardName, Integer> entry : tempHandDeck.entrySet()){
+           switch(entry.getKey().toString()){
+
+           case "gold": playGold(entry.getValue());
+               break;
+
+           case "silver": playSilver(entry.getValue());
+               break;
+
+           case "copper": playCopper(entry.getValue());
+               break;
+       }
+
+
+
+       }
+    }
+
+    public void playCard(CardName cardName) {
 
         CardName cardNameToPlay = cardName;
 
         switch (cardNameToPlay){
-            case gold:
-                playGold();
-                break;
-            case silver:
-                playSilver();
-                break;
-            case copper:
-                playCopper();
-                break;
             case village:
                 playVillage();
                 break;
@@ -481,20 +492,20 @@ public class GameModel {
     ;
 
     //methods for the coin cards
-    public void playGold() {
-        addCoins(3);
+    public void playGold(int amountOfGold) {
+        addCoins(3*amountOfGold);
     }
 
     ;
 
-    public void playSilver() {
-        addCoins(2);
+    public void playSilver(int amountOfSilver) {
+        addCoins(2*amountOfSilver);
     }
 
     ;
 
-    public void playCopper() {
-        addCoins(1);
+    public void playCopper(int amountOfCopper) {
+        addCoins(1*amountOfCopper);
     }
 
     ;
@@ -536,10 +547,10 @@ public class GameModel {
     }
 
     public String getGameResponseMessage() {
-        return gameResponseMessage.get();
+        return gameResponseMessage;
     }
 
-    public SimpleStringProperty gameResponseMessageProperty() {
+    public String gameResponseMessageProperty() {
         return gameResponseMessage;
     }
 
