@@ -150,6 +150,7 @@ public class MessageHandler implements Observer {
         for (Map.Entry<Player, Game> entry : hashMap.entrySet()) {
             if (entry.getValue().equals(game)) {
                 players.add(entry.getKey());
+
             }
         }
         return players;

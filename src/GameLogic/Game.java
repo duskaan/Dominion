@@ -29,6 +29,7 @@ public class Game extends Observable{
     }
 
     public void readMessage(String message) {
+       // gameController.readMessage(message)
         this.inputMessage=message;
     }
 

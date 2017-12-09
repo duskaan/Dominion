@@ -32,11 +32,11 @@ public class ServerLoginMessageHandler extends ServerMessageHandler  {
     public  void handleMessage(String msgIn, MessageHandler superHandler) throws UnknownFormatException {
         this.superHandler = superHandler;
         message = msgIn;
-        String playerName = splitMessage(message, 4);//todo set token
+        String playerName = splitMessage(message, 2);//todo set token
         Player player = socketPlayerHashMap.get(getClientSocket().getInetAddress());
 
 
-        String password = splitMessage(message, 5); //todo set token
+        String password = splitMessage(message, 3); //todo set token
         boolean successful = HandlerModel.tryToLogin(playerName, password);
         String returnMessage= null;
         if(successful){
