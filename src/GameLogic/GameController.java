@@ -34,11 +34,12 @@ public class GameController {
                                     break;
 
                 case "endTurn": gameModel.endTurn();
+                                    break;
 
-                case "buy": gameModel.buyCard(secondSplit.get(i).get());
             }
 
-
+        //    case "buy": gameModel.buyCard(secondSplit.get(i).get());
+         //   case "play":    gameModel.playCard("sldfa");
 
         }
     }
