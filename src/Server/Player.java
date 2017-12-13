@@ -16,8 +16,10 @@ public class Player implements Runnable {
     private MessageHandler messageHandler;
 
 
-    public Player(Socket socket) {
+    public Player(Socket socket, String playerName) {
         this.socket = socket;
+        this.playerName= playerName;
+
     }
 
     @Override

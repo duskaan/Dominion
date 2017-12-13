@@ -19,7 +19,7 @@ import java.util.logging.Level;
 public class MessageHandler implements Observer {
     public static ArrayList<Player> lobbyList = new ArrayList<>();
     public static HashMap<Player, Game> gameList = new HashMap<>();
-    public static HashMap<InetAddress, Player> socketPlayerHashMap = new HashMap<>();
+    public static HashMap<Integer, Player> socketPlayerHashMap = new HashMap<>();
 
     private Socket socket;
 
@@ -53,11 +53,21 @@ public class MessageHandler implements Observer {
     }
 
     public void read() {
-        new Thread(() -> {
-            while (running) {
+        Thread thread1 = new Thread(new Runnable() {
+            @Override
+            public void run(){
+               while(true){
+                   tryReadMessage(reader);
+               }
+            }
+        });
+
+        thread1.start();
+        /*new Thread(() -> {
+            while (true) {
                 tryReadMessage(reader);
             }
-        }).start();
+        }).start();*/
     }
 
     private void tryReadMessage(BufferedReader input) {
@@ -81,9 +91,11 @@ public class MessageHandler implements Observer {
     }
     public void write(String message, Boolean privateMessage) {
         LogHandling.logOnFile(Level.INFO, "The message is: "+message+" It is a private message: "+privateMessage);
-        Player player = socketPlayerHashMap.get(socket.getInetAddress());
+        Player player = socketPlayerHashMap.get(socket.getPort());
+        LogHandling.logOnFile(Level.INFO, "SocketPlayerHashMap: "+socketPlayerHashMap.toString());
         if (!privateMessage) {
             if (lobbyList.contains(player)) {
+                LogHandling.logOnFile(Level.INFO, "LobbyList: "+lobbyList.toString());
                 writeToList(lobbyList, message);
             } else {
                 Game game = gameList.get(player);
@@ -93,7 +105,9 @@ public class MessageHandler implements Observer {
         }
         if (privateMessage) {
             try {
-                player.getMessageHandler().getWriter().write(message);
+                ArrayList<Player> writeTo = new ArrayList<>();
+                writeTo.add(player);
+                writeToList(writeTo,message);
             } catch (Exception e) {
                 e.printStackTrace();
             }
@@ -101,17 +115,24 @@ public class MessageHandler implements Observer {
     }
 
     private void writeToList(ArrayList<Player> list, String message) {
+        LogHandling.logOnFile(Level.INFO, list.toString());
+        for (int i = 0; list.size()>i; i++) {
 
-        for (int i = 0; list.size() < i; i++) {
             try {
-                LogHandling.logOnFile(Level.INFO, message + socket);
-                BufferedWriter tempWriter = list.get(i).getMessageHandler().getWriter();
-                tempWriter.write(message + " " + socket + "\n");
+
+                LogHandling.logOnFile(Level.INFO, "Message: "+message+" sent to " +list.get(i));
+                list.get(i).getMessageHandler().writeToClient(message);
+                BufferedWriter tempWriter = list.get(i).getMessageHandler().getWriter(); //i everytime get the last writer
+                tempWriter.write(message +"\n");
                 tempWriter.flush();
             } catch (IOException e) {
                 e.printStackTrace();
             }
         }
+    }
+    public void writeToClient(String message) throws IOException {
+        writer.write(message+"\n");
+        writer.flush();
     }
 
     public static String addDelimiter(String message) {

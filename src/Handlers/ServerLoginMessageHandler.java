@@ -33,21 +33,24 @@ public class ServerLoginMessageHandler extends ServerMessageHandler  {
         this.superHandler = superHandler;
         message = msgIn;
         String playerName = splitMessage(message, 2);//todo set token
-        Player player = socketPlayerHashMap.get(getClientSocket().getInetAddress());
+        Player player = socketPlayerHashMap.get(getClientSocket().getPort());
 
 
         String password = splitMessage(message, 3); //todo set token
         boolean successful = HandlerModel.tryToLogin(playerName, password);
         String returnMessage= null;
         if(successful){
-            player.setPlayerName(message);
+            player.setPlayerName(playerName);
             lobbyList.add(player);
-            write(HandlerModel.topFiveMessage(), true);
-            write(HandlerModel.gameListMessage(),true);
-            returnMessage = "successfull"; //send gamelist and topfive and then a successfull message
+
+            returnMessage = "successful"; //send gamelist and topfive and then a successfull message
             write(returnMessage, true);
+            ServerLobbyMessageHandler lobbyHandler = new ServerLobbyMessageHandler();
+            lobbyHandler.handleMessage("SERVER@LOBBY@TOPFIVE",superHandler);
+            lobbyHandler.handleMessage("SERVER@LOBBY@GAMELIST", superHandler);
+
         }else{
-            write("loginfailed", true);
+            write("loginFailed", true);
         }
     }
 

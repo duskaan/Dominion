@@ -16,13 +16,13 @@ public class HandlerModel {
             reply+=list.get(i).getPlayerList().size()+";";
             reply+=list.get(i).getMaxPlayer()+"/";
         }
-        return reply; //structure = GameName; Players in the game; max player number/GameName; Players in the game; max player number
+        return "GAMELIST@" + reply; //structure = GameName; Players in the game; max player number/GameName; Players in the game; max player number
 
     }
 
     public static String topFiveMessage() {
         Database database = Database.getDatabase();
-        return database.getTopFive();
+        return "TOPFIVE@" + database.getTopFive();
 
     }
 

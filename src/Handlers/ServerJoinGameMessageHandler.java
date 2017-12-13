@@ -34,9 +34,9 @@ public class ServerJoinGameMessageHandler extends ServerMessageHandler {
     public void handleMessage(String msgIn, MessageHandler superHandler) throws UnknownFormatException {
         this.superHandler = superHandler;
         message=msgIn;
-        String gameName = splitMessage(message, 5);//todo set Token
+        String gameName = splitMessage(message, 2);//todo set Token
 
-        Player player = socketPlayerHashMap.get(getClientSocket().getInetAddress());
+        Player player = socketPlayerHashMap.get(getClientSocket().getPort());
         for(int i = 0; ServerMessageHandler.gettempGameArrayList().size()<i; i++) {
             if (ServerMessageHandler.gettempGameArrayList().get(i).getPlayerList().contains(player)){
                 ServerMessageHandler.gettempGameArrayList().get(i).removePlayer(player);

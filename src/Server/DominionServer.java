@@ -36,9 +36,9 @@ public class DominionServer extends Thread {
 		while (true) {
 			Socket clientSocket = serverSocket.accept();
 			LogHandling.logOnFile(Level.INFO, "Client connection accepted: " + clientSocket.getInetAddress());
-			Player player = new Player(clientSocket);
+			Player player = new Player(clientSocket, "notInitialized");
 			LogHandling.logOnFile(Level.INFO, player.toString());
-			MessageHandler.socketPlayerHashMap.put(clientSocket.getInetAddress(), player);
+			MessageHandler.socketPlayerHashMap.put(clientSocket.getPort(), player);
 			executor.submit(player);
 		}
 	}

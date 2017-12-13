@@ -22,7 +22,8 @@ public class ServerLobbyMessageHandler extends ServerMessageHandler {
     }
 
     public ServerLobbyMessageHandler() {
-    }
+  }
+
 
     public void write(String message,Boolean privateMessage) {
         message = addDelimiter(message);
@@ -34,7 +35,7 @@ public class ServerLobbyMessageHandler extends ServerMessageHandler {
     public void handleMessage(String msgIn, MessageHandler superHandler) throws UnknownFormatException {
         this.superHandler = superHandler;
         message = msgIn;
-        String fiveOrGamesList = splitMessage(message, 4);
+        String fiveOrGamesList = splitMessage(message, 2);
         LogHandling.logOnFile(Level.INFO,"MessageType: " +fiveOrGamesList);
 
         if (fiveOrGamesList.equalsIgnoreCase("TOPFIVE")) {

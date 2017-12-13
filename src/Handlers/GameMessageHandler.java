@@ -10,7 +10,8 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.Observable;
 import java.util.Observer;
-
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 /**
  * Created by Tim on 23.08.2017.
  */
@@ -37,7 +38,7 @@ public class GameMessageHandler extends MessageHandler implements Observer {
 
         String subHandler = splitMessage(message, SUB_HANDLER_INDEX);
 
-        Player player = socketPlayerHashMap.get(getClientSocket().getInetAddress());
+        Player player = socketPlayerHashMap.get(getClientSocket().getPort());
         if (gameList.get(player) == null || subHandler.equalsIgnoreCase("ENDGAME")) {
             MessageHandler handler = MessageHandlerFactory.getMessageHandler(subHandler);
             handler.handleMessage(message, this);
@@ -75,7 +76,7 @@ public class GameMessageHandler extends MessageHandler implements Observer {
     }
 
     private void addAndRemoveFromLists() {
-        Player player = socketPlayerHashMap.get(getClientSocket().getInetAddress());
+        Player player = socketPlayerHashMap.get(getClientSocket().getPort());
         ArrayList<Player> list = getKeyByValue(gameList, gameList.get(player));
         addLobbyList(list);
         deleteGameFromList(list);
@@ -103,4 +104,16 @@ public class GameMessageHandler extends MessageHandler implements Observer {
         return superHandler.getClientSocket();
     }
 
+    void listenForMessage(Game game) {
+        game.getGameResponseMessage().addListener(new ChangeListener<String>() {
+            @Override
+            public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
+
+                if (splitMessage(newValue, 0).equalsIgnoreCase("end")) {
+                    endGame();
+                }
+                write(newValue, false);
+            }
+        });
+    }
 }
