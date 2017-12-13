@@ -1,7 +1,6 @@
 package Database;
 
 import Server.LogHandling;
-import sun.rmi.runtime.Log;
 
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
