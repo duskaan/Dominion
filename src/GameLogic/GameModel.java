@@ -1,7 +1,7 @@
 package GameLogic;
 
 import GameLogic.cards.CardName;
-import javafx.beans.property.SimpleStringProperty;
+
 import java.util.*;
 
 public class GameModel {
@@ -17,6 +17,8 @@ public class GameModel {
     private int actionCardCount;
     private boolean aiPlayer;
     private String gameResponseMessage;
+    private String cardBoughtMessage;
+    private String cardBought;
 
 
     GameModel(String gameName, String gameResponseMessage) {
@@ -25,25 +27,20 @@ public class GameModel {
         playerList = new ArrayList<Player>();
     }
 
-//    public void addPlayer(String playerName) { //TODO MAKE TWO OUT OF THEM ONE FOR 2 player one for 4 players
-//        if (playerList == null) {
-//            playerList = new ArrayList<>();
-//        }
-//        int playerID = playerList.size();
-//        if (playerID <= playerCount - 1) {
-//            //TODO test what happen we try to add more player than player count
-//            Player player = new Player(playerID, playerName);
-//            playerList.add(player);
-//            if (playerID == playerCount - 1) {
-//                gameResponseMessage.set("Game is Ready"); //TODO talk to tim about what message protcol to use
-//            }
-//        } else {
-//            gameResponseMessage.set("PlayerList is already full"); //TODO talk to tim about what message protocol to use
-//        }
-//    }
+ public void addPlayer(String playerName, int playerCount) {
+      if (playerList == null) {
+            playerList = new ArrayList<>();
+        }
+        int playerID = playerList.size();
+
+     if (playerID <= playerCount - 1) {
+         Player player = new Player(playerID, playerName);
+         playerList.add(player);
+     }
+    }
 
 
-    void removePlayer(int playerID) {
+  /*  void removePlayer(int playerID) {
         if (playerList.size() >= playerID) {
             playerList.remove(playerID);
             for (int i = 0; i <= playerList.size() - 1; i++) {
@@ -51,19 +48,22 @@ public class GameModel {
             }
         }
     }
+    */
 
 
-    void init() {
-        initActionCards();
+    void init(int cardsInGame) { //TODO HOW GOES THE MESSAGE FROM HERE
+        initActionCards(cardsInGame);
         initCoinCardCount();
         initVictoryCurseCards();
         initPlayers();
+        startingMessage();
+        drawCardMessage(); //TODO ALL BECOME THE SAME CARDS IN ROUND ONE...
     }
 
-    private void initActionCards() { // TODO select all 3coin cards + smithy + festival
+    private void initActionCards(int cardsInGame) {
         ArrayList<CardName> actionCardNames = new ArrayList<>();
         CardName[] cardNames = CardName.values();
-        int numberOfActionCardInEnumList = 10;
+        int numberOfActionCardInEnumList = cardsInGame;
         for (int i = 0; i < numberOfActionCardInEnumList; i++) {
 
             actionCardNames.add(cardNames[i]);
@@ -110,9 +110,8 @@ public class GameModel {
         turnCount++;
         discardHandDeckToDiscardDeck();
         isGameOver();
-        drawCards(5,getCurrentPlayer());
         playerList.get(getCurrentPlayer()).endTurn();
-        createMessage();
+        drawCardMessage();
 
     }
 
@@ -129,8 +128,142 @@ public class GameModel {
 
 
 
-    private void createMessage() { //TODO TALK WITH TIM
+    private void createMessage() {
 
+    }
+
+    private String startingMessage() {
+
+        String startMessage = "start@updateAll/coins,0;buy,1;action,1@actionCards/village,10;woodcutter,10;smithy,10;councilRoom,10;workshop,10@coinCards/gold,30;silver,40;copper,46@victoryCards/province,8;duchy,8;estate,8;curse,10@cardDeckAll/estate,3;copper,7";
+
+        return startMessage;
+    }
+
+    private String drawCardMessage(){
+
+        String drawCardMessage = "hand/";
+
+        Hashtable<CardName, Integer> cardsDrawn = drawCards(5,getCurrentPlayer());
+        Hashtable<CardName, Integer> cardsRemainingInPlayerDeck = playerList.get(getCurrentPlayer()).getPlayerDeck();
+        for (CardName key: cardsDrawn.keySet()){
+            drawCardMessage = drawCardMessage+key+","+cardsDrawn.get(key)+";"; //TODO there will be a ; after the last card value and before the @
+        }
+        drawCardMessage = drawCardMessage+"@deck/";
+
+        for (CardName key: cardsRemainingInPlayerDeck.keySet()){
+            drawCardMessage = drawCardMessage+key+","+cardsRemainingInPlayerDeck.get(key)+";";
+        }
+
+        return drawCardMessage;
+    }
+
+  /*  private String drawCardMessageForAll(){
+        ArrayList<String> drawnCardMessageForAllPlayers = null;
+
+        for (int i = 0; i<=playerList.size();i++) {
+
+            String drawCardMessage = ":Player"+i+"hand/";
+            Hashtable<CardName, Integer> cardsRemainingInPlayerDeck = playerList.get(i).getPlayerDeck();
+            Hashtable<CardName, Integer> cardsDrawn = drawCards(5, getCurrentPlayer());
+
+            for (CardName key : cardsDrawn.keySet()) {
+                drawCardMessage = drawCardMessage + key + "," + cardsDrawn.get(key) + ";"; //TODO there will be a ; after the last card value and before the @
+            }
+            drawCardMessage = drawCardMessage + "@deck/";
+
+            for (CardName key : cardsRemainingInPlayerDeck.keySet()) {
+                drawCardMessage = drawCardMessage + key + "," + cardsRemainingInPlayerDeck.get(key) + ";";
+            }
+
+            drawnCardMessageForAllPlayers.add(drawCardMessage);
+        }
+
+        return drawnCardMessageForAllPlayers.toString();
+    }*/
+
+
+    private String finishTurnMessage(){
+
+        String finishTurnMessage = "TODO"; //TODO finish Round Message
+
+        return finishTurnMessage;
+    }
+
+    private String endGameMessage(){
+
+        String endMessage = "TODO"; //TODO END MESSAGE
+
+        return endMessage;
+    }
+
+    private String playTreasureMessage(){
+
+        String playTreasureMessage = "discard/";
+        Hashtable<CardName, Integer> cardsInPlayerDeck = playerList.get(getCurrentPlayer()).getHandDeck();
+
+        for (CardName cardName: cardsInPlayerDeck.keySet()) {
+
+            switch (cardName.toString()) {
+                case "gold":
+                    playTreasureMessage = playTreasureMessage + "gold," + cardsInPlayerDeck.get(cardName) + ";";
+                    break;
+                case "silver":
+                    playTreasureMessage = playTreasureMessage + "silver," + cardsInPlayerDeck.get(cardName) + ";";
+                    break;
+                case "copper":
+                    playTreasureMessage = playTreasureMessage + "copper," + cardsInPlayerDeck.get(cardName) + ";";
+                    break;
+            }
+        }
+
+            playTreasureMessage = playTreasureMessage + "@hand/";
+
+            for (CardName cardName1: cardsInPlayerDeck.keySet()){
+
+                switch (cardName1.toString()){
+                    case "gold":
+                        playTreasureMessage = playTreasureMessage + "gold,0;";
+                        break;
+                    case "silver":
+                        playTreasureMessage = playTreasureMessage + "silver,0;";
+                        break;
+                    case "copper":
+                        playTreasureMessage = playTreasureMessage + "copper,0;";
+                        break;
+                }
+
+            playTreasureMessage = playTreasureMessage + "@update/coins,"+playerList.get(getCurrentPlayer()).getCoins();
+        }
+
+        return playTreasureMessage;
+
+    }
+
+    public String buyCardMessage(){
+
+        String buyCardMessage = "update/buy," + playerList.get(getCurrentPlayer()).getBuy()+ ";coins," + playerList.get(getCurrentPlayer()).getCoins() + ";@" + cardBoughtMessage;
+
+        for(CardName cardName: actionCardList.keySet()){
+            if(cardName.toString()==cardBought){
+                buyCardMessage = buyCardMessage + actionCardList.get(cardName);
+            }
+        }
+        buyCardMessage = buyCardMessage + ";@discard/" + cardBought + ",";
+
+        for(CardName cardName: playerList.get(getCurrentPlayer()).getDiscardDeck().keySet()){
+            if(cardName.toString()==cardBought){
+                buyCardMessage = buyCardMessage + playerList.get(getCurrentPlayer()).getDiscardDeck().get(cardName);
+            }
+        }
+
+        return buyCardMessage;
+    }
+
+    public String playCardMessage(){
+
+        String playCardmessage = "TODO"; //TODO PLAY CARD MESSAGE
+
+        return playCardmessage;
     }
 
     public boolean isGameOver() {
@@ -178,17 +311,21 @@ public class GameModel {
 
 
     //draw card from playerDeck
-    private void drawCards(int amountToDraw, int playerIndex) {//TODO secondPlayer
+    private Hashtable<CardName, Integer> drawCards(int amountToDraw, int playerIndex) {
         ArrayList<CardName> cardNames = new ArrayList<>();
+        Hashtable<CardName, Integer> listOfCardsDrawnForMessage = null;
+
         for (CardName cardName : playerList.get(playerIndex).getPlayerDeck().keySet()) {
             cardNames.add(cardName);
+
         }
         CardName cardName = null;
         int cardsDrawn = 0;
         Random rand = new Random();
 
-        while (cardsDrawn < amountToDraw) { //TODO FOR SCHLEIFE DAURAUS MACHEN
+        while (cardsDrawn < amountToDraw) {
             cardName = cardNames.get(rand.nextInt(cardNames.size()));
+            listOfCardsDrawnForMessage.put(cardName, 1);
 
             if (playerList.get(getCurrentPlayer()).getPlayerDeck().get(cardName) != 0) {
                 int currentCount = playerList.get(playerIndex).getPlayerDeck().get(cardName);
@@ -199,6 +336,8 @@ public class GameModel {
                 cardsDrawn++;
             }
         }
+
+        return listOfCardsDrawnForMessage;
     }
 
     private void checkifPlayerDeckisEmpty() {
@@ -214,7 +353,7 @@ public class GameModel {
     }
 
     //When the player deck is empty discardDeck will be shuffled nd put into playerDeck
-    private void discardDecktoPlayerDeck() { //TODO: get descardDeck HERMAN FRAGEN OB PUT NICHT EIFACH EINS DAZU FèGT
+    private void discardDecktoPlayerDeck() {
         ArrayList<CardName> cardNames = new ArrayList<>();
         for (CardName cardName : playerList.get(getCurrentPlayer()).getPlayerDeck().keySet()) {
             cardNames.add(cardName);
@@ -233,90 +372,123 @@ public class GameModel {
 
     }
 
-    public void buyCard(CardName cardName) { //TODO buyCard method
+    public void buyCard(String cardName) {
 
         switch (cardName){
-            case gold:
+            case "gold":
                 addBuy(-1);
                 addCoins(-6);
                 cardFromHashTableToDiscardDeck(CardName.gold, coinCardList);
+                cardBoughtMessage = "coinCards/gold,";
+                cardBought = "gold";
                 break;
-            case silver:
+            case "silver":
                 addBuy(-1);
                 addCoins(-3);
                 cardFromHashTableToDiscardDeck(CardName.silver, coinCardList);
+                cardBoughtMessage = "coinCards/silver,";
+                cardBought = "silver";
                 break;
-            case copper:
+            case "copper":
                 addBuy(-1);
                 cardFromHashTableToDiscardDeck(CardName.copper, coinCardList);
+                cardBoughtMessage = "coinCards/copper,";
+                cardBought = "copper";
                 break;
-            case province:
+            case "province":
                 addBuy(-1);
                 addCoins(-8);
                 cardFromHashTableToDiscardDeck(CardName.province, victoryCardList);
+                cardBoughtMessage = "victoryCards/province,";
+                cardBought = "province";
                 break;
-            case duchy:
+            case "duchy":
                 addBuy(-1);
                 addCoins(-5);
                 cardFromHashTableToDiscardDeck(CardName.duchy, victoryCardList);
+                cardBoughtMessage = "victoryCards/duchy,";
+                cardBought = "duchy";
                 break;
-            case estate:
+            case "estate":
                 addBuy(-1);
                 addCoins(-2);
                 cardFromHashTableToDiscardDeck(CardName.estate, victoryCardList);
+                cardBoughtMessage = "victoryCards/estate,";
+                cardBought = "estate";
                 break;
-            case village:
+            case "village":
                 addBuy(-1);
                 addCoins(-3);
                 cardFromHashTableToDiscardDeck(CardName.village, actionCardList);
+                cardBoughtMessage = "actionCards/village,";
+                cardBought = "village";
                 break;
-            case woodcutter:
+            case "woodcutter":
                 addBuy(-1);
                 addCoins(-3);
                 cardFromHashTableToDiscardDeck(CardName.woodcutter, actionCardList);
+                cardBoughtMessage = "actionCards/woodcutter,";
+                cardBought = "woodcutter";
                 break;
-            case workshop:
+            case "workshop":
                 addBuy(-1);
                 addCoins(-3);
                 cardFromHashTableToDiscardDeck(CardName.workshop, actionCardList);
+                cardBoughtMessage = "actionCards/workshop,";
+                cardBought = "workshop";
                 break;
-            case smithy:
+            case "smithy":
                 addBuy(-1);
                 addCoins(-4);
                 cardFromHashTableToDiscardDeck(CardName.smithy, actionCardList);
+                cardBoughtMessage = "actionCards/smithy,";
+                cardBought = "smithy";
                 break;
-            case councilRoom:
+            case "councilRoom":
                 addBuy(-1);
                 addCoins(-5);
                 cardFromHashTableToDiscardDeck(CardName.councilRoom, actionCardList);
+                cardBoughtMessage = "actionCards/councilRoom,";
+                cardBought = "councilRoom";
                 break;
-            case festival:
+            case "festival":
                 addBuy(-1);
                 addCoins(-5);
                 cardFromHashTableToDiscardDeck(CardName.festival, actionCardList);
+                cardBoughtMessage = "actionCards/festival,";
+                cardBought = "festival";
                 break;
-            case laboratory:
+            case "laboratory":
                 addBuy(-1);
                 addCoins(-5);
                 cardFromHashTableToDiscardDeck(CardName.laboratory, actionCardList);
+                cardBoughtMessage = "actionCards/laboratory,";
+                cardBought = "laboratory";
                 break;
-            case witch:
+            case "witch":
                 addBuy(-1);
                 addCoins(-5);
                 cardFromHashTableToDiscardDeck(CardName.witch, actionCardList);
+                cardBoughtMessage = "actionCards/witch,";
+                cardBought = "witch";
                 break;
-            case chancellor:
+            case "chancellor":
                 addBuy(-1);
                 addCoins(-3);
                 cardFromHashTableToDiscardDeck(CardName.chancellor, actionCardList);
+                cardBoughtMessage = "actionCards/chancellor,";
+                cardBought = "chancellor";
                 break;
-            case market:
+            case "market":
                 addBuy(-1);
                 addCoins(-5);
                 cardFromHashTableToDiscardDeck(CardName.market, actionCardList);
+                cardBoughtMessage = "actionCards/market,";
+                cardBought = "market";
                 break;
 
         }
+        buyCardMessage();
     }
 
     public void cardFromHashTableToDiscardDeck(CardName cardName, Hashtable<CardName,Integer> list){
@@ -343,46 +515,47 @@ public class GameModel {
 
            case "copper": playCopper(entry.getValue());
                break;
-       }
-
 
 
        }
+       }
+
+       playTreasureMessage();
     }
 
-    public void playCard(CardName cardName) {
+    public void playCard(String cardName) {
 
-        CardName cardNameToPlay = cardName;
+        ;
 
-        switch (cardNameToPlay){
-            case village:
+        switch (cardName){
+            case "village":
                 playVillage();
                 break;
-            case woodcutter:
+            case "woodcutter":
                 playWoodcutter();
                 break;
-            case workshop:
+            case "workshop":
                 playWorkshop();
                 break;
-            case smithy:
+            case "smithy":
                 playSmithy();
                 break;
-            case councilRoom:
+            case "councilRoom":
                 playCouncilRoom();
                 break;
-            case festival:
+            case "festival":
                 playFestival();
                 break;
-            case laboratory:
+            case "laboratory":
                 playLabratory();
                 break;
-            case witch:
+            case "witch":
                 playWitch();
                 break;
-            case chancellor:
+            case "chancellor":
                 playChancellor();
                 break;
-            case market:
+            case "market":
                 playMarket();
                 break;
         }
