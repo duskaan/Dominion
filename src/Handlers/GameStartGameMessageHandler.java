@@ -11,7 +11,7 @@ import java.util.ArrayList;
 public class GameStartGameMessageHandler extends GameMessageHandler {
     private final String CLASSNAME = GameMessageType.STARTGAME.toString();
     private String message = null;
-    private MessageHandler superHandler;
+    private GameMessageHandler superHandler;
     ArrayList<TempGame> list;
 
     public GameStartGameMessageHandler(String message) throws UnknownFormatException {
@@ -30,8 +30,8 @@ public class GameStartGameMessageHandler extends GameMessageHandler {
         superHandler.write(newMessage,privateMessage);
     }
 
-    @Override
-    public void handleMessage(String msgIn, MessageHandler superHandler) throws UnknownFormatException {
+
+    public void handleMessage(String msgIn, GameMessageHandler superHandler) throws UnknownFormatException {
         this.superHandler = superHandler;
         message = msgIn;
         String gameName = splitMessage(message, 5); //todo set token
@@ -53,6 +53,8 @@ public class GameStartGameMessageHandler extends GameMessageHandler {
         if(playerArray!=null ||cardsInGame!=0){
             Game game= new Game(gameName, cardsInGame, playerArray);
             game.addObserver(superHandler);
+            superHandler.listenForMessage(game);
+            game.startGame();
             write(ServerMessageHandler.removeTempGame(gameName), false);
             MessageHandler.removeFromLobbyList(playerArray);
             MessageHandler.addToGameMap(players, game);

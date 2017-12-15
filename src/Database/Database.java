@@ -21,6 +21,7 @@ public class Database {
     private Properties prop = new Properties(); // Create Properties-Object
     private ResultSet resultSet = null;
     private static final Database snDatabase = null;
+    private Statement stmt;
 
 
     private Database() {
@@ -46,11 +47,19 @@ public class Database {
     public void createConnection() {
         try {
             prop.load(new FileInputStream("config.properties"));
-            login = prop.getProperty("login");
-            password = prop.getProperty("password");
-
+            //login = prop.getProperty("login");
+           // password = prop.getProperty("password");
+            Scanner scanner = new Scanner(System.in);
+            System.out.println("Please Enter your login for the database");
+            login = scanner.next();
+            System.out.println("Please Enter your password for the database");
+            password = scanner.next();
             Class.forName("com.mysql.jdbc.Driver").newInstance();
-            con = DriverManager.getConnection("jdbc:mysql://localhost:3306/mydb?useSSL=false", login, password);
+            con = DriverManager.getConnection("jdbc:mysql://localhost:3306/?useSSL=false", login, password);
+            createDatabase();
+            con = DriverManager.getConnection("jdbc:mysql://localhost:3306/DominionDatabase?useSSL=false", login, password);
+            createTable();
+            System.out.println("Is this here?");
 
         } catch (Exception e) {
             e.printStackTrace();
@@ -58,6 +67,37 @@ public class Database {
         }
     }
 
+
+
+    private void createDatabase() {
+        //String dropQuery = "DROP DATABASE if Exists DominionDatabase";
+        String query = "CREATE DATABASE DominionDatabase";
+
+        //stmt.executeUpdate(dropQuery);
+
+
+        try {
+            stmt= con.createStatement();
+            stmt.executeUpdate(query);
+            LogHandling.logOnFile(Level.INFO, "Database DominionDatabase is created");
+        } catch (SQLException e) {
+            LogHandling.logOnFile(Level.INFO, "Database already exists");
+        }
+    }
+
+    private void createTable() {
+        //String dropQuery = "DROP TABLE IF EXISTS Users;";
+        String query = "CREATE TABLE Player (Username varchar(255) NOT NULL, Password varchar(255) NOT NULL, GamesPlayed int(10), GamesWon int(10), Highscore int(10));";
+
+        //stmt.executeUpdate(dropQuery);
+        try {
+            stmt= con.createStatement();
+            stmt.executeUpdate(query);
+        } catch (SQLException e) {
+            LogHandling.logOnFile(Level.INFO, "Database already exists");
+        }
+
+    }
     public boolean insert(String insertUserName, String insertUserPassword) {
 
         boolean successful = false;
@@ -172,7 +212,7 @@ public class Database {
     public String getTopFive() {
         String returnMessage = "";
         try {
-            String query = "SELECT * FROM player ORDER BY Highscore LIMIT 5";
+            String query = "SELECT * FROM player ORDER BY Highscore DESC LIMIT 5";
             preparedStatement = con.prepareStatement(query); // Create Prepared Statement
             resultSet = preparedStatement.executeQuery();
             while (resultSet.next()) {

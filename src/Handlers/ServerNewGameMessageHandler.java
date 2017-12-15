@@ -38,7 +38,7 @@ public class ServerNewGameMessageHandler extends ServerMessageHandler {
         int cardNumbers = Integer.parseInt(splitMessage(message, 5)); //todo define position
         int maxPlayers = Integer.parseInt(splitMessage(message, 6));
 
-        Player player = socketPlayerHashMap.get(getClientSocket().getInetAddress());
+        Player player = socketPlayerHashMap.get(getClientSocket().getPort());
 
         gettempGameArrayList().add(new TempGame(gameName, cardNumbers, player, maxPlayers));
 
