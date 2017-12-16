@@ -41,20 +41,20 @@ public class GameJoinGameMessageHandler extends GameMessageHandler {
         String gameName = splitMessage(message, 2);//todo set Token
 
         Player player = socketPlayerHashMap.get(getClientSocket().getPort());
-        LogHandling.logOnFile(Level.WARNING, ServerMessageHandler.gettempGameArrayList().toString());
 
         for (TempGame tempGame:ServerMessageHandler.gettempGameArrayList()) {
             if (tempGame.getPlayerList().contains(player)) {
                 tempGame.removePlayer(player);
-                LogHandling.logOnFile(Level.INFO, player.toString() + " is removed from the TempGame");
+                LogHandling.logOnFile(Level.INFO, player.toString() + " is removed from "+tempGame.getGameName());
             } else {
-                LogHandling.logOnFile(Level.INFO, player + "is not removed from any game");
+                LogHandling.logOnFile(Level.INFO, player + " is not removed from any game");
             } //first checked if the player is in the game and removed
             if (tempGame.getGameName().equalsIgnoreCase(gameName)) {
                 tempGame.addPlayer(player);
                 player.setGameName(gameName);
                 LogHandling.logOnFile(Level.INFO, player.toString() + " is added to the Game " + gameName);
                 if (tempGame.getPlayerList().size() == tempGame.getMaxPlayer()) {
+                    LogHandling.logOnFile(Level.INFO,  gameName+" is full and will be started");
                     GameStartGameMessageHandler gameStartHandler = new GameStartGameMessageHandler();
                     gameStartHandler.handleMessage(message+player, superHandler);
                 }
@@ -77,7 +77,7 @@ public class GameJoinGameMessageHandler extends GameMessageHandler {
             }*///after it is checked if the player is in the game and the name of the game are the same the player is added
         }
 
-        write(HandlerModel.gameListMessage(), false);
+        //write(HandlerModel.gameListMessage(), false);
     }
 
     public String getMessage() {

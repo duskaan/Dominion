@@ -1,9 +1,11 @@
 package Handlers;
 
 import GameLogic.Game;
+import Server.LogHandling;
 import Server.Player;
 
 import java.util.ArrayList;
+import java.util.logging.Level;
 
 /**
  * Created by Tim on 23.09.2017.
@@ -45,6 +47,7 @@ public class GameStartGameMessageHandler extends GameMessageHandler {
 
 
     public void startGame(TempGame tempGame) {
+
         String gameName = splitMessage(message, 5); //todo set token
         String[] playerArray = null;
         ArrayList<Player> players = null;
@@ -69,6 +72,7 @@ public class GameStartGameMessageHandler extends GameMessageHandler {
             MessageHandler.removeFromLobbyList(playerArray);
             MessageHandler.addToGameMap(players, game);
         }
+        LogHandling.logOnFile(Level.INFO, tempGame + "is started");
     }
 
 }
