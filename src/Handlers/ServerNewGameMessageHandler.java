@@ -34,15 +34,15 @@ public class ServerNewGameMessageHandler extends ServerMessageHandler {
     public void handleMessage(String msgIn, MessageHandler superHandler) throws UnknownFormatException {
         this.superHandler = superHandler;
         message = msgIn;
-        String gameName = splitMessage(message, 4); //todo define position
-        int cardNumbers = Integer.parseInt(splitMessage(message, 5)); //todo define position
-        int maxPlayers = Integer.parseInt(splitMessage(message, 6));
+        String gameName = splitMessage(message, 2); //todo define position
+        int cardNumbers = Integer.parseInt(splitMessage(message, 3)); //todo define position
+        int maxPlayers = Integer.parseInt(splitMessage(message, 4));
 
         Player player = socketPlayerHashMap.get(getClientSocket().getPort());
 
         gettempGameArrayList().add(new TempGame(gameName, cardNumbers, player, maxPlayers));
-
-        write(HandlerModel.gameListMessage(), false);
+        ServerLobbyMessageHandler lobbyHandler = new ServerLobbyMessageHandler();
+        lobbyHandler.handleMessage("SERVER@LOBBY@GAMELIST", superHandler);
 
 
     }

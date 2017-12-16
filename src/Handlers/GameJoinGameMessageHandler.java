@@ -14,13 +14,13 @@ import java.util.logging.Level;
 /**
  * Created by Tim on 14.09.2017.
  */
-public class ServerJoinGameMessageHandler extends ServerMessageHandler {
+public class GameJoinGameMessageHandler extends GameMessageHandler {
 
-    private final String CLASSNAME = ServerMessageType.NEWGAME.toString();
+    private final String CLASSNAME = GameMessageType.JOINGAME.toString();
     private  MessageHandler superHandler;
     private String message =null;
 
-    public ServerJoinGameMessageHandler(String message) throws UnknownFormatException {
+    public GameJoinGameMessageHandler(String message) throws UnknownFormatException {
         if(!CLASSNAME.equals(message)){
             throw new UnknownFormatException(message);
         }
@@ -46,6 +46,10 @@ public class ServerJoinGameMessageHandler extends ServerMessageHandler {
                 ServerMessageHandler.gettempGameArrayList().get(i).addPlayer(player);
                 player.setGameName(gameName);
                 LogHandling.logOnFile(Level.INFO, player.toString()+" is added to the Game "+gameName);
+                if(ServerMessageHandler.gettempGameArrayList().get(i).getPlayerList().size()==ServerMessageHandler.gettempGameArrayList().get(i).getMaxPlayer()){
+                    GameStartGameMessageHandler gameStartHandler = new GameStartGameMessageHandler();
+                    gameStartHandler.handleMessage(message, superHandler);
+                }
             }//after it is checked if the player is in the game and the name of the game are the same the player is added
         }
         write(HandlerModel.gameListMessage(),false);

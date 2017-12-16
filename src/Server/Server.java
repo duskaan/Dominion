@@ -39,6 +39,7 @@ public class Server {
         MessageHandlerFactory.addHandler("Handlers.GameStartGameMessageHandler");
         MessageHandlerFactory.addHandler("Handlers.ServerChatMessageHandler");
         MessageHandlerFactory.addHandler("Handlers.GameEndGameMessageHandler");
+        MessageHandlerFactory.addHandler("Handlers.GameJoinGameMessageHandler");
         //MessageHandlerFactory.addHandler("Handlers.GameMessageHandler");
         //MessageHandlerFactory.addHandler("Handlers.GameMessageHandler");
 

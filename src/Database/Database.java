@@ -59,7 +59,6 @@ public class Database {
             createDatabase();
             con = DriverManager.getConnection("jdbc:mysql://localhost:3306/DominionDatabase?useSSL=false", login, password);
             createTable();
-            System.out.println("Is this here?");
 
         } catch (Exception e) {
             e.printStackTrace();
