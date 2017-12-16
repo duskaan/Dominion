@@ -22,6 +22,8 @@ public class ServerLobbyMessageHandler extends ServerMessageHandler {
     }
 
     public ServerLobbyMessageHandler() {
+
+
   }
 
 
@@ -42,9 +44,12 @@ public class ServerLobbyMessageHandler extends ServerMessageHandler {
             replyMessage = HandlerModel.topFiveMessage();
             LogHandling.logOnFile(Level.INFO,"ReplyMessage is: "+ replyMessage);
             write(replyMessage,false);
-        } else if (fiveOrGamesList.equalsIgnoreCase("GAMESLIST")) {
+        } else if (fiveOrGamesList.equalsIgnoreCase("GAMELIST")) {
             replyMessage = HandlerModel.gameListMessage();
-            write(replyMessage,false);
+            if(replyMessage!=null){
+                write(replyMessage,false);
+            }
+
         }
     }
 

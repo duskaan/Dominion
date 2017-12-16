@@ -39,7 +39,7 @@ public class GameMessageHandler extends MessageHandler implements Observer {
         String subHandler = splitMessage(message, SUB_HANDLER_INDEX);
 
         Player player = socketPlayerHashMap.get(getClientSocket().getPort());
-        if (gameList.get(player) == null || subHandler.equalsIgnoreCase("ENDGAME")) {
+        if (gameList.get(player) == null || subHandler.equalsIgnoreCase("ENDGAME")||subHandler.equalsIgnoreCase("JOINGAME")) {
             MessageHandler handler = MessageHandlerFactory.getMessageHandler(subHandler);
             handler.handleMessage(message, this);
         } else {

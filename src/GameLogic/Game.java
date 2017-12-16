@@ -51,9 +51,8 @@ public class Game extends Observable{
     }
 
     public void setResponseMessage(String responseMessage){
-        this.responseMessage =responseMessage;
-        setChanged();
-        notifyObservers(responseMessage);
+        gameResponseMessage.set(responseMessage);
+
     }
     public String getResponseMessage(){
         return responseMessage;

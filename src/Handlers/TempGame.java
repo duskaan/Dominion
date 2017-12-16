@@ -42,6 +42,7 @@ public class TempGame {
 
     public void addPlayer(Player player) {
         this.playerList.add(player);
+
     }
 
     public void removePlayer(Player player){

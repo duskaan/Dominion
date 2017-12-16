@@ -123,7 +123,7 @@ public class MessageHandler implements Observer {
                 tempWriter.write(message +"\n");
                 tempWriter.flush();
             } catch (IOException e) {
-                e.printStackTrace();
+                LogHandling.logOnFile(Level.WARNING,"Resource: "+ list.get(i).playerName +" is closed");
             }
         }
     }

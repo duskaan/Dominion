@@ -1,9 +1,11 @@
 package Handlers;
 
 import GameLogic.Game;
+import Server.LogHandling;
 import Server.Player;
 
 import java.util.ArrayList;
+import java.util.logging.Level;
 
 /**
  * Created by Tim on 23.09.2017.
@@ -12,7 +14,7 @@ public class GameStartGameMessageHandler extends GameMessageHandler {
     private final String CLASSNAME = GameMessageType.STARTGAME.toString();
     private String message = null;
     private GameMessageHandler superHandler;
-    ArrayList<TempGame> list;
+     ArrayList<TempGame> list;
 
     public GameStartGameMessageHandler(String message) throws UnknownFormatException {
         if (!CLASSNAME.equals(message)) {
@@ -34,8 +36,19 @@ public class GameStartGameMessageHandler extends GameMessageHandler {
     public void handleMessage(String msgIn, GameMessageHandler superHandler) throws UnknownFormatException {
         this.superHandler = superHandler;
         message = msgIn;
-        String gameName = splitMessage(message, 5); //todo set token
+    }
 
+
+
+
+    public String getMessage() {
+        return message;
+    }
+
+
+    public void startGame(TempGame tempGame) {
+
+        String gameName = splitMessage(message, 5); //todo set token
         String[] playerArray = null;
         ArrayList<Player> players = null;
         int cardsInGame=0;
@@ -59,11 +72,7 @@ public class GameStartGameMessageHandler extends GameMessageHandler {
             MessageHandler.removeFromLobbyList(playerArray);
             MessageHandler.addToGameMap(players, game);
         }
+        LogHandling.logOnFile(Level.INFO, tempGame + "is started");
     }
-
-    public String getMessage() {
-        return message;
-    }
-
 
 }
