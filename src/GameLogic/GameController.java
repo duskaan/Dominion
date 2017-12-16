@@ -18,7 +18,9 @@ public class GameController {
         this.gameResponseMessage = new SimpleStringProperty();
     }
 
-    public void startGame() { gameModel.init(); }
+
+
+    public void startGame(int cardsInGame) { gameModel.init(cardsInGame); }
 
     public void readMessage(String message) {
         ArrayList<String> firstSplit = splitMessage(message,"@");
@@ -36,10 +38,13 @@ public class GameController {
                 case "endTurn": gameModel.endTurn();
                                     break;
 
+                case "buy": gameModel.buyCard(secondSplit.get(i).get(1));
+                                    break;
+
+                case "play":    gameModel.playCard(secondSplit.get(i).get(1));
+
             }
 
-        //    case "buy": gameModel.buyCard(secondSplit.get(i).get());
-         //   case "play":    gameModel.playCard("sldfa");
 
         }
     }
