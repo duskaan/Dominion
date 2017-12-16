@@ -2,6 +2,7 @@ package GameLogic;
 
 import GameLogic.cards.CardName;
 
+import javax.smartcardio.Card;
 import java.util.*;
 
 public class GameModel {
@@ -19,6 +20,7 @@ public class GameModel {
     private String gameResponseMessage;
     private String cardBoughtMessage;
     private String cardBought;
+    private String actionCardPlayed;
 
 
     GameModel(String gameName, String gameResponseMessage) {
@@ -108,12 +110,14 @@ public class GameModel {
 
     public void endTurn() {
         turnCount++;
+        endTurnMessage();
         discardHandDeckToDiscardDeck();
         isGameOver();
         playerList.get(getCurrentPlayer()).endTurn();
-        drawCardMessage();
+        drawCardMessage(); //does draw cards as well !!!
 
     }
+
 
     //end of each turn discard your HandDeck to discardDeck
     private void discardHandDeckToDiscardDeck() {
@@ -182,11 +186,31 @@ public class GameModel {
     }*/
 
 
-    private String finishTurnMessage(){
+    private String endTurnMessage() {
+        String endTurnMessage = "hand/"; //TODO END TURN MESSAGE
 
-        String finishTurnMessage = "TODO"; //TODO finish Round Message
+        Hashtable<CardName, Integer> cardsOnHand = playerList.get(getCurrentPlayer()).getHandDeck();
 
-        return finishTurnMessage;
+        for(CardName cardName : cardsOnHand.keySet()){
+            endTurnMessage = endTurnMessage + cardName + ",0;";
+        }
+
+        endTurnMessage = endTurnMessage + "@discard/";
+
+        for(CardName cardName : cardsOnHand.keySet()){
+            endTurnMessage = endTurnMessage + cardName + "," + cardsOnHand.get(cardName) + ";";
+        }
+        endTurnMessage = endTurnMessage + "@update/buy,1;action,1;coins,0";
+
+        return endTurnMessage;
+
+    }
+
+    private String discardMessage(){
+
+        String discardMessage = "discard/";
+
+        return discardMessage;
     }
 
     private String endGameMessage(){
@@ -261,7 +285,27 @@ public class GameModel {
 
     public String playCardMessage(){
 
-        String playCardmessage = "TODO"; //TODO PLAY CARD MESSAGE
+        String playCardmessage = "hand/" + actionCardPlayed + ",";
+
+        for(CardName cardName: playerList.get(getCurrentPlayer()).getHandDeck().keySet()){
+            if(cardName.toString()==actionCardPlayed){
+               int amount = (playerList.get(getCurrentPlayer()).getHandDeck().get(cardName)-1);
+               if(amount<0){
+                   amount = 0;
+               }
+                playCardmessage = playCardmessage + amount;
+            }
+        }
+
+        playCardmessage = playCardmessage + ";@discard/" + actionCardPlayed + ",";
+
+        for (CardName cardName: playerList.get(getCurrentPlayer()).getDiscardDeck().keySet()){
+            if(cardName.toString()==actionCardPlayed){
+                playCardmessage = playCardmessage + playerList.get(getCurrentPlayer()).getDiscardDeck().get(cardName);
+            }
+        }
+
+        playCardmessage = playCardmessage + ";@update/action," + playerList.get(getCurrentPlayer()).getActions();
 
         return playCardmessage;
     }
@@ -525,40 +569,49 @@ public class GameModel {
 
     public void playCard(String cardName) {
 
-        ;
-
         switch (cardName){
             case "village":
                 playVillage();
+                actionCardPlayed = "village";
                 break;
             case "woodcutter":
                 playWoodcutter();
+                actionCardPlayed = "woodcutter";
                 break;
             case "workshop":
                 playWorkshop();
+                actionCardPlayed = "workshop";
                 break;
             case "smithy":
                 playSmithy();
+                actionCardPlayed = "smithy";
                 break;
             case "councilRoom":
                 playCouncilRoom();
+                actionCardPlayed = "councilRoom";
                 break;
             case "festival":
                 playFestival();
+                actionCardPlayed = "festival";
                 break;
             case "laboratory":
                 playLabratory();
+                actionCardPlayed = "laboratory";
                 break;
             case "witch":
                 playWitch();
+                actionCardPlayed = "witch";
                 break;
             case "chancellor":
                 playChancellor();
+                actionCardPlayed = "chancellor";
                 break;
             case "market":
                 playMarket();
+                actionCardPlayed = "market";
                 break;
         }
+        playCardMessage();
     }
 
     //methods for the action Cards
