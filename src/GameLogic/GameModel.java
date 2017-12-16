@@ -232,7 +232,7 @@ public class GameModel {
                         break;
                 }
 
-            playTreasureMessage = playTreasureMessage + "@update/coins,"+playerList.get(getCurrentPlayer()).getCoins();
+            //playTreasureMessage = playTreasureMessage + "@update/coins,"+playerList.get(getCurrentPlayer()).getCoins();
         }
 
         return playTreasureMessage;
@@ -241,7 +241,7 @@ public class GameModel {
 
     public String buyCardMessage(){
 
-        String buyCardMessage = "update/buy," + playerList.get(getCurrentPlayer()).getBuy()+ ";coins," + playerList.get(getCurrentPlayer()).getCoins() + ";@" + cardBoughtMessage;
+        /*String buyCardMessage = "update/buy," + playerList.get(getCurrentPlayer()).getBuy()+ ";coins," + playerList.get(getCurrentPlayer()).getCoins() + ";@" + cardBoughtMessage;
 
         for(CardName cardName: actionCardList.keySet()){
             if(cardName.toString()==cardBought){
@@ -256,7 +256,8 @@ public class GameModel {
             }
         }
 
-        return buyCardMessage;
+        return buyCardMessage;*/
+        return null;
     }
 
     public String playCardMessage(){

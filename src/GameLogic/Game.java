@@ -22,7 +22,8 @@ public class Game extends Observable{
         this.gameResponseMessage = new SimpleStringProperty(); //gaht das??
     }
 
-    public void startGame() { gameController.startGame();    }
+    public void startGame() { //gameController.startGame();
+    }
 
     public String getGameName() {
         return gameModel.getGameName();
@@ -34,10 +35,10 @@ public class Game extends Observable{
     }
 
     public void setResponseMessage(String responseMessage){
-        this.responseMessage =responseMessage;
-        setChanged();
-        notifyObservers(responseMessage);
+        gameResponseMessage.set(responseMessage);
+
     }
+
     public String getResponseMessage(){
         return responseMessage;
     }

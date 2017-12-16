@@ -19,9 +19,9 @@ public class HandlerModel {
 
         }
         for(int i=0;list.size()>i;i++){
-            reply+=list.get(i).getGameName() + ";";
-            reply+=list.get(i).getPlayerList().size()+";";
-            reply+=list.get(i).getMaxPlayer()+"/";
+            reply+=list.get(i).getGameName() + "/";
+           // reply+=list.get(i).getPlayerList().size()+";";
+            //reply+=list.get(i).getMaxPlayer();
         }
         return reply; //structure = GameName; Players in the game; max player number/GameName; Players in the game; max player number
 
