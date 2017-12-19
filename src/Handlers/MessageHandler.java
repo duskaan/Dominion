@@ -118,7 +118,7 @@ public class MessageHandler implements Observer {
             try {
 
                 LogHandling.logOnFile(Level.INFO, "Message: "+message+" sent to " +list.get(i));
-                list.get(i).getMessageHandler().writeToClient(message);
+                //list.get(i).getMessageHandler().writeToClient(message);
                 BufferedWriter tempWriter = list.get(i).getMessageHandler().getWriter(); //i everytime get the last writer
                 tempWriter.write(message +"\n");
                 tempWriter.flush();

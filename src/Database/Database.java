@@ -216,10 +216,10 @@ public class Database {
             resultSet = preparedStatement.executeQuery();
             while (resultSet.next()) {
                 returnMessage += resultSet.getString("userName") + ";";
-                returnMessage += resultSet.getInt("Highscore") + ";";
-                returnMessage += resultSet.getInt("gamesPlayed") + ";";
-                returnMessage += resultSet.getInt("gamesWon") + ";";
-                returnMessage += "/";
+                //returnMessage += resultSet.getInt("Highscore") + ";";
+              //  returnMessage += resultSet.getInt("gamesPlayed") + ";";
+               // returnMessage += resultSet.getInt("gamesWon") + ";";
+                //returnMessage += "/";
             }
 
         } catch (SQLException e) {

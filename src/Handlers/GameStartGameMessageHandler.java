@@ -14,7 +14,7 @@ public class GameStartGameMessageHandler extends GameMessageHandler {
     private final String CLASSNAME = GameMessageType.STARTGAME.toString();
     private String message = null;
     private GameMessageHandler superHandler;
-     ArrayList<TempGame> list;
+    ArrayList<TempGame> list;
 
     public GameStartGameMessageHandler(String message) throws UnknownFormatException {
         if (!CLASSNAME.equals(message)) {
@@ -26,19 +26,18 @@ public class GameStartGameMessageHandler extends GameMessageHandler {
 
     }
 
-    public void write(String message,Boolean privateMessage) {
+    public void write(String message, Boolean privateMessage) {
         message = addDelimiter(message);
         String newMessage = CLASSNAME + message;
-        superHandler.write(newMessage,privateMessage);
+        superHandler.write(newMessage, privateMessage);
     }
 
 
     public void handleMessage(String msgIn, GameMessageHandler superHandler) throws UnknownFormatException {
         this.superHandler = superHandler;
         message = msgIn;
+
     }
-
-
 
 
     public String getMessage() {
@@ -47,32 +46,41 @@ public class GameStartGameMessageHandler extends GameMessageHandler {
 
 
     public void startGame(TempGame tempGame) {
+        String gameName = tempGame.getGameName();
+        String[] playerArray = new String[tempGame.getPlayerList().size()];
+        int cardsInGame = tempGame.getCardsInGame();
+        String confiqMessage= "*config@"+cardsInGame+"@";
+        int i=0;
+        for (Player player:tempGame.getPlayerList()) {
+            playerArray[i] = player.getPlayerName();
+            System.out.println(player.getPlayerName());
+            confiqMessage+= playerArray[i]+"/";
+            i++;
 
-        String gameName = splitMessage(message, 5); //todo set token
-        String[] playerArray = null;
-        ArrayList<Player> players = null;
-        int cardsInGame=0;
-        list = ServerMessageHandler.gettempGameArrayList();
-        for (int i = 0; list.size() < i; i++) {
-            if (list.get(i).getGameName().equals(gameName)) {
-                players = list.get(i).getPlayerList();
-                for (int j = 0; players.size() < j; j++) {
-                    players.get(j).setGameName(gameName);
-                    playerArray[j]=players.get(j).getPlayerName();
-                }
-                cardsInGame=list.get(i).getCardsInGame();
-            }
         }
-        if(playerArray!=null ||cardsInGame!=0){
-            Game game= new Game(gameName, cardsInGame, playerArray);
-            game.addObserver(superHandler);
-            superHandler.listenForMessage(game);
-            game.startGame();
-            write(ServerMessageHandler.removeTempGame(gameName), false);
-            MessageHandler.removeFromLobbyList(playerArray);
-            MessageHandler.addToGameMap(players, game);
+
+        LogHandling.logOnFile(Level.INFO, playerArray.toString());
+
+        Game game = new Game(gameName, cardsInGame, playerArray);
+        MessageHandler.removeFromLobbyList(playerArray);
+        MessageHandler.addToGameMap(tempGame.getPlayerList(), game);
+
+        write(confiqMessage, false);
+        superHandler.listenForMessage(game);
+        game.startGame();
+        String playerNames = "PlayerList@";
+        for (String player : playerArray) {
+            System.out.println(player);
+            playerNames += player + "/";
         }
+        write(playerNames, false);
+
+
+
         LogHandling.logOnFile(Level.INFO, tempGame + "is started");
     }
 
+    public void setSuperHandler(GameMessageHandler superHandler) {
+        this.superHandler=superHandler;
+    }
 }

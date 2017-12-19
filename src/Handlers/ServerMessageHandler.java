@@ -54,7 +54,7 @@ public class ServerMessageHandler extends MessageHandler {
         return tempGameArrayList;
     }
 
-    public static String removeTempGame(String gameName){
+    public synchronized static String removeTempGame(String gameName){
         Iterator<TempGame> iterator= tempGameArrayList.iterator();
         while(iterator.hasNext()) {
             if (iterator.next().getGameName().equalsIgnoreCase(gameName)) {

@@ -1,0 +1,22 @@
+2017/12/19 14:45:01 Server.Server method: addMessageHandler
+INFO: Adding MessageHandlers
+2017/12/19 14:45:01 Server.Server method: addMessageHandler
+INFO: All MessageHandlers added successfully
+2017/12/19 14:45:01 Server.Server method: createDatabaseConnection
+INFO: Creating Database connection
+2017/12/19 14:45:18 Database.Database method: createDatabase
+INFO: Database already exists
+2017/12/19 14:45:18 Database.Database method: createTable
+INFO: Database already exists
+2017/12/19 14:45:18 Server.Server method: createDatabaseConnection
+INFO: Database connection created successfully
+2017/12/19 14:45:18 Server.DominionServer method: start
+INFO: ServerSocket created on address: 0.0.0.0/0.0.0.0
+2017/12/19 14:45:23 Server.DominionServer method: acceptConnection
+INFO: Client connection accepted: /127.0.0.1
+2017/12/19 14:45:23 Server.DominionServer method: acceptConnection
+INFO: notInitialized
+2017/12/19 14:45:23 Handlers.MessageHandler method: <init>
+INFO: MessageHandler is created for: Socket[addr=/127.0.0.1,port=57941,localport=9000]
+2017/12/19 14:45:23 Handlers.MessageHandler method: openResources
+INFO: Resources are opened
