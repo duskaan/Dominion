@@ -48,6 +48,7 @@ public class Player {
     public void endTurn(){
         buy = 1;
         actions = 1;
+        coins = 0;
     }
 
     void setCard(CardName cardName, int amount) {
@@ -77,13 +78,18 @@ public class Player {
 
     public void setBuyingPoints(int buyingPoints) { this.buy += buy; }
     public void setActionPoints(int actionPoints) { this.actions += actionPoints; }
-    public void setVictoryPoints(int victoryPoints) { this.victoryPoints += victoryPoints; }
+    public void setVictoryPoints(int victoryPoints) { this.victoryPoints = victoryPoints; }
     public void setCoins(int coins) { this.coins += coins; }
     //public void setTempCoins(int tempCoins) { this.tempCoins = tempCoins; }
 
 
     public int getBuy() { return buy; }
 
+    public int getCoins() { return coins;}
 
+    public int getActions(){ return actions;}
 
+    public int getVictoryPoints() {
+        return victoryPoints;
+    }
 }
