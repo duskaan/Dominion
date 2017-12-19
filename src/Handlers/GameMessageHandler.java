@@ -112,7 +112,7 @@ public class GameMessageHandler extends MessageHandler implements Observer {
                 if (splitMessage(newValue, 0).equalsIgnoreCase("end")) {
                     endGame();
                 }
-                write(newValue, false);
+                write("/"+newValue, false);
             }
         });
     }

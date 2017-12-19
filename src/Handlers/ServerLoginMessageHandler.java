@@ -43,7 +43,7 @@ public class ServerLoginMessageHandler extends ServerMessageHandler  {
             player.setPlayerName(playerName);
             lobbyList.add(player);
 
-            returnMessage = "successful"; //send gamelist and topfive and then a successfull message
+            returnMessage = "successful@"+playerName; //send gamelist and topfive and then a successfull message
             write(returnMessage, true);
             ServerLobbyMessageHandler lobbyHandler = new ServerLobbyMessageHandler();
             lobbyHandler.handleMessage("SERVER@LOBBY@TOPFIVE",superHandler);

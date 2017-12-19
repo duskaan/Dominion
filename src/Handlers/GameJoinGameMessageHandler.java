@@ -11,6 +11,7 @@ import Server.LogHandling;
 import Server.Player;
 
 import java.net.Socket;
+import java.util.Iterator;
 import java.util.logging.Level;
 
 /**
@@ -41,44 +42,35 @@ public class GameJoinGameMessageHandler extends GameMessageHandler {
         String gameName = splitMessage(message, 2);//todo set Token
 
         Player player = socketPlayerHashMap.get(getClientSocket().getPort());
+        Iterator<TempGame> iterator = ServerMessageHandler.gettempGameArrayList().iterator();
+        TempGame tempGame;
 
-        for (TempGame tempGame:ServerMessageHandler.gettempGameArrayList()) {
+        while (iterator.hasNext()) {
+            tempGame = iterator.next();
+            LogHandling.logOnFile(Level.INFO, tempGame.getGameName());
             if (tempGame.getPlayerList().contains(player)) {
                 tempGame.removePlayer(player);
-                LogHandling.logOnFile(Level.INFO, player.toString() + " is removed from "+tempGame.getGameName());
+                LogHandling.logOnFile(Level.INFO, player.toString() + " is removed from " + tempGame.getGameName());
             } else {
-                LogHandling.logOnFile(Level.INFO, player + " is not removed from any game");
-            } //first checked if the player is in the game and removed
+                //LogHandling.logOnFile(Level.INFO, player + " is not removed from any game");
+            }
             if (tempGame.getGameName().equalsIgnoreCase(gameName)) {
                 tempGame.addPlayer(player);
                 player.setGameName(gameName);
                 LogHandling.logOnFile(Level.INFO, player.toString() + " is added to the Game " + gameName);
                 if (tempGame.getPlayerList().size() == tempGame.getMaxPlayer()) {
-                    LogHandling.logOnFile(Level.INFO,  gameName+" is full and will be started");
+                    LogHandling.logOnFile(Level.INFO, gameName + " is full and will be started");
                     GameStartGameMessageHandler gameStartHandler = new GameStartGameMessageHandler();
-                    gameStartHandler.handleMessage(message+player, superHandler);
+                    gameStartHandler.setSuperHandler((GameMessageHandler) superHandler);
+                    gameStartHandler.startGame(tempGame);
+                    iterator.remove();
                 }
+            }
         }
-        /*for(int i = 0; i<ServerMessageHandler.gettempGameArrayList().size(); i++){
-            if (ServerMessageHandler.gettempGameArrayList().get(i).getPlayerList().contains(player)) {
-                ServerMessageHandler.gettempGameArrayList().get(i).removePlayer(player);
-                LogHandling.logOnFile(Level.INFO, player.toString() + " is removed from the TempGame");
-            } else {
-                LogHandling.logOnFile(Level.INFO, player + "is not removed from any game");
-            } //first checked if the player is in the game and removed
-            if (ServerMessageHandler.gettempGameArrayList().get(i).getGameName().equalsIgnoreCase(gameName)) {
-                ServerMessageHandler.gettempGameArrayList().get(i).addPlayer(player);
-                player.setGameName(gameName);
-                LogHandling.logOnFile(Level.INFO, player.toString() + " is added to the Game " + gameName);
-                if (ServerMessageHandler.gettempGameArrayList().get(i).getPlayerList().size() == ServerMessageHandler.gettempGameArrayList().get(i).getMaxPlayer()) {
-                    GameStartGameMessageHandler gameStartHandler = new GameStartGameMessageHandler();
-                    gameStartHandler.handleMessage(message, superHandler);
-                }
-            }*///after it is checked if the player is in the game and the name of the game are the same the player is added
-        }
-
-        //write(HandlerModel.gameListMessage(), false);
     }
+
+
+
 
     public String getMessage() {
         return message;
