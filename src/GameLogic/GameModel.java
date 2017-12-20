@@ -74,9 +74,8 @@ public class GameModel {
         for (int i = 0; i < cardsInGame; i++) {
             actionCardNames.add(cardNames[i]);
         }
-        Collections.shuffle(actionCardNames);
 
-        for (int i = 0; i < actionCardCount; i++) {
+        for (int i = 0; i < cardsInGame; i++) {
             actionCardList.put(actionCardNames.get(i), 10);
         }
     }
@@ -419,7 +418,11 @@ public class GameModel {
 
                 int currentCount = playerList.get(playerIndex).getPlayerDeck().get(cardName);
                 playerList.get(playerIndex).getPlayerDeck().put(cardName, currentCount - 1);
-                currentCount = playerList.get(playerIndex).getHandDeck().get(cardName);
+                if(playerList.get(playerIndex).getHandDeck().get(cardName)==null){
+                    currentCount = 0;
+                }else{
+                    currentCount = playerList.get(playerIndex).getHandDeck().get(cardName);
+                }
                 playerList.get(playerIndex).getHandDeck().put(cardName, currentCount + 1);
                 cardsDrawn++;
             }
@@ -600,10 +603,15 @@ public class GameModel {
     }
 
     public void cardFromHashTableToDiscardDeck(CardName cardName, Hashtable<CardName, Integer> list) {
-        if (list.get(cardName) != 0) {
+        System.out.println(list.toString());
+        if (list.containsKey(cardName) && list.get(cardName)!=0) {
             int currentCount = list.get(cardName);
             list.put(cardName, currentCount - 1);
-            currentCount = playerList.get(getCurrentPlayer()).getDiscardDeck().get(cardName);
+            if(playerList.get(getCurrentPlayer()).getDiscardDeck().containsKey(cardName)){
+                currentCount = playerList.get(getCurrentPlayer()).getDiscardDeck().get(cardName);
+            }else{
+                currentCount=0;
+            }
             playerList.get(getCurrentPlayer()).getDiscardDeck().put(cardName, currentCount + 1);
         }
     }

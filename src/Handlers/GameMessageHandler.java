@@ -43,6 +43,7 @@ public class GameMessageHandler extends MessageHandler implements Observer {
             MessageHandler handler = MessageHandlerFactory.getMessageHandler(subHandler);
             handler.handleMessage(message, this);
         } else {
+
             gameList.get(player).readMessage(message);
         }
 
@@ -105,15 +106,11 @@ public class GameMessageHandler extends MessageHandler implements Observer {
     }
 
     void listenForMessage(Game game) {
-        game.getGameResponseMessage().addListener(new ChangeListener<String>() {
-            @Override
-            public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
-
-                if (splitMessage(newValue, 0).equalsIgnoreCase("end")) {
-                    endGame();
-                }
-                write("/"+newValue, false);
+        game.getGameResponseMessage().addListener((observable, oldValue, newValue) -> {
+            if (splitMessage(newValue, 0).equalsIgnoreCase("end")) {
+                endGame();
             }
+            write("/"+newValue, false);
         });
     }
 }
