@@ -496,7 +496,7 @@ public class GameModel {
                     cardFromHashTableToDiscardDeck(CardName.gold, coinCardList);
                     cardBoughtMessage = "coinCards/gold,";
                     cardBought = "gold";
-                } else return "Not enough Coins or Buys left!";
+                } else return "Not@ enough Coins or Buys left!";
                 break;
             case "silver":
                 if (playerList.get(getCurrentPlayer()).getBuy() >= 1 && playerList.get(getCurrentPlayer()).getCoins() >= 3) {
@@ -505,7 +505,7 @@ public class GameModel {
                     cardFromHashTableToDiscardDeck(CardName.silver, coinCardList);
                     cardBoughtMessage = "coinCards/silver,";
                     cardBought = "silver";
-                } else return "Not enough Coins or Buys left!";
+                } else return "Not@ enough Coins or Buys left!";
                 break;
             case "copper":
                 if (playerList.get(getCurrentPlayer()).getBuy() >= 1) {
@@ -513,7 +513,7 @@ public class GameModel {
                     cardFromHashTableToDiscardDeck(CardName.copper, coinCardList);
                     cardBoughtMessage = "coinCards/copper,";
                     cardBought = "copper";
-                } else return "Not enough Buys left!";
+                } else return "Not@ enough Buys left!";
                 break;
             case "province":
                 if (playerList.get(getCurrentPlayer()).getBuy() >= 1 && playerList.get(getCurrentPlayer()).getCoins() >= 8) {
@@ -522,7 +522,7 @@ public class GameModel {
                     cardFromHashTableToDiscardDeck(CardName.province, victoryCardList);
                     cardBoughtMessage = "victoryCards/province,";
                     cardBought = "province";
-                } else return "Not enough Coins or Buys left!";
+                } else return "Not@ enough Coins or Buys left!";
                 break;
             case "duchy":
                 if (playerList.get(getCurrentPlayer()).getBuy() >= 1 && playerList.get(getCurrentPlayer()).getCoins() >= 5) {
@@ -531,7 +531,7 @@ public class GameModel {
                     cardFromHashTableToDiscardDeck(CardName.duchy, victoryCardList);
                     cardBoughtMessage = "victoryCards/duchy,";
                     cardBought = "duchy";
-                } else return "Not enough Coins or Buys left!";
+                } else return "Not@ enough Coins or Buys left!";
                 break;
             case "estate":
                 if (playerList.get(getCurrentPlayer()).getBuy() >= 1 && playerList.get(getCurrentPlayer()).getCoins() >= 2) {
@@ -540,7 +540,7 @@ public class GameModel {
                     cardFromHashTableToDiscardDeck(CardName.estate, victoryCardList);
                     cardBoughtMessage = "victoryCards/estate,";
                     cardBought = "estate";
-                } else return "Not enough Coins or Buys left!";
+                } else return "Not@ enough Coins or Buys left!";
                 break;
             case "village":
                 if (playerList.get(getCurrentPlayer()).getBuy() >= 1 && playerList.get(getCurrentPlayer()).getCoins() >= 3) {
@@ -549,7 +549,7 @@ public class GameModel {
                     cardFromHashTableToDiscardDeck(CardName.village, actionCardList);
                     cardBoughtMessage = "actionCards/village,";
                     cardBought = "village";
-                } else return "Not enough Coins or Buys left!";
+                } else return "Not@ enough Coins or Buys left!";
                 break;
             case "woodcutter":
                 if (playerList.get(getCurrentPlayer()).getBuy() >= 1 && playerList.get(getCurrentPlayer()).getCoins() >= 3) {
@@ -558,7 +558,7 @@ public class GameModel {
                     cardFromHashTableToDiscardDeck(CardName.woodcutter, actionCardList);
                     cardBoughtMessage = "actionCards/woodcutter,";
                     cardBought = "woodcutter";
-                } else return "Not enough Coins or Buys left!";
+                } else return "Not@ enough Coins or Buys left!";
                 break;
             case "workshop":
                 if (playerList.get(getCurrentPlayer()).getBuy() >= 1 && playerList.get(getCurrentPlayer()).getCoins() >= 3) {
@@ -567,7 +567,7 @@ public class GameModel {
                     cardFromHashTableToDiscardDeck(CardName.workshop, actionCardList);
                     cardBoughtMessage = "actionCards/workshop,";
                     cardBought = "workshop";
-                } else return "Not enough Coins or Buys left!";
+                } else return "Not@ enough Coins or Buys left!";
                 break;
             case "smithy":
                 if (playerList.get(getCurrentPlayer()).getBuy() >= 1 && playerList.get(getCurrentPlayer()).getCoins() >= 4) {
@@ -576,7 +576,7 @@ public class GameModel {
                     cardFromHashTableToDiscardDeck(CardName.smithy, actionCardList);
                     cardBoughtMessage = "actionCards/smithy,";
                     cardBought = "smithy";
-                } else return "Not enough Coins or Buys left!";
+                } else return "Not@ enough Coins or Buys left!";
                 break;
             case "councilroom":
                 if (playerList.get(getCurrentPlayer()).getBuy() >= 1 && playerList.get(getCurrentPlayer()).getCoins() >= 5) {
@@ -585,7 +585,7 @@ public class GameModel {
                     cardFromHashTableToDiscardDeck(CardName.councilroom, actionCardList);
                     cardBoughtMessage = "actionCards/councilroom,";
                     cardBought = "councilroom";
-                } else return "Not enough Coins or Buys left!";
+                } else return "Not@ enough Coins or Buys left!";
                 break;
             case "festival":
                 if (playerList.get(getCurrentPlayer()).getBuy() >= 1 && playerList.get(getCurrentPlayer()).getCoins() >= 5) {
@@ -594,7 +594,7 @@ public class GameModel {
                     cardFromHashTableToDiscardDeck(CardName.festival, actionCardList);
                     cardBoughtMessage = "actionCards/festival,";
                     cardBought = "festival";
-                } else return "Not enough Coins or Buys left!";
+                } else return "Not@ enough Coins or Buys left!";
                 break;
             case "laboratory":
                 if (playerList.get(getCurrentPlayer()).getBuy() >= 1 && playerList.get(getCurrentPlayer()).getCoins() >= 5) {
@@ -603,7 +603,7 @@ public class GameModel {
                     cardFromHashTableToDiscardDeck(CardName.laboratory, actionCardList);
                     cardBoughtMessage = "actionCards/laboratory,";
                     cardBought = "laboratory";
-                } else return "Not enough Coins or Buys left!";
+                } else return "Not@ enough Coins or Buys left!";
                 break;
             case "witch":
                 if (playerList.get(getCurrentPlayer()).getBuy() >= 1 && playerList.get(getCurrentPlayer()).getCoins() >= 5) {
@@ -612,7 +612,7 @@ public class GameModel {
                     cardFromHashTableToDiscardDeck(CardName.witch, actionCardList);
                     cardBoughtMessage = "actionCards/witch,";
                     cardBought = "witch";
-                } else return "Not enough Coins or Buys left!";
+                } else return "Not @enough Coins or Buys left!";
                 break;
             case "chancellor":
                 if (playerList.get(getCurrentPlayer()).getBuy() >= 1 && playerList.get(getCurrentPlayer()).getCoins() >= 3) {
@@ -621,7 +621,7 @@ public class GameModel {
                     cardFromHashTableToDiscardDeck(CardName.chancellor, actionCardList);
                     cardBoughtMessage = "actionCards/chancellor,";
                     cardBought = "chancellor";
-                } else return "Not enough Coins or Buys left!";
+                } else return "Not@ enough Coins or Buys left!";
                 break;
             case "market":
                 if (playerList.get(getCurrentPlayer()).getBuy() >= 1 && playerList.get(getCurrentPlayer()).getCoins() >= 5) {
@@ -630,10 +630,10 @@ public class GameModel {
                     cardFromHashTableToDiscardDeck(CardName.market, actionCardList);
                     cardBoughtMessage = "actionCards/market,";
                     cardBought = "market";
-                } else return "Not enough Coins or Buys left!";
+                } else return "Not@ enough Coins or Buys left!";
                 break;
             default:
-                return "You cannot buy Curse Cards you fool!";
+                return "You@ cannot buy Curse Cards you fool!";
 
         }
         return buyCardMessage();
@@ -684,7 +684,7 @@ public class GameModel {
 
         if (areThereTreasures) {
             return playTreasureMessage();
-        } else return "No Coins on Hand!";
+        } else return "No@ Coins on Hand!";
     }
 
     //@Damiano Nardone
@@ -693,7 +693,7 @@ public class GameModel {
 
         if (canIPlay) {
             if (playerList.get(getCurrentPlayer()).getActions() == 0) {
-                return "Not enough Actions left!";
+                return "Not@ enough Actions left!";
             }
             switch (cardName) {
                 case "village":
@@ -738,7 +738,7 @@ public class GameModel {
                     break;
             }
             return playCardMessage();
-        } else return "Playing Phase is over, you are already in Buying Phase!";
+        } else return "Playing@ Phase is over, you are already in Buying Phase!";
     }
 
     //@Damiano Nardone
