@@ -27,10 +27,32 @@ public class Player {
         handDeck = new Hashtable<>();
         this.playerName = playerName;
         this.ID = ID;
+        fillList(playerDeck);
+        fillList(discardDeck);
+        fillList(handDeck);
     }
 
-    public int getID() {
-        return ID;
+    public void fillList(Hashtable<CardName,Integer> list) {
+        list.put(CardName.gold, 0);
+        list.put(CardName.silver, 0);
+        list.put(CardName.copper, 0);
+        list.put(CardName.village,0);
+        list.put(CardName.woodcutter,0);
+        list.put(CardName.workshop,0);
+        list.put(CardName.smithy,0);
+        list.put(CardName.councilroom,0);
+        list.put(CardName.festival,0);
+        list.put(CardName.witch,0);
+        list.put(CardName.chancellor,0);
+        list.put(CardName.market,0);
+        list.put(CardName.laboratory,0);
+        list.put(CardName.province,0);
+        list.put(CardName.duchy,0);
+        list.put(CardName.estate,0);
+        list.put(CardName.curse,0);
+    }
+
+        public int getID() { return ID;
     }
 
     void setID(int ID) {
