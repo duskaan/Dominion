@@ -7,26 +7,22 @@ import java.util.*;
 
 public class GameModel {
 
-
+    //information needed for methods in GameModel
     private ArrayList<Player> playerList;
     private int turnCount = 0;
     private Hashtable<CardName, Integer> actionCardList;
     private Hashtable<CardName, Integer> coinCardList;
     private Hashtable<CardName, Integer> victoryCardList;
-    private Hashtable<CardName, Integer> tempHandDeck;
     private String gameName;
-    private int actionCardCount;
-    private SimpleStringProperty gameResponseMessage;
     private String cardBoughtMessage;
     private String cardBought;
     private String actionCardPlayed;
+    private boolean canIPlay = true;
     private Hashtable<CardName, Integer> listOfCardsDrawnForMessage;
-
 
 
     GameModel(String gameName, SimpleStringProperty gameResponseMessage) {
         this.gameName = gameName;
-        this.gameResponseMessage = gameResponseMessage;
         playerList = new ArrayList<Player>();
         actionCardList = new Hashtable<>();
         coinCardList = new Hashtable<>();
@@ -35,6 +31,8 @@ public class GameModel {
 
     }
 
+    //@Damiano Nardone
+    //this methods creates ArrayLists with Players in them according to the playerCount
     public void addPlayer(String playerName, int playerCount) {
         if (playerList == null) {
             playerList = new ArrayList<>();
@@ -47,27 +45,17 @@ public class GameModel {
         }
     }
 
-
-  /*  void removePlayer(int playerID) {
-        if (playerList.size() >= playerID) {
-            playerList.remove(playerID);
-            for (int i = 0; i <= playerList.size() - 1; i++) {
-                playerList.get(i).setID(i);
-            }
-        }
-    }
-    */
-
-
-    void init(int cardsInGame) { //TODO HOW GOES THE MESSAGE FROM HERE
+    //@Damiano Nardone
+    //this methods initializes the actionCards, coinCards & victoryCards on the field. And give all the Player cards
+    void init(int cardsInGame) {
         initActionCards(cardsInGame);
         initCoinCardCount();
-        initVictoryCurseCards();
+        initVictoryCards();
         initPlayers();
-        //startingMessage();
-        //drawCardMessage(); //TODO ALL BECOME THE SAME CARDS IN ROUND ONE...
     }
 
+    //@Damiano Nardone
+    //this methods fill up the Hashtable actionCardList with actionCards that will be on the field
     private void initActionCards(int cardsInGame) {
         ArrayList<CardName> actionCardNames = new ArrayList<>();
         CardName[] cardNames = CardName.values();
@@ -80,51 +68,48 @@ public class GameModel {
         }
     }
 
-
-    private void initVictoryCurseCards() {
-        setVictoryCount(8, 8, 8, 10);
+    //@Damiano Nardone
+    //this method fill the Hashtable victoryCardList with the estate,duchy, province and curse with the right amount
+    private void initVictoryCards() {
+        victoryCardList.put(CardName.estate, 8);
+        victoryCardList.put(CardName.duchy, 8);
+        victoryCardList.put(CardName.province, 8);
+        victoryCardList.put(CardName.curse, 10);
     }
 
-    private void setVictoryCount(int estateCount, int duchyCount, int provinceCount, int curseCount) {
-        victoryCardList.put(CardName.estate, estateCount);
-        victoryCardList.put(CardName.duchy, duchyCount);
-        victoryCardList.put(CardName.province, provinceCount);
-        victoryCardList.put(CardName.curse, curseCount);
-    }
-
-
+    //@Damiano Nardone
+    //this method fill the hashtable coinCardList with gold,silver and copper in the right amount
     private void initCoinCardCount() {
         coinCardList.put(CardName.gold, 30);
         coinCardList.put(CardName.silver, 40);
         coinCardList.put(CardName.copper, 46);
     }
 
-
+    //@Damiano Nardone
+    //this methods fills up the Hashtable Player Deck in the Player class with 3 estate and 7 copper
     private void initPlayers() {
-        setPlayerInitCardDeck();
-    }
-
-    private void setPlayerInitCardDeck() {
         for (Player player : playerList) {
             player.setCard(CardName.estate, 3);
             player.setCard(CardName.copper, 7);
         }
     }
 
+    //@Damiano Nardone
+    //this method calls discardHandDeckTODiscardDeck() method and the endTurn() method in the Player class also it puts the boolean canIPlay back to true
     public void endTurn() {
-        //endTurnMessage();
         discardHandDeckToDiscardDeck();
-        //isGameOver();
         playerList.get(getCurrentPlayer()).endTurn();
-        //drawCardMessage(5); //does draw cards as well !!!
+        canIPlay = true;
     }
-
+    //@Damiano Nardone
+    //this method increases the trunCount by one each time called upon
     public void turnCount() {
         turnCount++;
     }
 
 
-    //end of each turn discard your HandDeck to discardDeck
+    //@Damiano Nardone
+    //this methods is called when a turn ends and puts all the cards in the HandDeck Hashtable into the DiscardDeck Hashtable in the Player class
     private void discardHandDeckToDiscardDeck() {
         for (CardName cardName : playerList.get(getCurrentPlayer()).getHandDeck().keySet()) {
             if (playerList.get(getCurrentPlayer()).getHandDeck().get(cardName) != 0) {
@@ -135,19 +120,11 @@ public class GameModel {
         }
     }
 
-    public String startingMessage(int cardsInGame) { //TODO no start message
-        String startMessage;
-        if(cardsInGame==5){
-            startMessage = "start@5";
-        } else {
-            startMessage = "start@10";
-        }
-        return startMessage;
-    }
-    //drawCardMessageWithIndex --> newCards@PlayerName1@hand/estate,2;copper,3@deck,5   ALRIGHT!
-
+    //@Damiano Nardone
+    //this method creates the following Message for the Server to pass to the client when the client draws new cards
+    //drawCardMessageWithIndex --> newCards@PlayerName1@hand/estate,2;copper,3@deck,5
     public String drawCardMessageWithIndex(int playerindex) {
-        String drawCardMessage = "newCards@" + playerList.get(playerindex).getName()+ "@hand/";
+        String drawCardMessage = "newCards@" + playerList.get(playerindex).getName() + "@hand/";
 
         Hashtable<CardName, Integer> cardsRemainingInPlayerDeck = playerList.get(playerindex).getPlayerDeck();
         Hashtable<CardName, Integer> playerHandDeck = playerList.get(playerindex).getHandDeck();
@@ -156,10 +133,10 @@ public class GameModel {
 
         while (itr.hasNext()) {
             CardName cardName = itr.next();
-            if(playerHandDeck.get(cardName)!=0) {
+            if (playerHandDeck.get(cardName) != 0) {
                 drawCardMessage = drawCardMessage + cardName + "," + playerHandDeck.get(cardName);
             }
-            if (itr.hasNext()){
+            if (itr.hasNext()) {
                 drawCardMessage = drawCardMessage + ";";
             }
         }
@@ -174,26 +151,28 @@ public class GameModel {
         return drawCardMessage;
     }
 
-    //endTurn@PlayerName1@vitoryPoints,5@discard,10  ALRIGHT;
-
+    //@Damiano Nardone
+    //this method creates the following message for the server to pass to the client when he ends the turn
+    //so victoryPoints are updated and discardDeck
+    //endTurn@PlayerName1@vitoryPoints,5@discard,10
     public String endTurnMessage() {
         calculateVictoryPoints();
         String endTurnMessage = "endTurn@" + playerList.get(getCurrentPlayer()).getName() + "@victoryPoints," + playerList.get(getCurrentPlayer()).getVictoryPoints();
 
         Hashtable<CardName, Integer> cardsOnHand = playerList.get(getCurrentPlayer()).getHandDeck();
-        Hashtable<CardName,Integer> cardsInDiscardDeck = playerList.get(getCurrentPlayer()).getDiscardDeck();
+        Hashtable<CardName, Integer> cardsInDiscardDeck = playerList.get(getCurrentPlayer()).getDiscardDeck();
 
         endTurnMessage = endTurnMessage + "@discard,";
 
         int discardAmount = 0;
 
-        for(CardName cardName: cardsOnHand.keySet()){
-            if(cardsOnHand.get(cardName)!=0){
+        for (CardName cardName : cardsOnHand.keySet()) {
+            if (cardsOnHand.get(cardName) != 0) {
                 discardAmount = discardAmount + cardsOnHand.get(cardName);
             }
         }
-        for (CardName cardName: cardsInDiscardDeck.keySet()){
-            if(cardsInDiscardDeck.get(cardName)!=0){
+        for (CardName cardName : cardsInDiscardDeck.keySet()) {
+            if (cardsInDiscardDeck.get(cardName) != 0) {
                 discardAmount = discardAmount + cardsInDiscardDeck.get(cardName);
             }
         }
@@ -203,6 +182,9 @@ public class GameModel {
 
     }
 
+    //@Damiano Nardone
+    //this method creates the follwing message for the server to pass to the client when the client is drawing cards
+    // and has not enough left in his deck, so the discardDeck goes into the PlayerDeck
     //newDeckValue@PlayerName1@discard,10@deck,10
     public String discardMessage() {
 
@@ -213,13 +195,13 @@ public class GameModel {
         int amountInDiscardDeck = 0;
         int amountInPlayerDeck = 0;
 
-        for(CardName cardName: discardDeck.keySet()){
+        for (CardName cardName : discardDeck.keySet()) {
             amountInDiscardDeck = amountInDiscardDeck + discardDeck.get(cardName);
         }
 
         discardMessage = discardMessage + amountInDiscardDeck + "@deck,";
 
-        for (CardName cardName: playerDeck.keySet()){
+        for (CardName cardName : playerDeck.keySet()) {
             amountInPlayerDeck = amountInPlayerDeck + playerDeck.get(cardName);
         }
         discardMessage = discardMessage + amountInPlayerDeck;
@@ -227,6 +209,9 @@ public class GameModel {
         return discardMessage;
     }
 
+    //@Damiano Nardone
+    //this method creates the following message for the server to pass to the client, when the game ends
+    //to tell the clients their final victoryPoints
     //end@PlayerName1,17@PlayerName2,18@Playername3,17
     public String endGameMessage() {
 
@@ -237,13 +222,16 @@ public class GameModel {
         while (itr1.hasNext()) {
             Player playerName = itr1.next();
             endMessage = endMessage + playerName.getName() + "," + playerName.getVictoryPoints();
-            if (itr1.hasNext()){
+            if (itr1.hasNext()) {
                 endMessage = endMessage + "@";
             }
         }
         return endMessage;
     }
 
+    //@Damiano Nardone
+    //this method creates the follwing message for the server to pass to the client, when the client
+    //playsTreasures to update his hand and coins
     //playTreasures@PlayerName1@playedCard/copper,3;gold,3@hand/copper,2,silver,3@coinValue,1
     public String playTreasureMessage() {
 
@@ -256,7 +244,7 @@ public class GameModel {
         Set<CardName> key = cardsInPlayerDeck.keySet();
         Iterator<CardName> itr = key.iterator();
 
-        while (itr.hasNext()){
+        while (itr.hasNext()) {
             coinCard = itr.next().toString();
 
             switch (coinCard) {
@@ -272,20 +260,20 @@ public class GameModel {
                 default:
                     break;
             }
-            if (!itr.hasNext()){
-                if (gold>0){
+            if (!itr.hasNext()) {
+                if (gold > 0) {
                     playTreasureMessage = playTreasureMessage + "gold," + gold;
-                    if(silver>0||copper>0){
+                    if (silver > 0 || copper > 0) {
                         playTreasureMessage = playTreasureMessage + ";";
                     }
                 }
-                if (silver>0){
+                if (silver > 0) {
                     playTreasureMessage = playTreasureMessage + "silver," + silver;
-                    if(copper>0){
+                    if (copper > 0) {
                         playTreasureMessage = playTreasureMessage + ";";
                     }
                 }
-                if(copper>0){
+                if (copper > 0) {
                     playTreasureMessage = playTreasureMessage + "copper," + copper;
                 }
             }
@@ -297,40 +285,37 @@ public class GameModel {
 
         while (itr1.hasNext()) {
             CardName cardName = itr1.next();
-            if (!cardName.toString().equals("gold") | !cardName.toString().equals("silver") | !cardName.toString().equals("copper")){
-                playTreasureMessage = playTreasureMessage + cardName.toString() + "," + cardsInPlayerDeck.get(cardName).toString();
+            if (!cardName.toString().equals("gold") | !cardName.toString().equals("silver") | !cardName.toString().equals("copper")) {
+                playTreasureMessage = playTreasureMessage + cardName.toString() + "," + cardsInPlayerDeck.get(cardName).toString() + ";";
             }
 
-            if (itr1.hasNext()){
-                playTreasureMessage = playTreasureMessage + ";";
+            if (!itr1.hasNext()) {
+                if (playTreasureMessage.charAt(playTreasureMessage.length() - 1) == ';') {
+                    playTreasureMessage = playTreasureMessage.substring(0, playTreasureMessage.length() - 1);
+                }
             }
-
-            if(!itr1.hasNext()){
-                if(playTreasureMessage.charAt(playTreasureMessage.length()-1)==';')   {
-                     playTreasureMessage = playTreasureMessage.substring(0, playTreasureMessage.length() - 1);
-                 }
-            }
-
         }
-            playTreasureMessage = playTreasureMessage + "@coinValue," + playerList.get(getCurrentPlayer()).getCoins();
+        playTreasureMessage = playTreasureMessage + "@coinValue," + playerList.get(getCurrentPlayer()).getCoins();
 
         return playTreasureMessage;
     }
 
+    //@Damiano Nardone
+    //this method creates the following the message for the server to pass on to the client
+    //when the client buys something to update coins and actionCard on field and the amount of discard
     //buy@PlayerName1@buyValue,0@coinValue,0@actionCards/woodcutter,9@discard,10       ALRIGHT!!!
-    //                                       new value of actioncards/ new value of discard deck
     public String buyCardMessage() {
 
         String buyCardMessage = "buy@" + playerList.get(getCurrentPlayer()).getName() + "@buyValue," + playerList.get(getCurrentPlayer()).getBuy() + "@coinValue," + playerList.get(getCurrentPlayer()).getCoins() + "@" + cardBoughtMessage;
 
-        buyCardMessage = addToBuyMessageTheAmountOfCardBought(actionCardList,buyCardMessage);
-        buyCardMessage = addToBuyMessageTheAmountOfCardBought(victoryCardList,buyCardMessage);
-        buyCardMessage = addToBuyMessageTheAmountOfCardBought(coinCardList,buyCardMessage);
+        buyCardMessage = addToBuyMessageTheAmountOfCardBought(actionCardList, buyCardMessage);
+        buyCardMessage = addToBuyMessageTheAmountOfCardBought(victoryCardList, buyCardMessage);
+        buyCardMessage = addToBuyMessageTheAmountOfCardBought(coinCardList, buyCardMessage);
 
         buyCardMessage = buyCardMessage + "@discard,";
 
         int discardAmount = 0;
-        for (CardName cardName: playerList.get(getCurrentPlayer()).getDiscardDeck().keySet()){
+        for (CardName cardName : playerList.get(getCurrentPlayer()).getDiscardDeck().keySet()) {
             discardAmount = discardAmount + playerList.get(getCurrentPlayer()).getDiscardDeck().get(cardName);
         }
         buyCardMessage = buyCardMessage + discardAmount;
@@ -338,7 +323,9 @@ public class GameModel {
         return buyCardMessage;
     }
 
-    public String addToBuyMessageTheAmountOfCardBought(Hashtable<CardName,Integer> list, String buyCardMessage){
+    //@Damiano Nardone
+    //this method adds the amount of card bought to the message of buyCardMessage
+    public String addToBuyMessageTheAmountOfCardBought(Hashtable<CardName, Integer> list, String buyCardMessage) {
         for (CardName cardName : list.keySet()) {
             if (cardName.toString().equals(cardBought)) {
                 buyCardMessage = buyCardMessage + list.get(cardName);
@@ -346,6 +333,10 @@ public class GameModel {
         }
         return buyCardMessage;
     }
+
+    //@Damiano Nardone
+    //this method created the following message for the server to pass on to the client
+    //when the client plays a card so the actionValue is updated
     //play@PlayerName1@village@actionValue,0
     public String playCardMessage() {
 
@@ -353,6 +344,8 @@ public class GameModel {
         return playCardMessage;
     }
 
+    //@Damiano Nardone
+    //this method checks if certain conditions are met that the game is over
     public boolean isGameOver() {
         int emptyActionCards = 0;
 
@@ -375,7 +368,9 @@ public class GameModel {
         return false;
     }
 
-
+    //@Damiano Nardone
+    //this method calculates the victoryPoints from the amount of province, estate, duchy and curse in the playerDeck and DiscardDeck
+    //TODO MAKE THIS ALSO TAKE INTO ACCOUNT DISCARD DECK
     public void calculateVictoryPoints() {
 
         int i = 0;
@@ -395,7 +390,8 @@ public class GameModel {
     }
 
 
-    //draw card from playerDeck
+    //@Damiano Nardone
+    //this method draws a certain amount of cards for a certain player from his PlayerDeck
     public void drawCards(int amountToDraw, int playerIndex) {
         ArrayList<CardName> cardNames = new ArrayList<>();
 
@@ -429,13 +425,15 @@ public class GameModel {
         }
     }
 
+    //@Damiano Nardone
+    //this method puts Specifically the curse for a certain person into his or her discardDeck
     public void drawCurse(int amountToDraw, int playerIndex) {
         CardName cardName = null;
         int cardsDrawn = 0;
         Random rand = new Random();
         cardName = CardName.curse;
 
-        if (victoryCardList.get(cardName)!= 0) {
+        if (victoryCardList.get(cardName) != 0) {
             while (cardsDrawn < amountToDraw) {
                 if (listOfCardsDrawnForMessage.contains(cardName)) {
                     listOfCardsDrawnForMessage.put(cardName, listOfCardsDrawnForMessage.get(cardName) + 1);
@@ -449,7 +447,8 @@ public class GameModel {
         }
     }
 
-
+    //@Damiano Nardone
+    //this methods check is the PlayerDeck Hashtable is empty and return a boolean if so
     public boolean checkifPlayerDeckisEmpty() {
 
         boolean hasCards = false;
@@ -461,7 +460,8 @@ public class GameModel {
         return hasCards;
     }
 
-    //When the player deck is empty discardDeck will be shuffled nd put into playerDeck
+    //@Damiano Nardone
+    //When the player deck is empty discardDeck will be put into playerDeck hashtable
     public String discardDecktoPlayerDeck(int playerIndex) {
         ArrayList<CardName> cardNames = new ArrayList<>();
         for (CardName cardName : playerList.get(playerIndex).getPlayerDeck().keySet()) {
@@ -483,125 +483,164 @@ public class GameModel {
 
     }
 
+    //@Damiano Nardone
+    //this methods takes a string with the cardName and them takes the necessary actions
     public String buyCard(String cardName) {
+        canIPlay = false;
 
-        switch (cardName) {
+        switch (cardName) { // addBuy methode mit boolean im if statement
             case "gold":
-                addBuy(-1);
-                addCoins(-6);
-                cardFromHashTableToDiscardDeck(CardName.gold, coinCardList);
-                cardBoughtMessage = "coinCards/gold,";
-                cardBought = "gold";
+                if (playerList.get(getCurrentPlayer()).getBuy() >= 1 && playerList.get(getCurrentPlayer()).getCoins() >= 6) {
+                    subtractBuy(1);
+                    subtractCoins(6);
+                    cardFromHashTableToDiscardDeck(CardName.gold, coinCardList);
+                    cardBoughtMessage = "coinCards/gold,";
+                    cardBought = "gold";
+                } else return "Not enough Coins or Buys left!";
                 break;
             case "silver":
-                addBuy(-1);
-                addCoins(-3);
-                cardFromHashTableToDiscardDeck(CardName.silver, coinCardList);
-                cardBoughtMessage = "coinCards/silver,";
-                cardBought = "silver";
+                if (playerList.get(getCurrentPlayer()).getBuy() >= 1 && playerList.get(getCurrentPlayer()).getCoins() >= 3) {
+                    subtractBuy(1);
+                    subtractCoins(3);
+                    cardFromHashTableToDiscardDeck(CardName.silver, coinCardList);
+                    cardBoughtMessage = "coinCards/silver,";
+                    cardBought = "silver";
+                } else return "Not enough Coins or Buys left!";
                 break;
             case "copper":
-                addBuy(-1);
-                cardFromHashTableToDiscardDeck(CardName.copper, coinCardList);
-                cardBoughtMessage = "coinCards/copper,";
-                cardBought = "copper";
+                if (playerList.get(getCurrentPlayer()).getBuy() >= 1) {
+                    subtractBuy(1);
+                    cardFromHashTableToDiscardDeck(CardName.copper, coinCardList);
+                    cardBoughtMessage = "coinCards/copper,";
+                    cardBought = "copper";
+                } else return "Not enough Buys left!";
                 break;
             case "province":
-                addBuy(-1);
-                addCoins(-8);
-                cardFromHashTableToDiscardDeck(CardName.province, victoryCardList);
-                cardBoughtMessage = "victoryCards/province,";
-                cardBought = "province";
+                if (playerList.get(getCurrentPlayer()).getBuy() >= 1 && playerList.get(getCurrentPlayer()).getCoins() >= 8) {
+                    subtractBuy(1);
+                    subtractCoins(8);
+                    cardFromHashTableToDiscardDeck(CardName.province, victoryCardList);
+                    cardBoughtMessage = "victoryCards/province,";
+                    cardBought = "province";
+                } else return "Not enough Coins or Buys left!";
                 break;
             case "duchy":
-                addBuy(-1);
-                addCoins(-5);
-                cardFromHashTableToDiscardDeck(CardName.duchy, victoryCardList);
-                cardBoughtMessage = "victoryCards/duchy,";
-                cardBought = "duchy";
+                if (playerList.get(getCurrentPlayer()).getBuy() >= 1 && playerList.get(getCurrentPlayer()).getCoins() >= 5) {
+                    subtractBuy(1);
+                    subtractCoins(5);
+                    cardFromHashTableToDiscardDeck(CardName.duchy, victoryCardList);
+                    cardBoughtMessage = "victoryCards/duchy,";
+                    cardBought = "duchy";
+                } else return "Not enough Coins or Buys left!";
                 break;
             case "estate":
-                addBuy(-1);
-                addCoins(-2);
-                cardFromHashTableToDiscardDeck(CardName.estate, victoryCardList);
-                cardBoughtMessage = "victoryCards/estate,";
-                cardBought = "estate";
+                if (playerList.get(getCurrentPlayer()).getBuy() >= 1 && playerList.get(getCurrentPlayer()).getCoins() >= 2) {
+                    subtractBuy(1);
+                    subtractCoins(2);
+                    cardFromHashTableToDiscardDeck(CardName.estate, victoryCardList);
+                    cardBoughtMessage = "victoryCards/estate,";
+                    cardBought = "estate";
+                } else return "Not enough Coins or Buys left!";
                 break;
             case "village":
-                addBuy(-1);
-                addCoins(-3);
-                cardFromHashTableToDiscardDeck(CardName.village, actionCardList);
-                cardBoughtMessage = "actionCards/village,";
-                cardBought = "village";
+                if (playerList.get(getCurrentPlayer()).getBuy() >= 1 && playerList.get(getCurrentPlayer()).getCoins() >= 3) {
+                    subtractBuy(1);
+                    subtractCoins(3);
+                    cardFromHashTableToDiscardDeck(CardName.village, actionCardList);
+                    cardBoughtMessage = "actionCards/village,";
+                    cardBought = "village";
+                } else return "Not enough Coins or Buys left!";
                 break;
             case "woodcutter":
-                addBuy(-1);
-                addCoins(-3);
-                cardFromHashTableToDiscardDeck(CardName.woodcutter, actionCardList);
-                cardBoughtMessage = "actionCards/woodcutter,";
-                cardBought = "woodcutter";
+                if (playerList.get(getCurrentPlayer()).getBuy() >= 1 && playerList.get(getCurrentPlayer()).getCoins() >= 3) {
+                    subtractBuy(1);
+                    subtractCoins(3);
+                    cardFromHashTableToDiscardDeck(CardName.woodcutter, actionCardList);
+                    cardBoughtMessage = "actionCards/woodcutter,";
+                    cardBought = "woodcutter";
+                } else return "Not enough Coins or Buys left!";
                 break;
             case "workshop":
-                addBuy(-1);
-                addCoins(-3);
-                cardFromHashTableToDiscardDeck(CardName.workshop, actionCardList);
-                cardBoughtMessage = "actionCards/workshop,";
-                cardBought = "workshop";
+                if (playerList.get(getCurrentPlayer()).getBuy() >= 1 && playerList.get(getCurrentPlayer()).getCoins() >= 3) {
+                    subtractBuy(1);
+                    subtractCoins(3);
+                    cardFromHashTableToDiscardDeck(CardName.workshop, actionCardList);
+                    cardBoughtMessage = "actionCards/workshop,";
+                    cardBought = "workshop";
+                } else return "Not enough Coins or Buys left!";
                 break;
             case "smithy":
-                addBuy(-1);
-                addCoins(-4);
-                cardFromHashTableToDiscardDeck(CardName.smithy, actionCardList);
-                cardBoughtMessage = "actionCards/smithy,";
-                cardBought = "smithy";
+                if (playerList.get(getCurrentPlayer()).getBuy() >= 1 && playerList.get(getCurrentPlayer()).getCoins() >= 4) {
+                    subtractBuy(1);
+                    subtractCoins(4);
+                    cardFromHashTableToDiscardDeck(CardName.smithy, actionCardList);
+                    cardBoughtMessage = "actionCards/smithy,";
+                    cardBought = "smithy";
+                } else return "Not enough Coins or Buys left!";
                 break;
             case "councilroom":
-                addBuy(-1);
-                addCoins(-5);
-                cardFromHashTableToDiscardDeck(CardName.councilroom, actionCardList);
-                cardBoughtMessage = "actionCards/councilroom,";
-                cardBought = "councilroom";
+                if (playerList.get(getCurrentPlayer()).getBuy() >= 1 && playerList.get(getCurrentPlayer()).getCoins() >= 5) {
+                    subtractBuy(1);
+                    subtractCoins(5);
+                    cardFromHashTableToDiscardDeck(CardName.councilroom, actionCardList);
+                    cardBoughtMessage = "actionCards/councilroom,";
+                    cardBought = "councilroom";
+                } else return "Not enough Coins or Buys left!";
                 break;
             case "festival":
-                addBuy(-1);
-                addCoins(-5);
-                cardFromHashTableToDiscardDeck(CardName.festival, actionCardList);
-                cardBoughtMessage = "actionCards/festival,";
-                cardBought = "festival";
+                if (playerList.get(getCurrentPlayer()).getBuy() >= 1 && playerList.get(getCurrentPlayer()).getCoins() >= 5) {
+                    subtractBuy(1);
+                    subtractCoins(5);
+                    cardFromHashTableToDiscardDeck(CardName.festival, actionCardList);
+                    cardBoughtMessage = "actionCards/festival,";
+                    cardBought = "festival";
+                } else return "Not enough Coins or Buys left!";
                 break;
             case "laboratory":
-                addBuy(-1);
-                addCoins(-5);
-                cardFromHashTableToDiscardDeck(CardName.laboratory, actionCardList);
-                cardBoughtMessage = "actionCards/laboratory,";
-                cardBought = "laboratory";
+                if (playerList.get(getCurrentPlayer()).getBuy() >= 1 && playerList.get(getCurrentPlayer()).getCoins() >= 5) {
+                    subtractBuy(1);
+                    subtractCoins(5);
+                    cardFromHashTableToDiscardDeck(CardName.laboratory, actionCardList);
+                    cardBoughtMessage = "actionCards/laboratory,";
+                    cardBought = "laboratory";
+                } else return "Not enough Coins or Buys left!";
                 break;
             case "witch":
-                addBuy(-1);
-                addCoins(-5);
-                cardFromHashTableToDiscardDeck(CardName.witch, actionCardList);
-                cardBoughtMessage = "actionCards/witch,";
-                cardBought = "witch";
+                if (playerList.get(getCurrentPlayer()).getBuy() >= 1 && playerList.get(getCurrentPlayer()).getCoins() >= 5) {
+                    subtractBuy(1);
+                    subtractCoins(5);
+                    cardFromHashTableToDiscardDeck(CardName.witch, actionCardList);
+                    cardBoughtMessage = "actionCards/witch,";
+                    cardBought = "witch";
+                } else return "Not enough Coins or Buys left!";
                 break;
             case "chancellor":
-                addBuy(-1);
-                addCoins(-3);
-                cardFromHashTableToDiscardDeck(CardName.chancellor, actionCardList);
-                cardBoughtMessage = "actionCards/chancellor,";
-                cardBought = "chancellor";
+                if (playerList.get(getCurrentPlayer()).getBuy() >= 1 && playerList.get(getCurrentPlayer()).getCoins() >= 3) {
+                    subtractBuy(1);
+                    subtractCoins(3);
+                    cardFromHashTableToDiscardDeck(CardName.chancellor, actionCardList);
+                    cardBoughtMessage = "actionCards/chancellor,";
+                    cardBought = "chancellor";
+                } else return "Not enough Coins or Buys left!";
                 break;
             case "market":
-                addBuy(-1);
-                addCoins(-5);
-                cardFromHashTableToDiscardDeck(CardName.market, actionCardList);
-                cardBoughtMessage = "actionCards/market,";
-                cardBought = "market";
+                if (playerList.get(getCurrentPlayer()).getBuy() >= 1 && playerList.get(getCurrentPlayer()).getCoins() >= 5) {
+                    subtractBuy(1);
+                    subtractCoins(5);
+                    cardFromHashTableToDiscardDeck(CardName.market, actionCardList);
+                    cardBoughtMessage = "actionCards/market,";
+                    cardBought = "market";
+                } else return "Not enough Coins or Buys left!";
                 break;
+            default:
+                return "You cannot buy Curse Cards you fool!";
 
         }
         return buyCardMessage();
     }
 
+    //@Damiano Nardone
+    //this method takes specific cards for specific Hashtables to put into the Players DiscardDeck
     public void cardFromHashTableToDiscardDeck(CardName cardName, Hashtable<CardName, Integer> list) {
         System.out.println(list.toString());
         if (list.containsKey(cardName) && list.get(cardName)!=0) {
@@ -616,115 +655,131 @@ public class GameModel {
         }
     }
 
-    public void playTreasures() {
-
-        tempHandDeck = playerList.get(getCurrentPlayer()).getHandDeck();
+    //@Damiano Nardone
+    //this method is used when the client wishes to play the treasures in order to update coins
+    public String playTreasures() {
+        canIPlay = false;
+        Boolean areThereTreasures = false;
+        Hashtable<CardName, Integer> tempHandDeck = playerList.get(getCurrentPlayer()).getHandDeck();
 
         for (Map.Entry<CardName, Integer> entry : tempHandDeck.entrySet()) {
             switch (entry.getKey().toString()) {
 
                 case "gold":
+                    areThereTreasures = true;
                     playGold(entry.getValue());
                     break;
 
                 case "silver":
+                    areThereTreasures = true;
                     playSilver(entry.getValue());
                     break;
 
                 case "copper":
+                    areThereTreasures = true;
                     playCopper(entry.getValue());
                     break;
-
-
             }
         }
+
+        if (areThereTreasures) {
+            return playTreasureMessage();
+        } else return "No Coins on Hand!";
     }
 
+    //@Damiano Nardone
+    //this method takes a certain CardName and calls that cardsMethod
     public String playCard(String cardName) {
 
-        switch (cardName) {
-            case "village":
-                playVillage();
-                actionCardPlayed = "village";
-                break;
-            case "woodcutter":
-                playWoodcutter();
-                actionCardPlayed = "woodcutter";
-                break;
-            case "workshop":
-                playWorkshop();
-                actionCardPlayed = "workshop";
-                break;
-            case "smithy":
-                playSmithy();
-                actionCardPlayed = "smithy";
-                break;
-            case "councilroom":
-                playCouncilRoom();
-                actionCardPlayed = "councilroom";
-                break;
-            case "festival":
-                playFestival();
-                actionCardPlayed = "festival";
-                break;
-            case "laboratory":
-                playLaboratory();
-                actionCardPlayed = "laboratory";
-                break;
-            case "witch":
-                playWitch();
-                actionCardPlayed = "witch";
-                break;
-            case "chancellor":
-                playChancellor();
-                actionCardPlayed = "chancellor";
-                break;
-            case "market":
-                playMarket();
-                actionCardPlayed = "market";
-                break;
-        }
-        return playCardMessage();
+        if (canIPlay) {
+            if (playerList.get(getCurrentPlayer()).getActions() == 0) {
+                return "Not enough Actions left!";
+            }
+            switch (cardName) {
+                case "village":
+                    playVillage();
+                    actionCardPlayed = "village";
+                    break;
+                case "woodcutter":
+                    playWoodcutter();
+                    actionCardPlayed = "woodcutter";
+                    break;
+                case "workshop":
+                    playWorkshop();
+                    actionCardPlayed = "workshop";
+                    break;
+                case "smithy":
+                    playSmithy();
+                    actionCardPlayed = "smithy";
+                    break;
+                case "councilroom":
+                    playCouncilRoom();
+                    actionCardPlayed = "councilroom";
+                    break;
+                case "festival":
+                    playFestival();
+                    actionCardPlayed = "festival";
+                    break;
+                case "laboratory":
+                    playLaboratory();
+                    actionCardPlayed = "laboratory";
+                    break;
+                case "witch":
+                    playWitch();
+                    actionCardPlayed = "witch";
+                    break;
+                case "chancellor":
+                    playChancellor();
+                    actionCardPlayed = "chancellor";
+                    break;
+                case "market":
+                    playMarket();
+                    actionCardPlayed = "market";
+                    break;
+            }
+            return playCardMessage();
+        } else return "Playing Phase is over, you are already in Buying Phase!";
     }
 
-    //methods for the action Cards
+    //@Damiano Nardone
+    //subtracs 1 action and add 2 actions
     public void playVillage() {
         subtractAction(1);
         addAction(2);
     }
 
-
+    //@Damiano Nardone
+    //subtract 1 action add 1 buy add 2 coins to player
     public void playWoodcutter() {
         subtractAction(1);
         addBuy(1);
         addCoins(2);
     }
 
-    ;
-
+    //@Damiano Nardone
+    //subtract 1 action add 4 coins add 1 buy
     public void playWorkshop() {
         subtractAction(1);
         addCoins(4);
         addBuy(1);
     }
 
-    ;
-
+    //@Damiano Nardone
+    //subtract 1 action
     public void playSmithy() {
         subtractAction(1);
     }
 
-    ;
 
+    //@Damiano Nardone
+    //subtract 1 action add 1 buy
     public void playCouncilRoom() {
         subtractAction(1);
         addBuy(1);
-        int i = 0;
-        Random rand = new Random();
     }
 
-    ;
-
+    //@Damiano Nardone
+    //subtract 1 action add 2 action add 1 buy add 2 coins
     public void playFestival() {
         subtractAction(1);
         addAction(2);
@@ -732,29 +787,28 @@ public class GameModel {
         addCoins(2);
     }
 
-    ;
-
+    //@Damiano Nardone
+    //subtract 1 action add 1 action
     public void playLaboratory() {
         subtractAction(1);
         addAction(1);
     }
 
-    ;
-
-
+    //@Damiano Nardone
+    //subtract 1 action
     public void playWitch() {
         subtractAction(1);
 
     }
 
+    //@Damiano Nardone
+    //subtract 1 action add 2 coins
     public void playChancellor() {
         subtractAction(1);
         addCoins(2);
-
     }
-
-    ;
-
+    //@Damiano Nardone
+    //subtract 1 action add 1 coins add 1 buy add 1 action
     public void playMarket() {
         subtractAction(1);
         addCoins(1);
@@ -762,67 +816,66 @@ public class GameModel {
         addAction(1);
     }
 
-    ;
-
-    //methods for the coin cards
+    //@Damiano Nardone
+    //add coin Value multipled by amount
     public void playGold(int amountOfGold) {
         addCoins(3 * amountOfGold);
     }
 
-    ;
-
+    //@Damiano Nardone
+    //add coin Value multipled by amount
     public void playSilver(int amountOfSilver) {
         addCoins(2 * amountOfSilver);
     }
 
-    ;
-
+    //@Damiano Nardone
+    //add coin Value multipled by amount
     public void playCopper(int amountOfCopper) {
         addCoins(1 * amountOfCopper);
     }
-
-    ;
-
 
     String getGameName() {
         return this.gameName;
     }
 
-    private void subtractAction(int i) {
-        playerList.get(getCurrentPlayer()).setActionPoints(-i);
+    //@Damiano Nardone
+    //subtract Action in the Player class
+    private void subtractAction(int actionPoints) {
+        playerList.get(getCurrentPlayer()).setActionPoints(actionPoints, false);
     }
 
     public int getCurrentPlayer() {
         return turnCount % (playerList.size() - 1); //TODO IS THIS ALRIGHT
     }
 
+    //@Damiano Nardone
+    //add action in the player class
     private void addAction(int actionPoints) {
-        playerList.get(getCurrentPlayer()).setActionPoints(actionPoints);
+        playerList.get(getCurrentPlayer()).setActionPoints(actionPoints, true);
     }
 
+    //@Damiano Nardone
+    //add buys in tht player class
     private void addBuy(int buyingPoints) {
-        playerList.get(getCurrentPlayer()).setBuyingPoints(buyingPoints);
+        playerList.get(getCurrentPlayer()).setBuyingPoints(buyingPoints, true);
     }
 
+    //@Damiano Nardone
+    //subtract buys in the player class
+    private void subtractBuy(int buyingPoints) {
+        playerList.get(getCurrentPlayer()).setBuyingPoints(buyingPoints, false);
+    }
+
+    //@Damiano Nardone
+    //add coins in the player class
     private void addCoins(int coins) {
-        playerList.get(getCurrentPlayer()).setCoins(coins);
+        playerList.get(getCurrentPlayer()).setCoins(coins, true);
     }
 
-    //private void addTempCoins(int tempCoins) { playerList.get(getCurrentPlayer()).setCoins(tempCoins);}
-
-    //public void setPlayerCount(int playerCount) {
-    //   this.playerCount = playerCount;}
-
-    public void setActionCardCount(int actionCardCount) {
-        this.actionCardCount = actionCardCount;
-    }
-
-    public SimpleStringProperty getGameResponseMessage() {
-        return gameResponseMessage;
-    }
-
-    public SimpleStringProperty gameResponseMessageProperty() {
-        return gameResponseMessage;
+    //@Damiano Nardone
+    //subtract coins from player class
+    private void subtractCoins(int coins) {
+        playerList.get(getCurrentPlayer()).setCoins(coins, false);
     }
 
     public ArrayList<Player> getPlayerList() {

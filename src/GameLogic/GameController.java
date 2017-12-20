@@ -10,7 +10,7 @@ public class GameController {
     private GameModel gameModel;
     private Game game;
 
-    public GameController(GameModel gameModel, Game game) {
+    public GameController(GameModel gameModel,Game game) {
         this.game = game;
         this.gameModel = gameModel;
     }
@@ -18,7 +18,6 @@ public class GameController {
 
     public void startGame(int cardsInGame) {
         gameModel.init(cardsInGame);
-        //game.setResponseMessage(gameModel.startingMessage(cardsInGame));
 
         for (int i = 0; i < gameModel.getPlayerList().size(); i++) {
             gameModel.drawCards(5, i);
@@ -36,10 +35,10 @@ public class GameController {
 
             switch (firstSplit.get(i)) {
 
-                case "playTreasure":
-                    gameModel.playTreasures();
-                    game.setResponseMessage(gameModel.playTreasureMessage());
-                    break;
+
+
+                case "playTreasure":game.setResponseMessage(gameModel.playTreasures());
+                                    break;
 
                 case "endTurn":
                     game.setResponseMessage(gameModel.endTurnMessage());

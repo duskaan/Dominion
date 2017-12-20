@@ -76,12 +76,24 @@ public class Player {
         this.handDeck = handDeck;
     }
 
-    public void setBuyingPoints(int buyingPoints) { this.buy += buy; }
-    public void setActionPoints(int actionPoints) { this.actions += actionPoints; }
+    public void setBuyingPoints(int buyingPoints,boolean addition) {
+        if (addition) {
+            this.buy = buy + buyingPoints;
+        } else this.buy = buy - buyingPoints;
+    }
+    public void setActionPoints(int actionPoints,boolean addition) {
+        if (addition) {
+            this.actions = actions + actionPoints;
+        } else this.actions = actions - actionPoints;
+    }
     public void setVictoryPoints(int victoryPoints) { this.victoryPoints = victoryPoints; }
-    public void setCoins(int coins) { this.coins += coins; }
-    //public void setTempCoins(int tempCoins) { this.tempCoins = tempCoins; }
 
+    public void setCoins(int coinValue,boolean addition) {
+        if (addition){
+            this.coins = coins + coinValue;
+        } else this.coins = coins - coinValue;
+
+    }
 
     public int getBuy() { return buy; }
 
