@@ -22,7 +22,6 @@ public class GameController {
 
     public void startGame(int cardsInGame) {
         gameModel.init(cardsInGame);
-        game.setResponseMessage(gameModel.startingMessage(cardsInGame));
 
         for (int i = 0;i<gameModel.getPlayerList().size();i++){
             gameModel.drawCards(5,i);
@@ -41,8 +40,7 @@ public class GameController {
 
             switch(secondSplit.get(i).get(0)){
 
-                case "playTreasure":gameModel.playTreasures();
-                                    game.setResponseMessage(gameModel.playTreasureMessage());
+                case "playTreasure":game.setResponseMessage(gameModel.playTreasures());
                                     break;
 
                 case "endTurn": game.setResponseMessage(gameModel.endTurnMessage());

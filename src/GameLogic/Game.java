@@ -36,7 +36,7 @@ public class Game extends Observable{
 
     }
 
-    public void startGame(int cardsInGame) {
+    public void startGame() {
         createGame(playerNames);
         gameController.startGame(cardsInGame);    }
 
