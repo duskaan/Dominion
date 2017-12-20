@@ -3,6 +3,7 @@ package GameLogic;
 import GameLogic.cards.CardName;
 import javafx.beans.property.SimpleStringProperty;
 
+import javax.smartcardio.Card;
 import java.util.*;
 
 public class GameModel {
@@ -120,6 +121,25 @@ public class GameModel {
         }
     }
 
+    //initCards@PlayerName@
+    public String initCardsMessage(int playerindex){
+        String initCardsMessage = "initCards@" + playerList.get(playerindex).getName() + "@";
+        Hashtable<CardName,Integer> starterHandDeck = playerList.get(playerindex).getHandDeck();
+        Set<CardName> keys = starterHandDeck.keySet();
+        Iterator<CardName> itr = keys.iterator();
+        while (itr.hasNext()){
+            String cardName = itr.next().toString();
+            int amount = starterHandDeck.get(cardName);
+            for (int i = 0; i<amount;i++){
+                initCardsMessage = initCardsMessage + cardName;
+                if(itr.hasNext()){
+                    initCardsMessage = initCardsMessage + "@";
+                }
+            }
+        }
+
+        return initCardsMessage;
+    }
     //@Damiano Nardone
     //this method creates the following Message for the Server to pass to the client when the client draws new cards
     //drawCardMessageWithIndex --> newCards@PlayerName1@hand/estate,2;copper,3@deck,5
