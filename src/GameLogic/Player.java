@@ -77,6 +77,22 @@ public class Player {
         playerDeck.put(cardName,amount);
     }
 
+    int getDeckAmount(){
+        int amount = 0;
+                for(CardName cardName:playerDeck.keySet()){
+            amount = amount + playerDeck.get(cardName);
+                }
+                return amount;
+    }
+
+    int getDiscardAmount(){
+        int amount = 0;
+        for (CardName cardName:discardDeck.keySet()){
+            amount = amount + discardDeck.get(cardName);
+        }
+        return amount;
+    }
+
     public Hashtable<CardName, Integer> getPlayerDeck() {
         return playerDeck;
     }

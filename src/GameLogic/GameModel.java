@@ -177,31 +177,27 @@ public class GameModel {
     public String drawCardMessageWithIndex(int playerIndex) {
         String drawCardMessage = "newCards@" + playerList.get(playerIndex).getName() + "@hand/";
 
-        Hashtable<CardName, Integer> cardsRemainingInPlayerDeck = playerList.get(playerIndex).getPlayerDeck();
         Hashtable<CardName, Integer> playerHandDeck = playerList.get(playerIndex).getHandDeck();
         Set<CardName> keys = playerHandDeck.keySet();
         Iterator<CardName> itr = keys.iterator();
         int addedcards = 0;
 
-        while (itr.hasNext()&&addedcards<=5) {
-            CardName cardName = itr.next();
-            if (playerHandDeck.get(cardName) != 0) {
-                drawCardMessage = drawCardMessage + cardName + "," + playerHandDeck.get(cardName)+";";
-                addedcards= addedcards+1;
-            }/*
-            if (itr.hasNext()) {
-                drawCardMessage = drawCardMessage + ";";
-            }*/
+        for(CardName cardName : listOfCardsDrawnForMessage.keySet()){
+            drawCardMessage = drawCardMessage + cardName + "," + listOfCardsDrawnForMessage.get(cardName) + ";";
         }
-        drawCardMessage = drawCardMessage + "@deck,";
+        drawCardMessage = deleteLastSign(drawCardMessage,';') + "@deck,";
 
-        int amountOfDeckCards = 0;
-        for (CardName key : cardsRemainingInPlayerDeck.keySet()) {
-            amountOfDeckCards = amountOfDeckCards + cardsRemainingInPlayerDeck.get(key);
-        }
+        int amountOfDeckCards = playerList.get(playerIndex).getDeckAmount();
         drawCardMessage = drawCardMessage + amountOfDeckCards;
 
         return drawCardMessage;
+    }
+
+    public String deleteLastSign(String message,char delimiter){
+        if (message.charAt(message.length()-1)==delimiter) {
+            message = message.substring(0, message.length() - 1);
+        }
+        return message;
     }
 
     //@Damiano Nardone
@@ -475,9 +471,11 @@ public class GameModel {
         CardName cardName = null;
         int cardsDrawn = 0;
         Random rand = new Random();
+        listOfCardsDrawnForMessage.clear();
 
         while (cardsDrawn < amountToDraw) {
             cardName = cardNames.get(rand.nextInt(cardNames.size()));
+
 
                 if (listOfCardsDrawnForMessage.contains(cardName)) {
                     listOfCardsDrawnForMessage.put(cardName, listOfCardsDrawnForMessage.get(cardName) + 1);
