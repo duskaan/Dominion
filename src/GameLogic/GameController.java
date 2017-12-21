@@ -42,11 +42,12 @@ public class GameController {
                     break;
 
                 case "endTurn":
+                    gameModel.endTurn();
                     game.setResponseMessage(gameModel.endTurnMessage());
                     if (gameModel.isGameOver()) {
                         game.setResponseMessage(gameModel.endGameMessage());
                     }
-                    gameModel.endTurn();
+
                     for (int y = 0; y <= 5; y++) {
                         if (gameModel.checkifPlayerDeckisEmpty(gameModel.getCurrentPlayer())) {
                             game.setResponseMessage(gameModel.discardDecktoPlayerDeck(gameModel.getCurrentPlayer()));
@@ -55,6 +56,7 @@ public class GameController {
                             gameModel.drawCards(1, gameModel.getCurrentPlayer());
                         }
                     }
+
                     game.setResponseMessage(gameModel.drawCardMessageWithIndex(gameModel.getCurrentPlayer()));
                     gameModel.clearListOfCardsDrawnForMessage();
                     gameModel.turnCount();
@@ -83,19 +85,20 @@ public class GameController {
                                 gameModel.clearListOfCardsDrawnForMessage();
                                 break;
                             case "smithy":
-                                for (int y = 0; y <= 3; y++) {
+                                drawTwoCards();
+                                /*for (int y = 0; y <= 3; y++) {
                                     if (gameModel.checkifPlayerDeckisEmpty(gameModel.getCurrentPlayer())) {
                                         game.setResponseMessage(gameModel.discardDecktoPlayerDeck(gameModel.getCurrentPlayer()));
                                     }
                                     if (y <= 2) {
                                         gameModel.drawCards(1, gameModel.getCurrentPlayer());
                                     }
-                                }
+                                }*/
                                 game.setResponseMessage(gameModel.drawCardMessageWithIndex(gameModel.getCurrentPlayer()));
                                 gameModel.clearListOfCardsDrawnForMessage();
                                 break;
                             case "laboratory":
-                                drawTwoCards();
+                                drawTwoCards(); //todo two cards
                                 break;
 
                             case "witch":
@@ -168,9 +171,10 @@ public class GameController {
             }
             if (i <= 2) {
                 gameModel.drawCards(1, gameModel.getCurrentPlayer());
-                game.setResponseMessage(gameModel.drawCardMessageWithIndex(gameModel.getCurrentPlayer()));
+
             }
         }
+        game.setResponseMessage(gameModel.drawCardMessageWithIndex(gameModel.getCurrentPlayer()));
     }
 
 }

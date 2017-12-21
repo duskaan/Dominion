@@ -63,6 +63,7 @@ public class GameModel {
         coinCardList.put(CardName.gold, 0);
         coinCardList.put(CardName.silver, 0);
         coinCardList.put(CardName.copper, 0);
+
         actionCardList.put(CardName.village, 0);
         actionCardList.put(CardName.woodcutter, 0);
         actionCardList.put(CardName.workshop, 0);
@@ -73,6 +74,7 @@ public class GameModel {
         actionCardList.put(CardName.chancellor, 0);
         actionCardList.put(CardName.market, 0);
         actionCardList.put(CardName.laboratory, 0);
+
         victoryCardList.put(CardName.province, 0);
         victoryCardList.put(CardName.duchy, 0);
         victoryCardList.put(CardName.estate, 0);
@@ -127,6 +129,7 @@ public class GameModel {
         playerList.get(getCurrentPlayer()).endTurn();
         canIPlay = true;
         playerList.get(getCurrentPlayer()).getPlayedDeck().clear();
+        actionCardPlayed=null;
     }
 
     //@Damiano Nardone
@@ -142,7 +145,8 @@ public class GameModel {
     private void discardHandDeckToDiscardDeck() {
         for (CardName cardName : playerList.get(getCurrentPlayer()).getHandDeck().keySet()) {
             if (playerList.get(getCurrentPlayer()).getHandDeck().get(cardName) != 0) {
-                int currentCount = playerList.get(getCurrentPlayer()).getHandDeck().get(cardName);
+                int currentCount = playerList.get(getCurrentPlayer()).getHandDeck().get(cardName)+playerList.get(getCurrentPlayer()).getDiscardDeck().get(cardName);
+                LogHandling.logOnFile(Level.INFO, "Removed from Hand: " + cardName + " amount: " + currentCount);
                 playerList.get(getCurrentPlayer()).getDiscardDeck().put(cardName, currentCount);
                 playerList.get(getCurrentPlayer()).getHandDeck().put(cardName, 0);
             }
@@ -221,8 +225,8 @@ public class GameModel {
 
         endTurnMessage = endTurnMessage + "@discard,";
 
-        int discardAmount = 0;
-
+        int discardAmount = playerList.get(getCurrentPlayer()).getDiscardAmount();
+/*
         for (CardName cardName : cardsOnHand.keySet()) {
             if (cardsOnHand.get(cardName) != 0) {
                 discardAmount = discardAmount + cardsOnHand.get(cardName);
@@ -232,7 +236,7 @@ public class GameModel {
             if (cardsInDiscardDeck.get(cardName) != 0) {
                 discardAmount = discardAmount + cardsInDiscardDeck.get(cardName);
             }
-        }
+        }*/
         endTurnMessage = endTurnMessage + discardAmount;
 
         return endTurnMessage;
@@ -363,10 +367,10 @@ public class GameModel {
 
         buyCardMessage = buyCardMessage + "@discard,";
 
-        int discardAmount = 0;
-        for (CardName cardName : playerList.get(getCurrentPlayer()).getDiscardDeck().keySet()) {
+        int discardAmount = playerList.get(getCurrentPlayer()).getDiscardAmount();
+       /* for (CardName cardName : playerList.get(getCurrentPlayer()).getDiscardDeck().keySet()) {
             discardAmount = discardAmount + playerList.get(getCurrentPlayer()).getDiscardDeck().get(cardName);
-        }
+        }*/
         buyCardMessage = buyCardMessage + discardAmount;
 
         return buyCardMessage;
@@ -480,6 +484,9 @@ public class GameModel {
 
             int currentCount = playerList.get(playerIndex).getPlayerDeck().get(cardName);
             playerList.get(playerIndex).getPlayerDeck().put(cardName, currentCount - 1);
+            if(playerList.get(playerIndex).getPlayerDeck().get(cardName)<0){
+                System.out.println("FUCK THIS SHIT"+playerList.get(playerIndex).getPlayerDeck().get(cardName)+cardName);
+            }
             currentCount = playerList.get(playerIndex).getHandDeck().get(cardName);
             playerList.get(playerIndex).getHandDeck().put(cardName, currentCount + 1);
             cardsDrawn++;
@@ -493,7 +500,7 @@ public class GameModel {
 
     //@Damiano Nardone
     //this method puts Specifically the curse for a certain person into his or her discardDeck
-    public void drawCurse( int playerIndex) {
+    public void drawCurse(int playerIndex) {
         CardName cardName = null;
         int cardsDrawn = 0;
         Random rand = new Random();
@@ -530,18 +537,17 @@ public class GameModel {
         for (CardName cardName : playerList.get(playerIndex).getPlayerDeck().keySet()) {
             cardNames.add(cardName);
         }
-        CardName cardName = null;
-
-        for (int i = 0; i < playerList.get(playerIndex).getDiscardDeck().size(); i++) {
-            cardName = cardNames.get(i);
-
+        //CardName cardName = null;
+        int currentCount = 0;
+        for (CardName cardName : playerList.get(playerIndex).getDiscardDeck().keySet()) {
             if (playerList.get(playerIndex).getDiscardDeck().get(cardName) != 0) {
-                int currentCount = playerList.get(playerIndex).getDiscardDeck().get(cardName);
-                playerList.get(playerIndex).getDiscardDeck().put(cardName, 0);
+                currentCount = playerList.get(playerIndex).getDiscardDeck().get(cardName)+playerList.get(getCurrentPlayer()).getPlayerDeck().get(cardName);
                 playerList.get(playerIndex).getPlayerDeck().put(cardName, currentCount);
+                LogHandling.logOnFile(Level.INFO, "Card: " + cardName.toString() + "is added to playerDeck with the amount of " + currentCount);
+                playerList.get(playerIndex).getDiscardDeck().put(cardName, 0);
+
             }
         }
-
         return discardMessage(playerIndex);
 
     }
@@ -709,11 +715,7 @@ public class GameModel {
         if (list.containsKey(cardName) && list.get(cardName) != 0) {
             int currentCount = list.get(cardName);
             list.put(cardName, currentCount - 1);
-            if (playerList.get(getCurrentPlayer()).getDiscardDeck().containsKey(cardName)) {
-                currentCount = playerList.get(getCurrentPlayer()).getDiscardDeck().get(cardName);
-            } else {
-                currentCount = 0;
-            }
+            currentCount = playerList.get(getCurrentPlayer()).getDiscardDeck().get(cardName);
             playerList.get(getCurrentPlayer()).getDiscardDeck().put(cardName, currentCount + 1);
         }
     }

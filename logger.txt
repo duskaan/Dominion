@@ -1,22 +1,1673 @@
-2017/12/21 20:47:06 Server.Server method: addMessageHandler
+2017/12/21 23:19:25 Server.Server method: addMessageHandler
 INFO: Adding MessageHandlers
-2017/12/21 20:47:06 Server.Server method: addMessageHandler
+2017/12/21 23:19:25 Server.Server method: addMessageHandler
 INFO: All MessageHandlers added successfully
-2017/12/21 20:47:06 Server.Server method: createDatabaseConnection
+2017/12/21 23:19:25 Server.Server method: createDatabaseConnection
 INFO: Creating Database connection
-2017/12/21 20:47:13 Database.Database method: createDatabase
+2017/12/21 23:19:32 Database.Database method: createDatabase
 INFO: Database already exists
-2017/12/21 20:47:13 Database.Database method: createTable
+2017/12/21 23:19:32 Database.Database method: createTable
 INFO: Database already exists
-2017/12/21 20:47:13 Server.Server method: createDatabaseConnection
+2017/12/21 23:19:32 Server.Server method: createDatabaseConnection
 INFO: Database connection created successfully
-2017/12/21 20:47:13 Server.DominionServer method: start
+2017/12/21 23:19:32 Server.DominionServer method: start
 INFO: ServerSocket created on address: 0.0.0.0/0.0.0.0
-2017/12/21 20:47:25 Server.DominionServer method: acceptConnection
+2017/12/21 23:19:40 Server.DominionServer method: acceptConnection
 INFO: Client connection accepted: /127.0.0.1
-2017/12/21 20:47:25 Server.DominionServer method: acceptConnection
+2017/12/21 23:19:40 Server.DominionServer method: acceptConnection
 INFO: notInitialized
-2017/12/21 20:47:25 Handlers.MessageHandler method: <init>
-INFO: MessageHandler is created for: Socket[addr=/127.0.0.1,port=57388,localport=9000]
-2017/12/21 20:47:25 Handlers.MessageHandler method: openResources
+2017/12/21 23:19:40 Handlers.MessageHandler method: <init>
+INFO: MessageHandler is created for: Socket[addr=/127.0.0.1,port=58560,localport=9000]
+2017/12/21 23:19:40 Handlers.MessageHandler method: openResources
 INFO: Resources are opened
+2017/12/21 23:19:45 Handlers.MessageHandler method: tryReadMessage
+INFO: incoming message: SERVER@LOGIN@Player1@1
+2017/12/21 23:19:45 Database.Database method: login
+INFO: Login with Name: Player1 and Password: 1 was successful
+2017/12/21 23:19:45 Handlers.MessageHandler method: write
+INFO: The message is: SERVER@LOGIN@successful@Player1 It is a private message: true
+2017/12/21 23:19:45 Handlers.MessageHandler method: write
+INFO: SocketPlayerHashMap: {58560=Player1}
+2017/12/21 23:19:45 Handlers.MessageHandler method: writeToList
+INFO: [Player1]
+2017/12/21 23:19:45 Handlers.MessageHandler method: writeToList
+INFO: Message: SERVER@LOGIN@successful@Player1 sent to Player1
+2017/12/21 23:19:45 Handlers.ServerLobbyMessageHandler method: handleMessage
+INFO: MessageType: TOPFIVE
+2017/12/21 23:19:45 Handlers.ServerLobbyMessageHandler method: handleMessage
+INFO: ReplyMessage is: TOPFIVE@Tim;Damiano;Stefan;Loris;Hermann;
+2017/12/21 23:19:45 Handlers.MessageHandler method: write
+INFO: The message is: SERVER@LOBBY@TOPFIVE@Tim;Damiano;Stefan;Loris;Hermann; It is a private message: false
+2017/12/21 23:19:45 Handlers.MessageHandler method: write
+INFO: SocketPlayerHashMap: {58560=Player1}
+2017/12/21 23:19:45 Handlers.MessageHandler method: write
+INFO: LobbyList: [Player1]
+2017/12/21 23:19:45 Handlers.MessageHandler method: writeToList
+INFO: [Player1]
+2017/12/21 23:19:45 Handlers.MessageHandler method: writeToList
+INFO: Message: SERVER@LOBBY@TOPFIVE@Tim;Damiano;Stefan;Loris;Hermann; sent to Player1
+2017/12/21 23:19:45 Handlers.ServerLobbyMessageHandler method: handleMessage
+INFO: MessageType: GAMELIST
+2017/12/21 23:19:45 Handlers.HandlerModel method: gameListMessage
+WARNING: gameList is empty
+2017/12/21 23:19:48 Handlers.MessageHandler method: tryReadMessage
+INFO: incoming message: SERVER@NEWGAME@wadawd@10@2
+2017/12/21 23:19:48 Handlers.ServerLobbyMessageHandler method: handleMessage
+INFO: MessageType: GAMELIST
+2017/12/21 23:19:48 Handlers.MessageHandler method: write
+INFO: The message is: SERVER@LOBBY@GameList/wadawd/ It is a private message: false
+2017/12/21 23:19:48 Handlers.MessageHandler method: write
+INFO: SocketPlayerHashMap: {58560=Player1}
+2017/12/21 23:19:48 Handlers.MessageHandler method: write
+INFO: LobbyList: [Player1]
+2017/12/21 23:19:48 Handlers.MessageHandler method: writeToList
+INFO: [Player1]
+2017/12/21 23:19:48 Handlers.MessageHandler method: writeToList
+INFO: Message: SERVER@LOBBY@GameList/wadawd/ sent to Player1
+2017/12/21 23:19:51 Server.DominionServer method: acceptConnection
+INFO: Client connection accepted: /127.0.0.1
+2017/12/21 23:19:51 Server.DominionServer method: acceptConnection
+INFO: notInitialized
+2017/12/21 23:19:51 Handlers.MessageHandler method: <init>
+INFO: MessageHandler is created for: Socket[addr=/127.0.0.1,port=58566,localport=9000]
+2017/12/21 23:19:51 Handlers.MessageHandler method: openResources
+INFO: Resources are opened
+2017/12/21 23:19:59 Handlers.MessageHandler method: tryReadMessage
+INFO: incoming message: SERVER@LOGIN@Player2@1
+2017/12/21 23:19:59 Database.Database method: login
+INFO: Login with Name: Player2 and Password: 1 was successful
+2017/12/21 23:19:59 Handlers.MessageHandler method: write
+INFO: The message is: SERVER@LOGIN@successful@Player2 It is a private message: true
+2017/12/21 23:19:59 Handlers.MessageHandler method: write
+INFO: SocketPlayerHashMap: {58560=Player1, 58566=Player2}
+2017/12/21 23:19:59 Handlers.MessageHandler method: writeToList
+INFO: [Player2]
+2017/12/21 23:19:59 Handlers.MessageHandler method: writeToList
+INFO: Message: SERVER@LOGIN@successful@Player2 sent to Player2
+2017/12/21 23:19:59 Handlers.ServerLobbyMessageHandler method: handleMessage
+INFO: MessageType: TOPFIVE
+2017/12/21 23:19:59 Handlers.ServerLobbyMessageHandler method: handleMessage
+INFO: ReplyMessage is: TOPFIVE@Tim;Damiano;Stefan;Loris;Hermann;
+2017/12/21 23:19:59 Handlers.MessageHandler method: write
+INFO: The message is: SERVER@LOBBY@TOPFIVE@Tim;Damiano;Stefan;Loris;Hermann; It is a private message: false
+2017/12/21 23:19:59 Handlers.MessageHandler method: write
+INFO: SocketPlayerHashMap: {58560=Player1, 58566=Player2}
+2017/12/21 23:19:59 Handlers.MessageHandler method: write
+INFO: LobbyList: [Player1, Player2]
+2017/12/21 23:19:59 Handlers.MessageHandler method: writeToList
+INFO: [Player1, Player2]
+2017/12/21 23:19:59 Handlers.MessageHandler method: writeToList
+INFO: Message: SERVER@LOBBY@TOPFIVE@Tim;Damiano;Stefan;Loris;Hermann; sent to Player1
+2017/12/21 23:19:59 Handlers.MessageHandler method: writeToList
+INFO: Message: SERVER@LOBBY@TOPFIVE@Tim;Damiano;Stefan;Loris;Hermann; sent to Player2
+2017/12/21 23:19:59 Handlers.ServerLobbyMessageHandler method: handleMessage
+INFO: MessageType: GAMELIST
+2017/12/21 23:19:59 Handlers.MessageHandler method: write
+INFO: The message is: SERVER@LOBBY@GameList/wadawd/ It is a private message: false
+2017/12/21 23:19:59 Handlers.MessageHandler method: write
+INFO: SocketPlayerHashMap: {58560=Player1, 58566=Player2}
+2017/12/21 23:19:59 Handlers.MessageHandler method: write
+INFO: LobbyList: [Player1, Player2]
+2017/12/21 23:19:59 Handlers.MessageHandler method: writeToList
+INFO: [Player1, Player2]
+2017/12/21 23:19:59 Handlers.MessageHandler method: writeToList
+INFO: Message: SERVER@LOBBY@GameList/wadawd/ sent to Player1
+2017/12/21 23:19:59 Handlers.MessageHandler method: writeToList
+INFO: Message: SERVER@LOBBY@GameList/wadawd/ sent to Player2
+2017/12/21 23:20:01 Handlers.MessageHandler method: tryReadMessage
+INFO: incoming message: GAME@JOINGAME@wadawd
+2017/12/21 23:20:01 Handlers.GameJoinGameMessageHandler method: handleMessage
+INFO: wadawd
+2017/12/21 23:20:01 Handlers.GameJoinGameMessageHandler method: handleMessage
+INFO: Player2 is added to the Game wadawd
+2017/12/21 23:20:01 Handlers.GameJoinGameMessageHandler method: handleMessage
+INFO: wadawd is full and will be started
+2017/12/21 23:20:01 Handlers.GameStartGameMessageHandler method: startGame
+INFO: [Ljava.lang.String;@268fe586
+2017/12/21 23:20:01 Handlers.MessageHandler method: write
+INFO: The message is: GAME@STARTGAME@*config@10@Player1/Player2/ It is a private message: false
+2017/12/21 23:20:01 Handlers.MessageHandler method: write
+INFO: SocketPlayerHashMap: {58560=Player1, 58566=Player2}
+2017/12/21 23:20:01 Handlers.MessageHandler method: write
+INFO: LobbyList: [Player1, Player2]
+2017/12/21 23:20:01 Handlers.MessageHandler method: writeToList
+INFO: [Player1, Player2]
+2017/12/21 23:20:01 Handlers.MessageHandler method: writeToList
+INFO: Message: GAME@STARTGAME@*config@10@Player1/Player2/ sent to Player1
+2017/12/21 23:20:01 Handlers.MessageHandler method: writeToList
+INFO: Message: GAME@STARTGAME@*config@10@Player1/Player2/ sent to Player2
+2017/12/21 23:20:01 Handlers.MessageHandler method: write
+INFO: The message is: GAME@/initCards@Player1@estate@copper@copper@copper@copper@ It is a private message: false
+2017/12/21 23:20:01 Handlers.MessageHandler method: write
+INFO: SocketPlayerHashMap: {58560=Player1, 58566=Player2}
+2017/12/21 23:20:01 Handlers.MessageHandler method: write
+INFO: LobbyList: [Player1, Player2]
+2017/12/21 23:20:01 Handlers.MessageHandler method: writeToList
+INFO: [Player1, Player2]
+2017/12/21 23:20:01 Handlers.MessageHandler method: writeToList
+INFO: Message: GAME@/initCards@Player1@estate@copper@copper@copper@copper@ sent to Player1
+2017/12/21 23:20:01 Handlers.MessageHandler method: writeToList
+INFO: Message: GAME@/initCards@Player1@estate@copper@copper@copper@copper@ sent to Player2
+2017/12/21 23:20:01 Handlers.MessageHandler method: write
+INFO: The message is: GAME@/initCards@Player2@estate@copper@copper@copper@copper@ It is a private message: false
+2017/12/21 23:20:01 Handlers.MessageHandler method: write
+INFO: SocketPlayerHashMap: {58560=Player1, 58566=Player2}
+2017/12/21 23:20:01 Handlers.MessageHandler method: write
+INFO: LobbyList: [Player1, Player2]
+2017/12/21 23:20:01 Handlers.MessageHandler method: writeToList
+INFO: [Player1, Player2]
+2017/12/21 23:20:01 Handlers.MessageHandler method: writeToList
+INFO: Message: GAME@/initCards@Player2@estate@copper@copper@copper@copper@ sent to Player1
+2017/12/21 23:20:01 Handlers.MessageHandler method: writeToList
+INFO: Message: GAME@/initCards@Player2@estate@copper@copper@copper@copper@ sent to Player2
+2017/12/21 23:20:01 Handlers.GameStartGameMessageHandler method: startGame
+INFO: Handlers.TempGame@555788e6is started
+2017/12/21 23:20:05 Handlers.MessageHandler method: tryReadMessage
+INFO: incoming message: GAME@playTreasure
+2017/12/21 23:20:05 Handlers.MessageHandler method: write
+INFO: The message is: GAME@/playTreasures@Player1@playedCard/copper,4@hand/estate,1@coinValue,4 It is a private message: false
+2017/12/21 23:20:05 Handlers.MessageHandler method: write
+INFO: SocketPlayerHashMap: {58560=Player1, 58566=Player2}
+2017/12/21 23:20:05 Handlers.MessageHandler method: write
+INFO: LobbyList: [Player1, Player2]
+2017/12/21 23:20:05 Handlers.MessageHandler method: writeToList
+INFO: [Player1, Player2]
+2017/12/21 23:20:05 Handlers.MessageHandler method: writeToList
+INFO: Message: GAME@/playTreasures@Player1@playedCard/copper,4@hand/estate,1@coinValue,4 sent to Player1
+2017/12/21 23:20:05 Handlers.MessageHandler method: writeToList
+INFO: Message: GAME@/playTreasures@Player1@playedCard/copper,4@hand/estate,1@coinValue,4 sent to Player2
+2017/12/21 23:20:10 Handlers.MessageHandler method: tryReadMessage
+INFO: incoming message: GAME@buy@smithy
+2017/12/21 23:20:10 Handlers.MessageHandler method: write
+INFO: The message is: GAME@/buy@Player1@buyValue,0@coinValue,0@actionCards/smithy,9@discard,1 It is a private message: false
+2017/12/21 23:20:10 Handlers.MessageHandler method: write
+INFO: SocketPlayerHashMap: {58560=Player1, 58566=Player2}
+2017/12/21 23:20:10 Handlers.MessageHandler method: write
+INFO: LobbyList: [Player1, Player2]
+2017/12/21 23:20:10 Handlers.MessageHandler method: writeToList
+INFO: [Player1, Player2]
+2017/12/21 23:20:10 Handlers.MessageHandler method: writeToList
+INFO: Message: GAME@/buy@Player1@buyValue,0@coinValue,0@actionCards/smithy,9@discard,1 sent to Player1
+2017/12/21 23:20:10 Handlers.MessageHandler method: writeToList
+INFO: Message: GAME@/buy@Player1@buyValue,0@coinValue,0@actionCards/smithy,9@discard,1 sent to Player2
+2017/12/21 23:20:11 Handlers.MessageHandler method: tryReadMessage
+INFO: incoming message: GAME@endTurn
+2017/12/21 23:20:11 GameLogic.GameModel method: discardHandDeckToDiscardDeck
+INFO: Removed from Hand: estate amount: 1
+2017/12/21 23:20:11 GameLogic.GameModel method: discardHandDeckToDiscardDeck
+INFO: Removed from Hand: copper amount: 4
+2017/12/21 23:20:11 Handlers.MessageHandler method: write
+INFO: The message is: GAME@/endTurn@Player1@victoryPoints,3@discard,6 It is a private message: false
+2017/12/21 23:20:11 Handlers.MessageHandler method: write
+INFO: SocketPlayerHashMap: {58560=Player1, 58566=Player2}
+2017/12/21 23:20:11 Handlers.MessageHandler method: write
+INFO: LobbyList: [Player1, Player2]
+2017/12/21 23:20:11 Handlers.MessageHandler method: writeToList
+INFO: [Player1, Player2]
+2017/12/21 23:20:11 Handlers.MessageHandler method: writeToList
+INFO: Message: GAME@/endTurn@Player1@victoryPoints,3@discard,6 sent to Player1
+2017/12/21 23:20:11 Handlers.MessageHandler method: writeToList
+INFO: Message: GAME@/endTurn@Player1@victoryPoints,3@discard,6 sent to Player2
+2017/12/21 23:20:11 GameLogic.GameModel method: discardDecktoPlayerDeck
+INFO: Card: estateis added to playerDeck with the amount of 1
+2017/12/21 23:20:11 GameLogic.GameModel method: discardDecktoPlayerDeck
+INFO: Card: smithyis added to playerDeck with the amount of 1
+2017/12/21 23:20:11 GameLogic.GameModel method: discardDecktoPlayerDeck
+INFO: Card: copperis added to playerDeck with the amount of 4
+2017/12/21 23:20:11 Handlers.MessageHandler method: write
+INFO: The message is: GAME@/newDeckValues@Player1@discard,0@deck,6 It is a private message: false
+2017/12/21 23:20:11 Handlers.MessageHandler method: write
+INFO: SocketPlayerHashMap: {58560=Player1, 58566=Player2}
+2017/12/21 23:20:11 Handlers.MessageHandler method: write
+INFO: LobbyList: [Player1, Player2]
+2017/12/21 23:20:11 Handlers.MessageHandler method: writeToList
+INFO: [Player1, Player2]
+2017/12/21 23:20:11 Handlers.MessageHandler method: writeToList
+INFO: Message: GAME@/newDeckValues@Player1@discard,0@deck,6 sent to Player1
+2017/12/21 23:20:11 Handlers.MessageHandler method: writeToList
+INFO: Message: GAME@/newDeckValues@Player1@discard,0@deck,6 sent to Player2
+2017/12/21 23:20:11 Handlers.MessageHandler method: write
+INFO: The message is: GAME@/newCards@Player1@hand/estate,2;copper,3@deck,6 It is a private message: false
+2017/12/21 23:20:11 Handlers.MessageHandler method: write
+INFO: SocketPlayerHashMap: {58560=Player1, 58566=Player2}
+2017/12/21 23:20:11 Handlers.MessageHandler method: write
+INFO: LobbyList: [Player1, Player2]
+2017/12/21 23:20:11 Handlers.MessageHandler method: writeToList
+INFO: [Player1, Player2]
+2017/12/21 23:20:11 Handlers.MessageHandler method: writeToList
+INFO: Message: GAME@/newCards@Player1@hand/estate,2;copper,3@deck,6 sent to Player1
+2017/12/21 23:20:11 Handlers.MessageHandler method: writeToList
+INFO: Message: GAME@/newCards@Player1@hand/estate,2;copper,3@deck,6 sent to Player2
+2017/12/21 23:20:14 Handlers.MessageHandler method: tryReadMessage
+INFO: incoming message: GAME@playTreasure
+2017/12/21 23:20:14 Handlers.MessageHandler method: write
+INFO: The message is: GAME@/playTreasures@Player2@playedCard/copper,4@hand/estate,1@coinValue,4 It is a private message: false
+2017/12/21 23:20:14 Handlers.MessageHandler method: write
+INFO: SocketPlayerHashMap: {58560=Player1, 58566=Player2}
+2017/12/21 23:20:14 Handlers.MessageHandler method: write
+INFO: LobbyList: [Player1, Player2]
+2017/12/21 23:20:14 Handlers.MessageHandler method: writeToList
+INFO: [Player1, Player2]
+2017/12/21 23:20:14 Handlers.MessageHandler method: writeToList
+INFO: Message: GAME@/playTreasures@Player2@playedCard/copper,4@hand/estate,1@coinValue,4 sent to Player1
+2017/12/21 23:20:14 Handlers.MessageHandler method: writeToList
+INFO: Message: GAME@/playTreasures@Player2@playedCard/copper,4@hand/estate,1@coinValue,4 sent to Player2
+2017/12/21 23:20:17 Handlers.MessageHandler method: tryReadMessage
+INFO: incoming message: GAME@buy@smithy
+2017/12/21 23:20:17 Handlers.MessageHandler method: write
+INFO: The message is: GAME@/buy@Player2@buyValue,0@coinValue,0@actionCards/smithy,8@discard,1 It is a private message: false
+2017/12/21 23:20:17 Handlers.MessageHandler method: write
+INFO: SocketPlayerHashMap: {58560=Player1, 58566=Player2}
+2017/12/21 23:20:17 Handlers.MessageHandler method: write
+INFO: LobbyList: [Player1, Player2]
+2017/12/21 23:20:17 Handlers.MessageHandler method: writeToList
+INFO: [Player1, Player2]
+2017/12/21 23:20:17 Handlers.MessageHandler method: writeToList
+INFO: Message: GAME@/buy@Player2@buyValue,0@coinValue,0@actionCards/smithy,8@discard,1 sent to Player1
+2017/12/21 23:20:17 Handlers.MessageHandler method: writeToList
+INFO: Message: GAME@/buy@Player2@buyValue,0@coinValue,0@actionCards/smithy,8@discard,1 sent to Player2
+2017/12/21 23:20:18 Handlers.MessageHandler method: tryReadMessage
+INFO: incoming message: GAME@endTurn
+2017/12/21 23:20:18 GameLogic.GameModel method: discardHandDeckToDiscardDeck
+INFO: Removed from Hand: estate amount: 1
+2017/12/21 23:20:18 GameLogic.GameModel method: discardHandDeckToDiscardDeck
+INFO: Removed from Hand: copper amount: 4
+2017/12/21 23:20:18 Handlers.MessageHandler method: write
+INFO: The message is: GAME@/endTurn@Player2@victoryPoints,3@discard,6 It is a private message: false
+2017/12/21 23:20:18 Handlers.MessageHandler method: write
+INFO: SocketPlayerHashMap: {58560=Player1, 58566=Player2}
+2017/12/21 23:20:18 Handlers.MessageHandler method: write
+INFO: LobbyList: [Player1, Player2]
+2017/12/21 23:20:18 Handlers.MessageHandler method: writeToList
+INFO: [Player1, Player2]
+2017/12/21 23:20:18 Handlers.MessageHandler method: writeToList
+INFO: Message: GAME@/endTurn@Player2@victoryPoints,3@discard,6 sent to Player1
+2017/12/21 23:20:18 Handlers.MessageHandler method: writeToList
+INFO: Message: GAME@/endTurn@Player2@victoryPoints,3@discard,6 sent to Player2
+2017/12/21 23:20:18 GameLogic.GameModel method: discardDecktoPlayerDeck
+INFO: Card: estateis added to playerDeck with the amount of 1
+2017/12/21 23:20:18 GameLogic.GameModel method: discardDecktoPlayerDeck
+INFO: Card: smithyis added to playerDeck with the amount of 1
+2017/12/21 23:20:18 GameLogic.GameModel method: discardDecktoPlayerDeck
+INFO: Card: copperis added to playerDeck with the amount of 4
+2017/12/21 23:20:18 Handlers.MessageHandler method: write
+INFO: The message is: GAME@/newDeckValues@Player2@discard,0@deck,6 It is a private message: false
+2017/12/21 23:20:18 Handlers.MessageHandler method: write
+INFO: SocketPlayerHashMap: {58560=Player1, 58566=Player2}
+2017/12/21 23:20:18 Handlers.MessageHandler method: write
+INFO: LobbyList: [Player1, Player2]
+2017/12/21 23:20:18 Handlers.MessageHandler method: writeToList
+INFO: [Player1, Player2]
+2017/12/21 23:20:18 Handlers.MessageHandler method: writeToList
+INFO: Message: GAME@/newDeckValues@Player2@discard,0@deck,6 sent to Player1
+2017/12/21 23:20:18 Handlers.MessageHandler method: writeToList
+INFO: Message: GAME@/newDeckValues@Player2@discard,0@deck,6 sent to Player2
+2017/12/21 23:20:18 Handlers.MessageHandler method: write
+INFO: The message is: GAME@/newCards@Player2@hand/estate,2;copper,3@deck,6 It is a private message: false
+2017/12/21 23:20:18 Handlers.MessageHandler method: write
+INFO: SocketPlayerHashMap: {58560=Player1, 58566=Player2}
+2017/12/21 23:20:18 Handlers.MessageHandler method: write
+INFO: LobbyList: [Player1, Player2]
+2017/12/21 23:20:18 Handlers.MessageHandler method: writeToList
+INFO: [Player1, Player2]
+2017/12/21 23:20:18 Handlers.MessageHandler method: writeToList
+INFO: Message: GAME@/newCards@Player2@hand/estate,2;copper,3@deck,6 sent to Player1
+2017/12/21 23:20:18 Handlers.MessageHandler method: writeToList
+INFO: Message: GAME@/newCards@Player2@hand/estate,2;copper,3@deck,6 sent to Player2
+2017/12/21 23:20:20 Handlers.MessageHandler method: tryReadMessage
+INFO: incoming message: GAME@playTreasure
+2017/12/21 23:20:20 Handlers.MessageHandler method: write
+INFO: The message is: GAME@/playTreasures@Player1@playedCard/copper,3@hand/estate,2@coinValue,3 It is a private message: false
+2017/12/21 23:20:20 Handlers.MessageHandler method: write
+INFO: SocketPlayerHashMap: {58560=Player1, 58566=Player2}
+2017/12/21 23:20:20 Handlers.MessageHandler method: write
+INFO: LobbyList: [Player1, Player2]
+2017/12/21 23:20:20 Handlers.MessageHandler method: writeToList
+INFO: [Player1, Player2]
+2017/12/21 23:20:20 Handlers.MessageHandler method: writeToList
+INFO: Message: GAME@/playTreasures@Player1@playedCard/copper,3@hand/estate,2@coinValue,3 sent to Player1
+2017/12/21 23:20:20 Handlers.MessageHandler method: writeToList
+INFO: Message: GAME@/playTreasures@Player1@playedCard/copper,3@hand/estate,2@coinValue,3 sent to Player2
+2017/12/21 23:20:21 Handlers.MessageHandler method: tryReadMessage
+INFO: incoming message: GAME@buy@village
+2017/12/21 23:20:21 Handlers.MessageHandler method: write
+INFO: The message is: GAME@/buy@Player1@buyValue,0@coinValue,0@actionCards/village,9@discard,1 It is a private message: false
+2017/12/21 23:20:21 Handlers.MessageHandler method: write
+INFO: SocketPlayerHashMap: {58560=Player1, 58566=Player2}
+2017/12/21 23:20:21 Handlers.MessageHandler method: write
+INFO: LobbyList: [Player1, Player2]
+2017/12/21 23:20:21 Handlers.MessageHandler method: writeToList
+INFO: [Player1, Player2]
+2017/12/21 23:20:21 Handlers.MessageHandler method: writeToList
+INFO: Message: GAME@/buy@Player1@buyValue,0@coinValue,0@actionCards/village,9@discard,1 sent to Player1
+2017/12/21 23:20:21 Handlers.MessageHandler method: writeToList
+INFO: Message: GAME@/buy@Player1@buyValue,0@coinValue,0@actionCards/village,9@discard,1 sent to Player2
+2017/12/21 23:20:22 Handlers.MessageHandler method: tryReadMessage
+INFO: incoming message: GAME@endTurn
+2017/12/21 23:20:22 GameLogic.GameModel method: discardHandDeckToDiscardDeck
+INFO: Removed from Hand: estate amount: 2
+2017/12/21 23:20:22 GameLogic.GameModel method: discardHandDeckToDiscardDeck
+INFO: Removed from Hand: copper amount: 3
+2017/12/21 23:20:22 Handlers.MessageHandler method: write
+INFO: The message is: GAME@/endTurn@Player1@victoryPoints,3@discard,6 It is a private message: false
+2017/12/21 23:20:22 Handlers.MessageHandler method: write
+INFO: SocketPlayerHashMap: {58560=Player1, 58566=Player2}
+2017/12/21 23:20:22 Handlers.MessageHandler method: write
+INFO: LobbyList: [Player1, Player2]
+2017/12/21 23:20:22 Handlers.MessageHandler method: writeToList
+INFO: [Player1, Player2]
+2017/12/21 23:20:22 Handlers.MessageHandler method: writeToList
+INFO: Message: GAME@/endTurn@Player1@victoryPoints,3@discard,6 sent to Player1
+2017/12/21 23:20:22 Handlers.MessageHandler method: writeToList
+INFO: Message: GAME@/endTurn@Player1@victoryPoints,3@discard,6 sent to Player2
+2017/12/21 23:20:22 Handlers.MessageHandler method: write
+INFO: The message is: GAME@/newCards@Player1@hand/smithy,1;copper,4@deck,1 It is a private message: false
+2017/12/21 23:20:22 Handlers.MessageHandler method: write
+INFO: SocketPlayerHashMap: {58560=Player1, 58566=Player2}
+2017/12/21 23:20:22 Handlers.MessageHandler method: write
+INFO: LobbyList: [Player1, Player2]
+2017/12/21 23:20:22 Handlers.MessageHandler method: writeToList
+INFO: [Player1, Player2]
+2017/12/21 23:20:22 Handlers.MessageHandler method: writeToList
+INFO: Message: GAME@/newCards@Player1@hand/smithy,1;copper,4@deck,1 sent to Player1
+2017/12/21 23:20:22 Handlers.MessageHandler method: writeToList
+INFO: Message: GAME@/newCards@Player1@hand/smithy,1;copper,4@deck,1 sent to Player2
+2017/12/21 23:21:39 Handlers.MessageHandler method: tryReadMessage
+INFO: incoming message: GAME@playTreasure
+2017/12/21 23:21:39 Handlers.MessageHandler method: write
+INFO: The message is: GAME@/playTreasures@Player2@playedCard/copper,3@hand/estate,2@coinValue,3 It is a private message: false
+2017/12/21 23:21:39 Handlers.MessageHandler method: write
+INFO: SocketPlayerHashMap: {58560=Player1, 58566=Player2}
+2017/12/21 23:21:39 Handlers.MessageHandler method: write
+INFO: LobbyList: [Player1, Player2]
+2017/12/21 23:21:39 Handlers.MessageHandler method: writeToList
+INFO: [Player1, Player2]
+2017/12/21 23:21:39 Handlers.MessageHandler method: writeToList
+INFO: Message: GAME@/playTreasures@Player2@playedCard/copper,3@hand/estate,2@coinValue,3 sent to Player1
+2017/12/21 23:21:39 Handlers.MessageHandler method: writeToList
+INFO: Message: GAME@/playTreasures@Player2@playedCard/copper,3@hand/estate,2@coinValue,3 sent to Player2
+2017/12/21 23:21:40 Handlers.MessageHandler method: tryReadMessage
+INFO: incoming message: GAME@buy@village
+2017/12/21 23:21:40 Handlers.MessageHandler method: write
+INFO: The message is: GAME@/buy@Player2@buyValue,0@coinValue,0@actionCards/village,8@discard,1 It is a private message: false
+2017/12/21 23:21:40 Handlers.MessageHandler method: write
+INFO: SocketPlayerHashMap: {58560=Player1, 58566=Player2}
+2017/12/21 23:21:40 Handlers.MessageHandler method: write
+INFO: LobbyList: [Player1, Player2]
+2017/12/21 23:21:40 Handlers.MessageHandler method: writeToList
+INFO: [Player1, Player2]
+2017/12/21 23:21:40 Handlers.MessageHandler method: writeToList
+INFO: Message: GAME@/buy@Player2@buyValue,0@coinValue,0@actionCards/village,8@discard,1 sent to Player1
+2017/12/21 23:21:40 Handlers.MessageHandler method: writeToList
+INFO: Message: GAME@/buy@Player2@buyValue,0@coinValue,0@actionCards/village,8@discard,1 sent to Player2
+2017/12/21 23:21:42 Handlers.MessageHandler method: tryReadMessage
+INFO: incoming message: GAME@endTurn
+2017/12/21 23:21:42 GameLogic.GameModel method: discardHandDeckToDiscardDeck
+INFO: Removed from Hand: estate amount: 2
+2017/12/21 23:21:42 GameLogic.GameModel method: discardHandDeckToDiscardDeck
+INFO: Removed from Hand: copper amount: 3
+2017/12/21 23:21:42 Handlers.MessageHandler method: write
+INFO: The message is: GAME@/endTurn@Player2@victoryPoints,3@discard,6 It is a private message: false
+2017/12/21 23:21:42 Handlers.MessageHandler method: write
+INFO: SocketPlayerHashMap: {58560=Player1, 58566=Player2}
+2017/12/21 23:21:42 Handlers.MessageHandler method: write
+INFO: LobbyList: [Player1, Player2]
+2017/12/21 23:21:42 Handlers.MessageHandler method: writeToList
+INFO: [Player1, Player2]
+2017/12/21 23:21:42 Handlers.MessageHandler method: writeToList
+INFO: Message: GAME@/endTurn@Player2@victoryPoints,3@discard,6 sent to Player1
+2017/12/21 23:21:42 Handlers.MessageHandler method: writeToList
+INFO: Message: GAME@/endTurn@Player2@victoryPoints,3@discard,6 sent to Player2
+2017/12/21 23:21:42 Handlers.MessageHandler method: write
+INFO: The message is: GAME@/newCards@Player2@hand/estate,1;copper,4@deck,1 It is a private message: false
+2017/12/21 23:21:42 Handlers.MessageHandler method: write
+INFO: SocketPlayerHashMap: {58560=Player1, 58566=Player2}
+2017/12/21 23:21:42 Handlers.MessageHandler method: write
+INFO: LobbyList: [Player1, Player2]
+2017/12/21 23:21:42 Handlers.MessageHandler method: writeToList
+INFO: [Player1, Player2]
+2017/12/21 23:21:42 Handlers.MessageHandler method: writeToList
+INFO: Message: GAME@/newCards@Player2@hand/estate,1;copper,4@deck,1 sent to Player1
+2017/12/21 23:21:42 Handlers.MessageHandler method: writeToList
+INFO: Message: GAME@/newCards@Player2@hand/estate,1;copper,4@deck,1 sent to Player2
+2017/12/21 23:21:46 Handlers.MessageHandler method: tryReadMessage
+INFO: incoming message: GAME@play@smithy
+2017/12/21 23:21:46 Handlers.MessageHandler method: write
+INFO: The message is: GAME@/play@Player1@smithy@actionValue,0@coinValue,0@buyValue,1 It is a private message: false
+2017/12/21 23:21:46 Handlers.MessageHandler method: write
+INFO: SocketPlayerHashMap: {58560=Player1, 58566=Player2}
+2017/12/21 23:21:46 Handlers.MessageHandler method: write
+INFO: LobbyList: [Player1, Player2]
+2017/12/21 23:21:46 Handlers.MessageHandler method: writeToList
+INFO: [Player1, Player2]
+2017/12/21 23:21:46 Handlers.MessageHandler method: writeToList
+INFO: Message: GAME@/play@Player1@smithy@actionValue,0@coinValue,0@buyValue,1 sent to Player1
+2017/12/21 23:21:46 Handlers.MessageHandler method: writeToList
+INFO: Message: GAME@/play@Player1@smithy@actionValue,0@coinValue,0@buyValue,1 sent to Player2
+2017/12/21 23:21:46 GameLogic.GameModel method: discardDecktoPlayerDeck
+INFO: Card: villageis added to playerDeck with the amount of 1
+2017/12/21 23:21:46 GameLogic.GameModel method: discardDecktoPlayerDeck
+INFO: Card: estateis added to playerDeck with the amount of 2
+2017/12/21 23:21:46 GameLogic.GameModel method: discardDecktoPlayerDeck
+INFO: Card: copperis added to playerDeck with the amount of 3
+2017/12/21 23:21:46 Handlers.MessageHandler method: write
+INFO: The message is: GAME@/newDeckValues@Player1@discard,0@deck,6 It is a private message: false
+2017/12/21 23:21:46 Handlers.MessageHandler method: write
+INFO: SocketPlayerHashMap: {58560=Player1, 58566=Player2}
+2017/12/21 23:21:46 Handlers.MessageHandler method: write
+INFO: LobbyList: [Player1, Player2]
+2017/12/21 23:21:46 Handlers.MessageHandler method: writeToList
+INFO: [Player1, Player2]
+2017/12/21 23:21:46 Handlers.MessageHandler method: writeToList
+INFO: Message: GAME@/newDeckValues@Player1@discard,0@deck,6 sent to Player1
+2017/12/21 23:21:46 Handlers.MessageHandler method: writeToList
+INFO: Message: GAME@/newDeckValues@Player1@discard,0@deck,6 sent to Player2
+2017/12/21 23:21:46 Handlers.MessageHandler method: write
+INFO: The message is: GAME@/newCards@Player1@hand/estate,1;copper,6@deck,4 It is a private message: false
+2017/12/21 23:21:46 Handlers.MessageHandler method: write
+INFO: SocketPlayerHashMap: {58560=Player1, 58566=Player2}
+2017/12/21 23:21:46 Handlers.MessageHandler method: write
+INFO: LobbyList: [Player1, Player2]
+2017/12/21 23:21:46 Handlers.MessageHandler method: writeToList
+INFO: [Player1, Player2]
+2017/12/21 23:21:46 Handlers.MessageHandler method: writeToList
+INFO: Message: GAME@/newCards@Player1@hand/estate,1;copper,6@deck,4 sent to Player1
+2017/12/21 23:21:46 Handlers.MessageHandler method: writeToList
+INFO: Message: GAME@/newCards@Player1@hand/estate,1;copper,6@deck,4 sent to Player2
+2017/12/21 23:21:48 Handlers.MessageHandler method: tryReadMessage
+INFO: incoming message: GAME@playTreasure
+2017/12/21 23:21:48 Handlers.MessageHandler method: write
+INFO: The message is: GAME@/playTreasures@Player1@playedCard/copper,6@hand/estate,1@coinValue,6 It is a private message: false
+2017/12/21 23:21:48 Handlers.MessageHandler method: write
+INFO: SocketPlayerHashMap: {58560=Player1, 58566=Player2}
+2017/12/21 23:21:48 Handlers.MessageHandler method: write
+INFO: LobbyList: [Player1, Player2]
+2017/12/21 23:21:48 Handlers.MessageHandler method: writeToList
+INFO: [Player1, Player2]
+2017/12/21 23:21:48 Handlers.MessageHandler method: writeToList
+INFO: Message: GAME@/playTreasures@Player1@playedCard/copper,6@hand/estate,1@coinValue,6 sent to Player1
+2017/12/21 23:21:48 Handlers.MessageHandler method: writeToList
+INFO: Message: GAME@/playTreasures@Player1@playedCard/copper,6@hand/estate,1@coinValue,6 sent to Player2
+2017/12/21 23:21:54 Handlers.MessageHandler method: tryReadMessage
+INFO: incoming message: GAME@buy@festival
+2017/12/21 23:21:54 Handlers.MessageHandler method: write
+INFO: The message is: GAME@/buy@Player1@buyValue,0@coinValue,1@actionCards/festival,9@discard,1 It is a private message: false
+2017/12/21 23:21:54 Handlers.MessageHandler method: write
+INFO: SocketPlayerHashMap: {58560=Player1, 58566=Player2}
+2017/12/21 23:21:54 Handlers.MessageHandler method: write
+INFO: LobbyList: [Player1, Player2]
+2017/12/21 23:21:54 Handlers.MessageHandler method: writeToList
+INFO: [Player1, Player2]
+2017/12/21 23:21:54 Handlers.MessageHandler method: writeToList
+INFO: Message: GAME@/buy@Player1@buyValue,0@coinValue,1@actionCards/festival,9@discard,1 sent to Player1
+2017/12/21 23:21:54 Handlers.MessageHandler method: writeToList
+INFO: Message: GAME@/buy@Player1@buyValue,0@coinValue,1@actionCards/festival,9@discard,1 sent to Player2
+2017/12/21 23:21:57 Handlers.MessageHandler method: tryReadMessage
+INFO: incoming message: GAME@endTurn
+2017/12/21 23:21:57 GameLogic.GameModel method: discardHandDeckToDiscardDeck
+INFO: Removed from Hand: estate amount: 1
+2017/12/21 23:21:57 GameLogic.GameModel method: discardHandDeckToDiscardDeck
+INFO: Removed from Hand: smithy amount: 1
+2017/12/21 23:21:57 GameLogic.GameModel method: discardHandDeckToDiscardDeck
+INFO: Removed from Hand: copper amount: 6
+2017/12/21 23:21:57 Handlers.MessageHandler method: write
+INFO: The message is: GAME@/endTurn@Player1@victoryPoints,3@discard,9 It is a private message: false
+2017/12/21 23:21:57 Handlers.MessageHandler method: write
+INFO: SocketPlayerHashMap: {58560=Player1, 58566=Player2}
+2017/12/21 23:21:57 Handlers.MessageHandler method: write
+INFO: LobbyList: [Player1, Player2]
+2017/12/21 23:21:57 Handlers.MessageHandler method: writeToList
+INFO: [Player1, Player2]
+2017/12/21 23:21:57 Handlers.MessageHandler method: writeToList
+INFO: Message: GAME@/endTurn@Player1@victoryPoints,3@discard,9 sent to Player1
+2017/12/21 23:21:57 Handlers.MessageHandler method: writeToList
+INFO: Message: GAME@/endTurn@Player1@victoryPoints,3@discard,9 sent to Player2
+2017/12/21 23:21:57 GameLogic.GameModel method: discardDecktoPlayerDeck
+INFO: Card: festivalis added to playerDeck with the amount of 1
+2017/12/21 23:21:57 GameLogic.GameModel method: discardDecktoPlayerDeck
+INFO: Card: estateis added to playerDeck with the amount of 1
+2017/12/21 23:21:57 GameLogic.GameModel method: discardDecktoPlayerDeck
+INFO: Card: smithyis added to playerDeck with the amount of 1
+2017/12/21 23:21:57 GameLogic.GameModel method: discardDecktoPlayerDeck
+INFO: Card: copperis added to playerDeck with the amount of 6
+2017/12/21 23:21:57 Handlers.MessageHandler method: write
+INFO: The message is: GAME@/newDeckValues@Player1@discard,0@deck,9 It is a private message: false
+2017/12/21 23:21:57 Handlers.MessageHandler method: write
+INFO: SocketPlayerHashMap: {58560=Player1, 58566=Player2}
+2017/12/21 23:21:57 Handlers.MessageHandler method: write
+INFO: LobbyList: [Player1, Player2]
+2017/12/21 23:21:57 Handlers.MessageHandler method: writeToList
+INFO: [Player1, Player2]
+2017/12/21 23:21:57 Handlers.MessageHandler method: writeToList
+INFO: Message: GAME@/newDeckValues@Player1@discard,0@deck,9 sent to Player1
+2017/12/21 23:21:57 Handlers.MessageHandler method: writeToList
+INFO: Message: GAME@/newDeckValues@Player1@discard,0@deck,9 sent to Player2
+2017/12/21 23:21:57 Handlers.MessageHandler method: write
+INFO: The message is: GAME@/newCards@Player1@hand/village,1;estate,2;copper,2@deck,8 It is a private message: false
+2017/12/21 23:21:57 Handlers.MessageHandler method: write
+INFO: SocketPlayerHashMap: {58560=Player1, 58566=Player2}
+2017/12/21 23:21:57 Handlers.MessageHandler method: write
+INFO: LobbyList: [Player1, Player2]
+2017/12/21 23:21:57 Handlers.MessageHandler method: writeToList
+INFO: [Player1, Player2]
+2017/12/21 23:21:57 Handlers.MessageHandler method: writeToList
+INFO: Message: GAME@/newCards@Player1@hand/village,1;estate,2;copper,2@deck,8 sent to Player1
+2017/12/21 23:21:57 Handlers.MessageHandler method: writeToList
+INFO: Message: GAME@/newCards@Player1@hand/village,1;estate,2;copper,2@deck,8 sent to Player2
+2017/12/21 23:22:06 Handlers.MessageHandler method: tryReadMessage
+INFO: incoming message: GAME@playTreasure
+2017/12/21 23:22:06 Handlers.MessageHandler method: write
+INFO: The message is: GAME@/playTreasures@Player2@playedCard/copper,4@hand/estate,1@coinValue,4 It is a private message: false
+2017/12/21 23:22:06 Handlers.MessageHandler method: write
+INFO: SocketPlayerHashMap: {58560=Player1, 58566=Player2}
+2017/12/21 23:22:06 Handlers.MessageHandler method: write
+INFO: LobbyList: [Player1, Player2]
+2017/12/21 23:22:06 Handlers.MessageHandler method: writeToList
+INFO: [Player1, Player2]
+2017/12/21 23:22:06 Handlers.MessageHandler method: writeToList
+INFO: Message: GAME@/playTreasures@Player2@playedCard/copper,4@hand/estate,1@coinValue,4 sent to Player1
+2017/12/21 23:22:06 Handlers.MessageHandler method: writeToList
+INFO: Message: GAME@/playTreasures@Player2@playedCard/copper,4@hand/estate,1@coinValue,4 sent to Player2
+2017/12/21 23:22:08 Handlers.MessageHandler method: tryReadMessage
+INFO: incoming message: GAME@buy@smithy
+2017/12/21 23:22:08 Handlers.MessageHandler method: write
+INFO: The message is: GAME@/buy@Player2@buyValue,0@coinValue,0@actionCards/smithy,7@discard,7 It is a private message: false
+2017/12/21 23:22:08 Handlers.MessageHandler method: write
+INFO: SocketPlayerHashMap: {58560=Player1, 58566=Player2}
+2017/12/21 23:22:08 Handlers.MessageHandler method: write
+INFO: LobbyList: [Player1, Player2]
+2017/12/21 23:22:08 Handlers.MessageHandler method: writeToList
+INFO: [Player1, Player2]
+2017/12/21 23:22:08 Handlers.MessageHandler method: writeToList
+INFO: Message: GAME@/buy@Player2@buyValue,0@coinValue,0@actionCards/smithy,7@discard,7 sent to Player1
+2017/12/21 23:22:08 Handlers.MessageHandler method: writeToList
+INFO: Message: GAME@/buy@Player2@buyValue,0@coinValue,0@actionCards/smithy,7@discard,7 sent to Player2
+2017/12/21 23:22:09 Handlers.MessageHandler method: tryReadMessage
+INFO: incoming message: GAME@endTurn
+2017/12/21 23:22:09 GameLogic.GameModel method: discardHandDeckToDiscardDeck
+INFO: Removed from Hand: estate amount: 3
+2017/12/21 23:22:09 GameLogic.GameModel method: discardHandDeckToDiscardDeck
+INFO: Removed from Hand: copper amount: 7
+2017/12/21 23:22:09 Handlers.MessageHandler method: write
+INFO: The message is: GAME@/endTurn@Player2@victoryPoints,3@discard,12 It is a private message: false
+2017/12/21 23:22:09 Handlers.MessageHandler method: write
+INFO: SocketPlayerHashMap: {58560=Player1, 58566=Player2}
+2017/12/21 23:22:09 Handlers.MessageHandler method: write
+INFO: LobbyList: [Player1, Player2]
+2017/12/21 23:22:09 Handlers.MessageHandler method: writeToList
+INFO: [Player1, Player2]
+2017/12/21 23:22:09 Handlers.MessageHandler method: writeToList
+INFO: Message: GAME@/endTurn@Player2@victoryPoints,3@discard,12 sent to Player1
+2017/12/21 23:22:09 Handlers.MessageHandler method: writeToList
+INFO: Message: GAME@/endTurn@Player2@victoryPoints,3@discard,12 sent to Player2
+2017/12/21 23:22:09 GameLogic.GameModel method: discardDecktoPlayerDeck
+INFO: Card: villageis added to playerDeck with the amount of 1
+2017/12/21 23:22:09 GameLogic.GameModel method: discardDecktoPlayerDeck
+INFO: Card: estateis added to playerDeck with the amount of 3
+2017/12/21 23:22:09 GameLogic.GameModel method: discardDecktoPlayerDeck
+INFO: Card: smithyis added to playerDeck with the amount of 1
+2017/12/21 23:22:09 GameLogic.GameModel method: discardDecktoPlayerDeck
+INFO: Card: copperis added to playerDeck with the amount of 7
+2017/12/21 23:22:09 Handlers.MessageHandler method: write
+INFO: The message is: GAME@/newDeckValues@Player2@discard,0@deck,12 It is a private message: false
+2017/12/21 23:22:09 Handlers.MessageHandler method: write
+INFO: SocketPlayerHashMap: {58560=Player1, 58566=Player2}
+2017/12/21 23:22:09 Handlers.MessageHandler method: write
+INFO: LobbyList: [Player1, Player2]
+2017/12/21 23:22:09 Handlers.MessageHandler method: writeToList
+INFO: [Player1, Player2]
+2017/12/21 23:22:09 Handlers.MessageHandler method: writeToList
+INFO: Message: GAME@/newDeckValues@Player2@discard,0@deck,12 sent to Player1
+2017/12/21 23:22:09 Handlers.MessageHandler method: writeToList
+INFO: Message: GAME@/newDeckValues@Player2@discard,0@deck,12 sent to Player2
+2017/12/21 23:22:09 Handlers.MessageHandler method: write
+INFO: The message is: GAME@/newCards@Player2@hand/smithy,2;copper,3@deck,8 It is a private message: false
+2017/12/21 23:22:09 Handlers.MessageHandler method: write
+INFO: SocketPlayerHashMap: {58560=Player1, 58566=Player2}
+2017/12/21 23:22:09 Handlers.MessageHandler method: write
+INFO: LobbyList: [Player1, Player2]
+2017/12/21 23:22:09 Handlers.MessageHandler method: writeToList
+INFO: [Player1, Player2]
+2017/12/21 23:22:09 Handlers.MessageHandler method: writeToList
+INFO: Message: GAME@/newCards@Player2@hand/smithy,2;copper,3@deck,8 sent to Player1
+2017/12/21 23:22:09 Handlers.MessageHandler method: writeToList
+INFO: Message: GAME@/newCards@Player2@hand/smithy,2;copper,3@deck,8 sent to Player2
+2017/12/21 23:22:15 Handlers.MessageHandler method: tryReadMessage
+INFO: incoming message: GAME@play@village
+2017/12/21 23:22:15 Handlers.MessageHandler method: write
+INFO: The message is: GAME@/play@Player1@village@actionValue,2@coinValue,0@buyValue,1 It is a private message: false
+2017/12/21 23:22:15 Handlers.MessageHandler method: write
+INFO: SocketPlayerHashMap: {58560=Player1, 58566=Player2}
+2017/12/21 23:22:15 Handlers.MessageHandler method: write
+INFO: LobbyList: [Player1, Player2]
+2017/12/21 23:22:15 Handlers.MessageHandler method: writeToList
+INFO: [Player1, Player2]
+2017/12/21 23:22:15 Handlers.MessageHandler method: writeToList
+INFO: Message: GAME@/play@Player1@village@actionValue,2@coinValue,0@buyValue,1 sent to Player1
+2017/12/21 23:22:15 Handlers.MessageHandler method: writeToList
+INFO: Message: GAME@/play@Player1@village@actionValue,2@coinValue,0@buyValue,1 sent to Player2
+2017/12/21 23:22:15 Handlers.MessageHandler method: write
+INFO: The message is: GAME@/newCards@Player1@hand/estate,3;copper,2@deck,7 It is a private message: false
+2017/12/21 23:22:15 Handlers.MessageHandler method: write
+INFO: SocketPlayerHashMap: {58560=Player1, 58566=Player2}
+2017/12/21 23:22:15 Handlers.MessageHandler method: write
+INFO: LobbyList: [Player1, Player2]
+2017/12/21 23:22:15 Handlers.MessageHandler method: writeToList
+INFO: [Player1, Player2]
+2017/12/21 23:22:15 Handlers.MessageHandler method: writeToList
+INFO: Message: GAME@/newCards@Player1@hand/estate,3;copper,2@deck,7 sent to Player1
+2017/12/21 23:22:15 Handlers.MessageHandler method: writeToList
+INFO: Message: GAME@/newCards@Player1@hand/estate,3;copper,2@deck,7 sent to Player2
+2017/12/21 23:22:17 Handlers.MessageHandler method: tryReadMessage
+INFO: incoming message: GAME@playTreasure
+2017/12/21 23:22:17 Handlers.MessageHandler method: write
+INFO: The message is: GAME@/playTreasures@Player1@playedCard/copper,2@hand/estate,3@coinValue,2 It is a private message: false
+2017/12/21 23:22:17 Handlers.MessageHandler method: write
+INFO: SocketPlayerHashMap: {58560=Player1, 58566=Player2}
+2017/12/21 23:22:17 Handlers.MessageHandler method: write
+INFO: LobbyList: [Player1, Player2]
+2017/12/21 23:22:17 Handlers.MessageHandler method: writeToList
+INFO: [Player1, Player2]
+2017/12/21 23:22:17 Handlers.MessageHandler method: writeToList
+INFO: Message: GAME@/playTreasures@Player1@playedCard/copper,2@hand/estate,3@coinValue,2 sent to Player1
+2017/12/21 23:22:17 Handlers.MessageHandler method: writeToList
+INFO: Message: GAME@/playTreasures@Player1@playedCard/copper,2@hand/estate,3@coinValue,2 sent to Player2
+2017/12/21 23:22:20 Handlers.MessageHandler method: tryReadMessage
+INFO: incoming message: GAME@buy@copper
+2017/12/21 23:22:20 Handlers.MessageHandler method: write
+INFO: The message is: GAME@/buy@Player1@buyValue,0@coinValue,2@coinCards/copper,45@discard,1 It is a private message: false
+2017/12/21 23:22:20 Handlers.MessageHandler method: write
+INFO: SocketPlayerHashMap: {58560=Player1, 58566=Player2}
+2017/12/21 23:22:20 Handlers.MessageHandler method: write
+INFO: LobbyList: [Player1, Player2]
+2017/12/21 23:22:20 Handlers.MessageHandler method: writeToList
+INFO: [Player1, Player2]
+2017/12/21 23:22:20 Handlers.MessageHandler method: writeToList
+INFO: Message: GAME@/buy@Player1@buyValue,0@coinValue,2@coinCards/copper,45@discard,1 sent to Player1
+2017/12/21 23:22:20 Handlers.MessageHandler method: writeToList
+INFO: Message: GAME@/buy@Player1@buyValue,0@coinValue,2@coinCards/copper,45@discard,1 sent to Player2
+2017/12/21 23:22:22 Handlers.MessageHandler method: tryReadMessage
+INFO: incoming message: GAME@endTurn
+2017/12/21 23:22:22 GameLogic.GameModel method: discardHandDeckToDiscardDeck
+INFO: Removed from Hand: village amount: 1
+2017/12/21 23:22:22 GameLogic.GameModel method: discardHandDeckToDiscardDeck
+INFO: Removed from Hand: estate amount: 3
+2017/12/21 23:22:22 GameLogic.GameModel method: discardHandDeckToDiscardDeck
+INFO: Removed from Hand: copper amount: 3
+2017/12/21 23:22:22 Handlers.MessageHandler method: write
+INFO: The message is: GAME@/endTurn@Player1@victoryPoints,3@discard,7 It is a private message: false
+2017/12/21 23:22:22 Handlers.MessageHandler method: write
+INFO: SocketPlayerHashMap: {58560=Player1, 58566=Player2}
+2017/12/21 23:22:22 Handlers.MessageHandler method: write
+INFO: LobbyList: [Player1, Player2]
+2017/12/21 23:22:22 Handlers.MessageHandler method: writeToList
+INFO: [Player1, Player2]
+2017/12/21 23:22:22 Handlers.MessageHandler method: writeToList
+INFO: Message: GAME@/endTurn@Player1@victoryPoints,3@discard,7 sent to Player1
+2017/12/21 23:22:22 Handlers.MessageHandler method: writeToList
+INFO: Message: GAME@/endTurn@Player1@victoryPoints,3@discard,7 sent to Player2
+2017/12/21 23:22:22 Handlers.MessageHandler method: write
+INFO: The message is: GAME@/newCards@Player1@hand/smithy,1;copper,4@deck,2 It is a private message: false
+2017/12/21 23:22:22 Handlers.MessageHandler method: write
+INFO: SocketPlayerHashMap: {58560=Player1, 58566=Player2}
+2017/12/21 23:22:22 Handlers.MessageHandler method: write
+INFO: LobbyList: [Player1, Player2]
+2017/12/21 23:22:22 Handlers.MessageHandler method: writeToList
+INFO: [Player1, Player2]
+2017/12/21 23:22:22 Handlers.MessageHandler method: writeToList
+INFO: Message: GAME@/newCards@Player1@hand/smithy,1;copper,4@deck,2 sent to Player1
+2017/12/21 23:22:22 Handlers.MessageHandler method: writeToList
+INFO: Message: GAME@/newCards@Player1@hand/smithy,1;copper,4@deck,2 sent to Player2
+2017/12/21 23:22:26 Handlers.MessageHandler method: tryReadMessage
+INFO: incoming message: GAME@play@smithy
+2017/12/21 23:22:26 Handlers.MessageHandler method: write
+INFO: The message is: GAME@/play@Player2@smithy@actionValue,0@coinValue,0@buyValue,1 It is a private message: false
+2017/12/21 23:22:26 Handlers.MessageHandler method: write
+INFO: SocketPlayerHashMap: {58560=Player1, 58566=Player2}
+2017/12/21 23:22:26 Handlers.MessageHandler method: write
+INFO: LobbyList: [Player1, Player2]
+2017/12/21 23:22:26 Handlers.MessageHandler method: writeToList
+INFO: [Player1, Player2]
+2017/12/21 23:22:26 Handlers.MessageHandler method: writeToList
+INFO: Message: GAME@/play@Player2@smithy@actionValue,0@coinValue,0@buyValue,1 sent to Player1
+2017/12/21 23:22:26 Handlers.MessageHandler method: writeToList
+INFO: Message: GAME@/play@Player2@smithy@actionValue,0@coinValue,0@buyValue,1 sent to Player2
+2017/12/21 23:22:26 Handlers.MessageHandler method: write
+INFO: The message is: GAME@/newCards@Player2@hand/estate,1;smithy,-1;copper,5@deck,5 It is a private message: false
+2017/12/21 23:22:26 Handlers.MessageHandler method: write
+INFO: SocketPlayerHashMap: {58560=Player1, 58566=Player2}
+2017/12/21 23:22:26 Handlers.MessageHandler method: write
+INFO: LobbyList: [Player1, Player2]
+2017/12/21 23:22:26 Handlers.MessageHandler method: writeToList
+INFO: [Player1, Player2]
+2017/12/21 23:22:26 Handlers.MessageHandler method: writeToList
+INFO: Message: GAME@/newCards@Player2@hand/estate,1;smithy,-1;copper,5@deck,5 sent to Player1
+2017/12/21 23:22:26 Handlers.MessageHandler method: writeToList
+INFO: Message: GAME@/newCards@Player2@hand/estate,1;smithy,-1;copper,5@deck,5 sent to Player2
+2017/12/21 23:22:55 Handlers.MessageHandler method: tryReadMessage
+INFO: incoming message: GAME@playTreasure
+2017/12/21 23:22:55 Handlers.MessageHandler method: write
+INFO: The message is: GAME@/playTreasures@Player2@playedCard/copper,5@hand/estate,1@coinValue,5 It is a private message: false
+2017/12/21 23:22:55 Handlers.MessageHandler method: write
+INFO: SocketPlayerHashMap: {58560=Player1, 58566=Player2}
+2017/12/21 23:22:55 Handlers.MessageHandler method: write
+INFO: LobbyList: [Player1, Player2]
+2017/12/21 23:22:55 Handlers.MessageHandler method: writeToList
+INFO: [Player1, Player2]
+2017/12/21 23:22:55 Handlers.MessageHandler method: writeToList
+INFO: Message: GAME@/playTreasures@Player2@playedCard/copper,5@hand/estate,1@coinValue,5 sent to Player1
+2017/12/21 23:22:55 Handlers.MessageHandler method: writeToList
+INFO: Message: GAME@/playTreasures@Player2@playedCard/copper,5@hand/estate,1@coinValue,5 sent to Player2
+2017/12/21 23:23:02 Handlers.MessageHandler method: tryReadMessage
+INFO: incoming message: GAME@buy@festival
+2017/12/21 23:23:02 Handlers.MessageHandler method: write
+INFO: The message is: GAME@/buy@Player2@buyValue,0@coinValue,0@actionCards/festival,8@discard,1 It is a private message: false
+2017/12/21 23:23:02 Handlers.MessageHandler method: write
+INFO: SocketPlayerHashMap: {58560=Player1, 58566=Player2}
+2017/12/21 23:23:02 Handlers.MessageHandler method: write
+INFO: LobbyList: [Player1, Player2]
+2017/12/21 23:23:02 Handlers.MessageHandler method: writeToList
+INFO: [Player1, Player2]
+2017/12/21 23:23:02 Handlers.MessageHandler method: writeToList
+INFO: Message: GAME@/buy@Player2@buyValue,0@coinValue,0@actionCards/festival,8@discard,1 sent to Player1
+2017/12/21 23:23:02 Handlers.MessageHandler method: writeToList
+INFO: Message: GAME@/buy@Player2@buyValue,0@coinValue,0@actionCards/festival,8@discard,1 sent to Player2
+2017/12/21 23:23:05 Handlers.MessageHandler method: tryReadMessage
+INFO: incoming message: GAME@endTurn
+2017/12/21 23:23:05 GameLogic.GameModel method: discardHandDeckToDiscardDeck
+INFO: Removed from Hand: estate amount: 1
+2017/12/21 23:23:05 GameLogic.GameModel method: discardHandDeckToDiscardDeck
+INFO: Removed from Hand: smithy amount: 2
+2017/12/21 23:23:05 GameLogic.GameModel method: discardHandDeckToDiscardDeck
+INFO: Removed from Hand: copper amount: 5
+2017/12/21 23:23:05 Handlers.MessageHandler method: write
+INFO: The message is: GAME@/endTurn@Player2@victoryPoints,3@discard,9 It is a private message: false
+2017/12/21 23:23:05 Handlers.MessageHandler method: write
+INFO: SocketPlayerHashMap: {58560=Player1, 58566=Player2}
+2017/12/21 23:23:05 Handlers.MessageHandler method: write
+INFO: LobbyList: [Player1, Player2]
+2017/12/21 23:23:05 Handlers.MessageHandler method: writeToList
+INFO: [Player1, Player2]
+2017/12/21 23:23:05 Handlers.MessageHandler method: writeToList
+INFO: Message: GAME@/endTurn@Player2@victoryPoints,3@discard,9 sent to Player1
+2017/12/21 23:23:05 Handlers.MessageHandler method: writeToList
+INFO: Message: GAME@/endTurn@Player2@victoryPoints,3@discard,9 sent to Player2
+2017/12/21 23:23:05 GameLogic.GameModel method: discardDecktoPlayerDeck
+INFO: Card: festivalis added to playerDeck with the amount of 1
+2017/12/21 23:23:05 GameLogic.GameModel method: discardDecktoPlayerDeck
+INFO: Card: estateis added to playerDeck with the amount of 1
+2017/12/21 23:23:05 GameLogic.GameModel method: discardDecktoPlayerDeck
+INFO: Card: smithyis added to playerDeck with the amount of 2
+2017/12/21 23:23:05 GameLogic.GameModel method: discardDecktoPlayerDeck
+INFO: Card: copperis added to playerDeck with the amount of 5
+2017/12/21 23:23:05 Handlers.MessageHandler method: write
+INFO: The message is: GAME@/newDeckValues@Player2@discard,0@deck,9 It is a private message: false
+2017/12/21 23:23:05 Handlers.MessageHandler method: write
+INFO: SocketPlayerHashMap: {58560=Player1, 58566=Player2}
+2017/12/21 23:23:05 Handlers.MessageHandler method: write
+INFO: LobbyList: [Player1, Player2]
+2017/12/21 23:23:05 Handlers.MessageHandler method: writeToList
+INFO: [Player1, Player2]
+2017/12/21 23:23:05 Handlers.MessageHandler method: writeToList
+INFO: Message: GAME@/newDeckValues@Player2@discard,0@deck,9 sent to Player1
+2017/12/21 23:23:05 Handlers.MessageHandler method: writeToList
+INFO: Message: GAME@/newDeckValues@Player2@discard,0@deck,9 sent to Player2
+2017/12/21 23:23:05 Handlers.MessageHandler method: write
+INFO: The message is: GAME@/newCards@Player2@hand/village,1;estate,2;copper,2@deck,9 It is a private message: false
+2017/12/21 23:23:05 Handlers.MessageHandler method: write
+INFO: SocketPlayerHashMap: {58560=Player1, 58566=Player2}
+2017/12/21 23:23:05 Handlers.MessageHandler method: write
+INFO: LobbyList: [Player1, Player2]
+2017/12/21 23:23:05 Handlers.MessageHandler method: writeToList
+INFO: [Player1, Player2]
+2017/12/21 23:23:05 Handlers.MessageHandler method: writeToList
+INFO: Message: GAME@/newCards@Player2@hand/village,1;estate,2;copper,2@deck,9 sent to Player1
+2017/12/21 23:23:05 Handlers.MessageHandler method: writeToList
+INFO: Message: GAME@/newCards@Player2@hand/village,1;estate,2;copper,2@deck,9 sent to Player2
+2017/12/21 23:23:10 Handlers.MessageHandler method: tryReadMessage
+INFO: incoming message: GAME@play@smithy
+2017/12/21 23:23:10 Handlers.MessageHandler method: write
+INFO: The message is: GAME@/play@Player1@smithy@actionValue,0@coinValue,0@buyValue,1 It is a private message: false
+2017/12/21 23:23:10 Handlers.MessageHandler method: write
+INFO: SocketPlayerHashMap: {58560=Player1, 58566=Player2}
+2017/12/21 23:23:10 Handlers.MessageHandler method: write
+INFO: LobbyList: [Player1, Player2]
+2017/12/21 23:23:10 Handlers.MessageHandler method: writeToList
+INFO: [Player1, Player2]
+2017/12/21 23:23:10 Handlers.MessageHandler method: writeToList
+INFO: Message: GAME@/play@Player1@smithy@actionValue,0@coinValue,0@buyValue,1 sent to Player1
+2017/12/21 23:23:10 Handlers.MessageHandler method: writeToList
+INFO: Message: GAME@/play@Player1@smithy@actionValue,0@coinValue,0@buyValue,1 sent to Player2
+2017/12/21 23:23:10 GameLogic.GameModel method: discardDecktoPlayerDeck
+INFO: Card: villageis added to playerDeck with the amount of 1
+2017/12/21 23:23:10 GameLogic.GameModel method: discardDecktoPlayerDeck
+INFO: Card: estateis added to playerDeck with the amount of 3
+2017/12/21 23:23:10 GameLogic.GameModel method: discardDecktoPlayerDeck
+INFO: Card: copperis added to playerDeck with the amount of 3
+2017/12/21 23:23:10 Handlers.MessageHandler method: write
+INFO: The message is: GAME@/newDeckValues@Player1@discard,0@deck,7 It is a private message: false
+2017/12/21 23:23:10 Handlers.MessageHandler method: write
+INFO: SocketPlayerHashMap: {58560=Player1, 58566=Player2}
+2017/12/21 23:23:10 Handlers.MessageHandler method: write
+INFO: LobbyList: [Player1, Player2]
+2017/12/21 23:23:10 Handlers.MessageHandler method: writeToList
+INFO: [Player1, Player2]
+2017/12/21 23:23:10 Handlers.MessageHandler method: writeToList
+INFO: Message: GAME@/newDeckValues@Player1@discard,0@deck,7 sent to Player1
+2017/12/21 23:23:10 Handlers.MessageHandler method: writeToList
+INFO: Message: GAME@/newDeckValues@Player1@discard,0@deck,7 sent to Player2
+2017/12/21 23:23:10 Handlers.MessageHandler method: write
+INFO: The message is: GAME@/newCards@Player1@hand/festival,1;estate,1;copper,5@deck,6 It is a private message: false
+2017/12/21 23:23:10 Handlers.MessageHandler method: write
+INFO: SocketPlayerHashMap: {58560=Player1, 58566=Player2}
+2017/12/21 23:23:10 Handlers.MessageHandler method: write
+INFO: LobbyList: [Player1, Player2]
+2017/12/21 23:23:10 Handlers.MessageHandler method: writeToList
+INFO: [Player1, Player2]
+2017/12/21 23:23:10 Handlers.MessageHandler method: writeToList
+INFO: Message: GAME@/newCards@Player1@hand/festival,1;estate,1;copper,5@deck,6 sent to Player1
+2017/12/21 23:23:10 Handlers.MessageHandler method: writeToList
+INFO: Message: GAME@/newCards@Player1@hand/festival,1;estate,1;copper,5@deck,6 sent to Player2
+2017/12/21 23:23:14 Handlers.MessageHandler method: tryReadMessage
+INFO: incoming message: GAME@playTreasure
+2017/12/21 23:23:14 Handlers.MessageHandler method: write
+INFO: The message is: GAME@/playTreasures@Player1@playedCard/copper,5@hand/festival,1;estate,1@coinValue,5 It is a private message: false
+2017/12/21 23:23:14 Handlers.MessageHandler method: write
+INFO: SocketPlayerHashMap: {58560=Player1, 58566=Player2}
+2017/12/21 23:23:14 Handlers.MessageHandler method: write
+INFO: LobbyList: [Player1, Player2]
+2017/12/21 23:23:14 Handlers.MessageHandler method: writeToList
+INFO: [Player1, Player2]
+2017/12/21 23:23:14 Handlers.MessageHandler method: writeToList
+INFO: Message: GAME@/playTreasures@Player1@playedCard/copper,5@hand/festival,1;estate,1@coinValue,5 sent to Player1
+2017/12/21 23:23:14 Handlers.MessageHandler method: writeToList
+INFO: Message: GAME@/playTreasures@Player1@playedCard/copper,5@hand/festival,1;estate,1@coinValue,5 sent to Player2
+2017/12/21 23:23:16 Handlers.MessageHandler method: tryReadMessage
+INFO: incoming message: GAME@buy@festival
+2017/12/21 23:23:16 Handlers.MessageHandler method: write
+INFO: The message is: GAME@/buy@Player1@buyValue,0@coinValue,0@actionCards/festival,7@discard,1 It is a private message: false
+2017/12/21 23:23:16 Handlers.MessageHandler method: write
+INFO: SocketPlayerHashMap: {58560=Player1, 58566=Player2}
+2017/12/21 23:23:16 Handlers.MessageHandler method: write
+INFO: LobbyList: [Player1, Player2]
+2017/12/21 23:23:16 Handlers.MessageHandler method: writeToList
+INFO: [Player1, Player2]
+2017/12/21 23:23:16 Handlers.MessageHandler method: writeToList
+INFO: Message: GAME@/buy@Player1@buyValue,0@coinValue,0@actionCards/festival,7@discard,1 sent to Player1
+2017/12/21 23:23:16 Handlers.MessageHandler method: writeToList
+INFO: Message: GAME@/buy@Player1@buyValue,0@coinValue,0@actionCards/festival,7@discard,1 sent to Player2
+2017/12/21 23:23:17 Handlers.MessageHandler method: tryReadMessage
+INFO: incoming message: GAME@endTurn
+2017/12/21 23:23:17 GameLogic.GameModel method: discardHandDeckToDiscardDeck
+INFO: Removed from Hand: festival amount: 2
+2017/12/21 23:23:17 GameLogic.GameModel method: discardHandDeckToDiscardDeck
+INFO: Removed from Hand: estate amount: 1
+2017/12/21 23:23:17 GameLogic.GameModel method: discardHandDeckToDiscardDeck
+INFO: Removed from Hand: smithy amount: 1
+2017/12/21 23:23:17 GameLogic.GameModel method: discardHandDeckToDiscardDeck
+INFO: Removed from Hand: copper amount: 5
+2017/12/21 23:23:17 Handlers.MessageHandler method: write
+INFO: The message is: GAME@/endTurn@Player1@victoryPoints,3@discard,9 It is a private message: false
+2017/12/21 23:23:17 Handlers.MessageHandler method: write
+INFO: SocketPlayerHashMap: {58560=Player1, 58566=Player2}
+2017/12/21 23:23:17 Handlers.MessageHandler method: write
+INFO: LobbyList: [Player1, Player2]
+2017/12/21 23:23:17 Handlers.MessageHandler method: writeToList
+INFO: [Player1, Player2]
+2017/12/21 23:23:17 Handlers.MessageHandler method: writeToList
+INFO: Message: GAME@/endTurn@Player1@victoryPoints,3@discard,9 sent to Player1
+2017/12/21 23:23:17 Handlers.MessageHandler method: writeToList
+INFO: Message: GAME@/endTurn@Player1@victoryPoints,3@discard,9 sent to Player2
+2017/12/21 23:23:17 Handlers.MessageHandler method: write
+INFO: The message is: GAME@/newCards@Player1@hand/estate,2;copper,3@deck,1 It is a private message: false
+2017/12/21 23:23:17 Handlers.MessageHandler method: write
+INFO: SocketPlayerHashMap: {58560=Player1, 58566=Player2}
+2017/12/21 23:23:17 Handlers.MessageHandler method: write
+INFO: LobbyList: [Player1, Player2]
+2017/12/21 23:23:17 Handlers.MessageHandler method: writeToList
+INFO: [Player1, Player2]
+2017/12/21 23:23:17 Handlers.MessageHandler method: writeToList
+INFO: Message: GAME@/newCards@Player1@hand/estate,2;copper,3@deck,1 sent to Player1
+2017/12/21 23:23:17 Handlers.MessageHandler method: writeToList
+INFO: Message: GAME@/newCards@Player1@hand/estate,2;copper,3@deck,1 sent to Player2
+2017/12/21 23:23:23 Handlers.MessageHandler method: tryReadMessage
+INFO: incoming message: GAME@play@village
+2017/12/21 23:23:23 Handlers.MessageHandler method: write
+INFO: The message is: GAME@/play@Player2@village@actionValue,2@coinValue,0@buyValue,1 It is a private message: false
+2017/12/21 23:23:23 Handlers.MessageHandler method: write
+INFO: SocketPlayerHashMap: {58560=Player1, 58566=Player2}
+2017/12/21 23:23:23 Handlers.MessageHandler method: write
+INFO: LobbyList: [Player1, Player2]
+2017/12/21 23:23:23 Handlers.MessageHandler method: writeToList
+INFO: [Player1, Player2]
+2017/12/21 23:23:23 Handlers.MessageHandler method: writeToList
+INFO: Message: GAME@/play@Player2@village@actionValue,2@coinValue,0@buyValue,1 sent to Player1
+2017/12/21 23:23:23 Handlers.MessageHandler method: writeToList
+INFO: Message: GAME@/play@Player2@village@actionValue,2@coinValue,0@buyValue,1 sent to Player2
+2017/12/21 23:23:23 Handlers.MessageHandler method: write
+INFO: The message is: GAME@/newCards@Player2@hand/estate,3;copper,2@deck,8 It is a private message: false
+2017/12/21 23:23:23 Handlers.MessageHandler method: write
+INFO: SocketPlayerHashMap: {58560=Player1, 58566=Player2}
+2017/12/21 23:23:23 Handlers.MessageHandler method: write
+INFO: LobbyList: [Player1, Player2]
+2017/12/21 23:23:23 Handlers.MessageHandler method: writeToList
+INFO: [Player1, Player2]
+2017/12/21 23:23:23 Handlers.MessageHandler method: writeToList
+INFO: Message: GAME@/newCards@Player2@hand/estate,3;copper,2@deck,8 sent to Player1
+2017/12/21 23:23:23 Handlers.MessageHandler method: writeToList
+INFO: Message: GAME@/newCards@Player2@hand/estate,3;copper,2@deck,8 sent to Player2
+2017/12/21 23:23:24 Handlers.MessageHandler method: tryReadMessage
+INFO: incoming message: GAME@playTreasure
+2017/12/21 23:23:24 Handlers.MessageHandler method: write
+INFO: The message is: GAME@/playTreasures@Player2@playedCard/copper,2@hand/estate,3@coinValue,2 It is a private message: false
+2017/12/21 23:23:24 Handlers.MessageHandler method: write
+INFO: SocketPlayerHashMap: {58560=Player1, 58566=Player2}
+2017/12/21 23:23:24 Handlers.MessageHandler method: write
+INFO: LobbyList: [Player1, Player2]
+2017/12/21 23:23:24 Handlers.MessageHandler method: writeToList
+INFO: [Player1, Player2]
+2017/12/21 23:23:24 Handlers.MessageHandler method: writeToList
+INFO: Message: GAME@/playTreasures@Player2@playedCard/copper,2@hand/estate,3@coinValue,2 sent to Player1
+2017/12/21 23:23:24 Handlers.MessageHandler method: writeToList
+INFO: Message: GAME@/playTreasures@Player2@playedCard/copper,2@hand/estate,3@coinValue,2 sent to Player2
+2017/12/21 23:23:32 Handlers.MessageHandler method: tryReadMessage
+INFO: incoming message: GAME@buy@copper
+2017/12/21 23:23:32 Handlers.MessageHandler method: write
+INFO: The message is: GAME@/buy@Player2@buyValue,0@coinValue,2@coinCards/copper,44@discard,1 It is a private message: false
+2017/12/21 23:23:32 Handlers.MessageHandler method: write
+INFO: SocketPlayerHashMap: {58560=Player1, 58566=Player2}
+2017/12/21 23:23:32 Handlers.MessageHandler method: write
+INFO: LobbyList: [Player1, Player2]
+2017/12/21 23:23:32 Handlers.MessageHandler method: writeToList
+INFO: [Player1, Player2]
+2017/12/21 23:23:32 Handlers.MessageHandler method: writeToList
+INFO: Message: GAME@/buy@Player2@buyValue,0@coinValue,2@coinCards/copper,44@discard,1 sent to Player1
+2017/12/21 23:23:32 Handlers.MessageHandler method: writeToList
+INFO: Message: GAME@/buy@Player2@buyValue,0@coinValue,2@coinCards/copper,44@discard,1 sent to Player2
+2017/12/21 23:23:36 Handlers.MessageHandler method: tryReadMessage
+INFO: incoming message: GAME@endTurn
+2017/12/21 23:23:36 GameLogic.GameModel method: discardHandDeckToDiscardDeck
+INFO: Removed from Hand: village amount: 1
+2017/12/21 23:23:36 GameLogic.GameModel method: discardHandDeckToDiscardDeck
+INFO: Removed from Hand: estate amount: 3
+2017/12/21 23:23:36 GameLogic.GameModel method: discardHandDeckToDiscardDeck
+INFO: Removed from Hand: copper amount: 3
+2017/12/21 23:23:36 Handlers.MessageHandler method: write
+INFO: The message is: GAME@/endTurn@Player2@victoryPoints,3@discard,7 It is a private message: false
+2017/12/21 23:23:36 Handlers.MessageHandler method: write
+INFO: SocketPlayerHashMap: {58560=Player1, 58566=Player2}
+2017/12/21 23:23:36 Handlers.MessageHandler method: write
+INFO: LobbyList: [Player1, Player2]
+2017/12/21 23:23:36 Handlers.MessageHandler method: writeToList
+INFO: [Player1, Player2]
+2017/12/21 23:23:36 Handlers.MessageHandler method: writeToList
+INFO: Message: GAME@/endTurn@Player2@victoryPoints,3@discard,7 sent to Player1
+2017/12/21 23:23:36 Handlers.MessageHandler method: writeToList
+INFO: Message: GAME@/endTurn@Player2@victoryPoints,3@discard,7 sent to Player2
+2017/12/21 23:23:36 Handlers.MessageHandler method: write
+INFO: The message is: GAME@/newCards@Player2@hand/festival,1;copper,4@deck,3 It is a private message: false
+2017/12/21 23:23:36 Handlers.MessageHandler method: write
+INFO: SocketPlayerHashMap: {58560=Player1, 58566=Player2}
+2017/12/21 23:23:36 Handlers.MessageHandler method: write
+INFO: LobbyList: [Player1, Player2]
+2017/12/21 23:23:36 Handlers.MessageHandler method: writeToList
+INFO: [Player1, Player2]
+2017/12/21 23:23:36 Handlers.MessageHandler method: writeToList
+INFO: Message: GAME@/newCards@Player2@hand/festival,1;copper,4@deck,3 sent to Player1
+2017/12/21 23:23:36 Handlers.MessageHandler method: writeToList
+INFO: Message: GAME@/newCards@Player2@hand/festival,1;copper,4@deck,3 sent to Player2
+2017/12/21 23:23:49 Handlers.MessageHandler method: tryReadMessage
+INFO: incoming message: GAME@playTreasure
+2017/12/21 23:23:49 Handlers.MessageHandler method: write
+INFO: The message is: GAME@/playTreasures@Player1@playedCard/copper,3@hand/estate,2@coinValue,3 It is a private message: false
+2017/12/21 23:23:49 Handlers.MessageHandler method: write
+INFO: SocketPlayerHashMap: {58560=Player1, 58566=Player2}
+2017/12/21 23:23:49 Handlers.MessageHandler method: write
+INFO: LobbyList: [Player1, Player2]
+2017/12/21 23:23:49 Handlers.MessageHandler method: writeToList
+INFO: [Player1, Player2]
+2017/12/21 23:23:49 Handlers.MessageHandler method: writeToList
+INFO: Message: GAME@/playTreasures@Player1@playedCard/copper,3@hand/estate,2@coinValue,3 sent to Player1
+2017/12/21 23:23:49 Handlers.MessageHandler method: writeToList
+INFO: Message: GAME@/playTreasures@Player1@playedCard/copper,3@hand/estate,2@coinValue,3 sent to Player2
+2017/12/21 23:23:51 Handlers.MessageHandler method: tryReadMessage
+INFO: incoming message: GAME@buy@village
+2017/12/21 23:23:51 Handlers.MessageHandler method: write
+INFO: The message is: GAME@/buy@Player1@buyValue,0@coinValue,0@actionCards/village,7@discard,10 It is a private message: false
+2017/12/21 23:23:51 Handlers.MessageHandler method: write
+INFO: SocketPlayerHashMap: {58560=Player1, 58566=Player2}
+2017/12/21 23:23:51 Handlers.MessageHandler method: write
+INFO: LobbyList: [Player1, Player2]
+2017/12/21 23:23:51 Handlers.MessageHandler method: writeToList
+INFO: [Player1, Player2]
+2017/12/21 23:23:51 Handlers.MessageHandler method: writeToList
+INFO: Message: GAME@/buy@Player1@buyValue,0@coinValue,0@actionCards/village,7@discard,10 sent to Player1
+2017/12/21 23:23:51 Handlers.MessageHandler method: writeToList
+INFO: Message: GAME@/buy@Player1@buyValue,0@coinValue,0@actionCards/village,7@discard,10 sent to Player2
+2017/12/21 23:23:53 Handlers.MessageHandler method: tryReadMessage
+INFO: incoming message: GAME@endTurn
+2017/12/21 23:23:53 GameLogic.GameModel method: discardHandDeckToDiscardDeck
+INFO: Removed from Hand: estate amount: 3
+2017/12/21 23:23:53 GameLogic.GameModel method: discardHandDeckToDiscardDeck
+INFO: Removed from Hand: copper amount: 8
+2017/12/21 23:23:53 Handlers.MessageHandler method: write
+INFO: The message is: GAME@/endTurn@Player1@victoryPoints,3@discard,15 It is a private message: false
+2017/12/21 23:23:53 Handlers.MessageHandler method: write
+INFO: SocketPlayerHashMap: {58560=Player1, 58566=Player2}
+2017/12/21 23:23:53 Handlers.MessageHandler method: write
+INFO: LobbyList: [Player1, Player2]
+2017/12/21 23:23:53 Handlers.MessageHandler method: writeToList
+INFO: [Player1, Player2]
+2017/12/21 23:23:53 Handlers.MessageHandler method: writeToList
+INFO: Message: GAME@/endTurn@Player1@victoryPoints,3@discard,15 sent to Player1
+2017/12/21 23:23:53 Handlers.MessageHandler method: writeToList
+INFO: Message: GAME@/endTurn@Player1@victoryPoints,3@discard,15 sent to Player2
+2017/12/21 23:23:53 GameLogic.GameModel method: discardDecktoPlayerDeck
+INFO: Card: villageis added to playerDeck with the amount of 1
+2017/12/21 23:23:53 GameLogic.GameModel method: discardDecktoPlayerDeck
+INFO: Card: festivalis added to playerDeck with the amount of 2
+2017/12/21 23:23:53 GameLogic.GameModel method: discardDecktoPlayerDeck
+INFO: Card: estateis added to playerDeck with the amount of 3
+2017/12/21 23:23:53 GameLogic.GameModel method: discardDecktoPlayerDeck
+INFO: Card: smithyis added to playerDeck with the amount of 1
+2017/12/21 23:23:53 GameLogic.GameModel method: discardDecktoPlayerDeck
+INFO: Card: copperis added to playerDeck with the amount of 8
+2017/12/21 23:23:53 Handlers.MessageHandler method: write
+INFO: The message is: GAME@/newDeckValues@Player1@discard,0@deck,15 It is a private message: false
+2017/12/21 23:23:53 Handlers.MessageHandler method: write
+INFO: SocketPlayerHashMap: {58560=Player1, 58566=Player2}
+2017/12/21 23:23:53 Handlers.MessageHandler method: write
+INFO: LobbyList: [Player1, Player2]
+2017/12/21 23:23:53 Handlers.MessageHandler method: writeToList
+INFO: [Player1, Player2]
+2017/12/21 23:23:53 Handlers.MessageHandler method: writeToList
+INFO: Message: GAME@/newDeckValues@Player1@discard,0@deck,15 sent to Player1
+2017/12/21 23:23:53 Handlers.MessageHandler method: writeToList
+INFO: Message: GAME@/newDeckValues@Player1@discard,0@deck,15 sent to Player2
+2017/12/21 23:23:53 Handlers.MessageHandler method: write
+INFO: The message is: GAME@/newCards@Player1@hand/village,1;festival,1;smithy,1;copper,2@deck,11 It is a private message: false
+2017/12/21 23:23:53 Handlers.MessageHandler method: write
+INFO: SocketPlayerHashMap: {58560=Player1, 58566=Player2}
+2017/12/21 23:23:53 Handlers.MessageHandler method: write
+INFO: LobbyList: [Player1, Player2]
+2017/12/21 23:23:53 Handlers.MessageHandler method: writeToList
+INFO: [Player1, Player2]
+2017/12/21 23:23:53 Handlers.MessageHandler method: writeToList
+INFO: Message: GAME@/newCards@Player1@hand/village,1;festival,1;smithy,1;copper,2@deck,11 sent to Player1
+2017/12/21 23:23:53 Handlers.MessageHandler method: writeToList
+INFO: Message: GAME@/newCards@Player1@hand/village,1;festival,1;smithy,1;copper,2@deck,11 sent to Player2
+2017/12/21 23:24:00 Handlers.MessageHandler method: tryReadMessage
+INFO: incoming message: GAME@play@festival
+2017/12/21 23:24:00 Handlers.MessageHandler method: write
+INFO: The message is: GAME@/play@Player2@festival@actionValue,2@coinValue,2@buyValue,2 It is a private message: false
+2017/12/21 23:24:00 Handlers.MessageHandler method: write
+INFO: SocketPlayerHashMap: {58560=Player1, 58566=Player2}
+2017/12/21 23:24:00 Handlers.MessageHandler method: write
+INFO: LobbyList: [Player1, Player2]
+2017/12/21 23:24:00 Handlers.MessageHandler method: writeToList
+INFO: [Player1, Player2]
+2017/12/21 23:24:00 Handlers.MessageHandler method: writeToList
+INFO: Message: GAME@/play@Player2@festival@actionValue,2@coinValue,2@buyValue,2 sent to Player1
+2017/12/21 23:24:00 Handlers.MessageHandler method: writeToList
+INFO: Message: GAME@/play@Player2@festival@actionValue,2@coinValue,2@buyValue,2 sent to Player2
+2017/12/21 23:24:02 Handlers.MessageHandler method: tryReadMessage
+INFO: incoming message: GAME@playTreasure
+2017/12/21 23:24:02 Handlers.MessageHandler method: write
+INFO: The message is: GAME@/playTreasures@Player2@playedCard/copper,4@hand/empty@coinValue,6 It is a private message: false
+2017/12/21 23:24:02 Handlers.MessageHandler method: write
+INFO: SocketPlayerHashMap: {58560=Player1, 58566=Player2}
+2017/12/21 23:24:02 Handlers.MessageHandler method: write
+INFO: LobbyList: [Player1, Player2]
+2017/12/21 23:24:02 Handlers.MessageHandler method: writeToList
+INFO: [Player1, Player2]
+2017/12/21 23:24:02 Handlers.MessageHandler method: writeToList
+INFO: Message: GAME@/playTreasures@Player2@playedCard/copper,4@hand/empty@coinValue,6 sent to Player1
+2017/12/21 23:24:02 Handlers.MessageHandler method: writeToList
+INFO: Message: GAME@/playTreasures@Player2@playedCard/copper,4@hand/empty@coinValue,6 sent to Player2
+2017/12/21 23:24:13 Handlers.MessageHandler method: tryReadMessage
+INFO: incoming message: GAME@buy@village
+2017/12/21 23:24:13 Handlers.MessageHandler method: write
+INFO: The message is: GAME@/buy@Player2@buyValue,1@coinValue,3@actionCards/village,6@discard,8 It is a private message: false
+2017/12/21 23:24:13 Handlers.MessageHandler method: write
+INFO: SocketPlayerHashMap: {58560=Player1, 58566=Player2}
+2017/12/21 23:24:13 Handlers.MessageHandler method: write
+INFO: LobbyList: [Player1, Player2]
+2017/12/21 23:24:13 Handlers.MessageHandler method: writeToList
+INFO: [Player1, Player2]
+2017/12/21 23:24:13 Handlers.MessageHandler method: writeToList
+INFO: Message: GAME@/buy@Player2@buyValue,1@coinValue,3@actionCards/village,6@discard,8 sent to Player1
+2017/12/21 23:24:13 Handlers.MessageHandler method: writeToList
+INFO: Message: GAME@/buy@Player2@buyValue,1@coinValue,3@actionCards/village,6@discard,8 sent to Player2
+2017/12/21 23:24:14 Handlers.MessageHandler method: tryReadMessage
+INFO: incoming message: GAME@buy@village
+2017/12/21 23:24:14 Handlers.MessageHandler method: write
+INFO: The message is: GAME@/buy@Player2@buyValue,0@coinValue,0@actionCards/village,5@discard,9 It is a private message: false
+2017/12/21 23:24:14 Handlers.MessageHandler method: write
+INFO: SocketPlayerHashMap: {58560=Player1, 58566=Player2}
+2017/12/21 23:24:14 Handlers.MessageHandler method: write
+INFO: LobbyList: [Player1, Player2]
+2017/12/21 23:24:14 Handlers.MessageHandler method: writeToList
+INFO: [Player1, Player2]
+2017/12/21 23:24:14 Handlers.MessageHandler method: writeToList
+INFO: Message: GAME@/buy@Player2@buyValue,0@coinValue,0@actionCards/village,5@discard,9 sent to Player1
+2017/12/21 23:24:14 Handlers.MessageHandler method: writeToList
+INFO: Message: GAME@/buy@Player2@buyValue,0@coinValue,0@actionCards/village,5@discard,9 sent to Player2
+2017/12/21 23:24:19 Handlers.MessageHandler method: tryReadMessage
+INFO: incoming message: GAME@endTurn
+2017/12/21 23:24:19 GameLogic.GameModel method: discardHandDeckToDiscardDeck
+INFO: Removed from Hand: festival amount: 1
+2017/12/21 23:24:19 GameLogic.GameModel method: discardHandDeckToDiscardDeck
+INFO: Removed from Hand: copper amount: 7
+2017/12/21 23:24:19 Handlers.MessageHandler method: write
+INFO: The message is: GAME@/endTurn@Player2@victoryPoints,3@discard,14 It is a private message: false
+2017/12/21 23:24:19 Handlers.MessageHandler method: write
+INFO: SocketPlayerHashMap: {58560=Player1, 58566=Player2}
+2017/12/21 23:24:19 Handlers.MessageHandler method: write
+INFO: LobbyList: [Player1, Player2]
+2017/12/21 23:24:19 Handlers.MessageHandler method: writeToList
+INFO: [Player1, Player2]
+2017/12/21 23:24:19 Handlers.MessageHandler method: writeToList
+INFO: Message: GAME@/endTurn@Player2@victoryPoints,3@discard,14 sent to Player1
+2017/12/21 23:24:19 Handlers.MessageHandler method: writeToList
+INFO: Message: GAME@/endTurn@Player2@victoryPoints,3@discard,14 sent to Player2
+2017/12/21 23:24:19 GameLogic.GameModel method: discardDecktoPlayerDeck
+INFO: Card: villageis added to playerDeck with the amount of 3
+2017/12/21 23:24:19 GameLogic.GameModel method: discardDecktoPlayerDeck
+INFO: Card: festivalis added to playerDeck with the amount of 1
+2017/12/21 23:24:19 GameLogic.GameModel method: discardDecktoPlayerDeck
+INFO: Card: estateis added to playerDeck with the amount of 3
+2017/12/21 23:24:19 GameLogic.GameModel method: discardDecktoPlayerDeck
+INFO: Card: copperis added to playerDeck with the amount of 7
+2017/12/21 23:24:19 Handlers.MessageHandler method: write
+INFO: The message is: GAME@/newDeckValues@Player2@discard,0@deck,14 It is a private message: false
+2017/12/21 23:24:19 Handlers.MessageHandler method: write
+INFO: SocketPlayerHashMap: {58560=Player1, 58566=Player2}
+2017/12/21 23:24:19 Handlers.MessageHandler method: write
+INFO: LobbyList: [Player1, Player2]
+2017/12/21 23:24:19 Handlers.MessageHandler method: writeToList
+INFO: [Player1, Player2]
+2017/12/21 23:24:19 Handlers.MessageHandler method: writeToList
+INFO: Message: GAME@/newDeckValues@Player2@discard,0@deck,14 sent to Player1
+2017/12/21 23:24:19 Handlers.MessageHandler method: writeToList
+INFO: Message: GAME@/newDeckValues@Player2@discard,0@deck,14 sent to Player2
+2017/12/21 23:24:19 Handlers.MessageHandler method: write
+INFO: The message is: GAME@/newCards@Player2@hand/estate,1;smithy,2;copper,2@deck,12 It is a private message: false
+2017/12/21 23:24:19 Handlers.MessageHandler method: write
+INFO: SocketPlayerHashMap: {58560=Player1, 58566=Player2}
+2017/12/21 23:24:19 Handlers.MessageHandler method: write
+INFO: LobbyList: [Player1, Player2]
+2017/12/21 23:24:19 Handlers.MessageHandler method: writeToList
+INFO: [Player1, Player2]
+2017/12/21 23:24:19 Handlers.MessageHandler method: writeToList
+INFO: Message: GAME@/newCards@Player2@hand/estate,1;smithy,2;copper,2@deck,12 sent to Player1
+2017/12/21 23:24:19 Handlers.MessageHandler method: writeToList
+INFO: Message: GAME@/newCards@Player2@hand/estate,1;smithy,2;copper,2@deck,12 sent to Player2
+2017/12/21 23:24:45 Handlers.MessageHandler method: tryReadMessage
+INFO: incoming message: GAME@play@village
+2017/12/21 23:24:45 Handlers.MessageHandler method: write
+INFO: The message is: GAME@/play@Player1@village@actionValue,2@coinValue,0@buyValue,1 It is a private message: false
+2017/12/21 23:24:45 Handlers.MessageHandler method: write
+INFO: SocketPlayerHashMap: {58560=Player1, 58566=Player2}
+2017/12/21 23:24:45 Handlers.MessageHandler method: write
+INFO: LobbyList: [Player1, Player2]
+2017/12/21 23:24:45 Handlers.MessageHandler method: writeToList
+INFO: [Player1, Player2]
+2017/12/21 23:24:45 Handlers.MessageHandler method: writeToList
+INFO: Message: GAME@/play@Player1@village@actionValue,2@coinValue,0@buyValue,1 sent to Player1
+2017/12/21 23:24:45 Handlers.MessageHandler method: writeToList
+INFO: Message: GAME@/play@Player1@village@actionValue,2@coinValue,0@buyValue,1 sent to Player2
+2017/12/21 23:24:45 Handlers.MessageHandler method: write
+INFO: The message is: GAME@/newCards@Player1@hand/village,-1;festival,1;smithy,1;copper,2@deck,10 It is a private message: false
+2017/12/21 23:24:45 Handlers.MessageHandler method: write
+INFO: SocketPlayerHashMap: {58560=Player1, 58566=Player2}
+2017/12/21 23:24:45 Handlers.MessageHandler method: write
+INFO: LobbyList: [Player1, Player2]
+2017/12/21 23:24:45 Handlers.MessageHandler method: writeToList
+INFO: [Player1, Player2]
+2017/12/21 23:24:45 Handlers.MessageHandler method: writeToList
+INFO: Message: GAME@/newCards@Player1@hand/village,-1;festival,1;smithy,1;copper,2@deck,10 sent to Player1
+2017/12/21 23:24:45 Handlers.MessageHandler method: writeToList
+INFO: Message: GAME@/newCards@Player1@hand/village,-1;festival,1;smithy,1;copper,2@deck,10 sent to Player2
+2017/12/21 23:24:58 Handlers.MessageHandler method: tryReadMessage
+INFO: incoming message: GAME@play@festival
+2017/12/21 23:24:58 Handlers.MessageHandler method: write
+INFO: The message is: GAME@/play@Player1@festival@actionValue,3@coinValue,2@buyValue,2 It is a private message: false
+2017/12/21 23:24:58 Handlers.MessageHandler method: write
+INFO: SocketPlayerHashMap: {58560=Player1, 58566=Player2}
+2017/12/21 23:24:58 Handlers.MessageHandler method: write
+INFO: LobbyList: [Player1, Player2]
+2017/12/21 23:24:58 Handlers.MessageHandler method: writeToList
+INFO: [Player1, Player2]
+2017/12/21 23:24:58 Handlers.MessageHandler method: writeToList
+INFO: Message: GAME@/play@Player1@festival@actionValue,3@coinValue,2@buyValue,2 sent to Player1
+2017/12/21 23:24:58 Handlers.MessageHandler method: writeToList
+INFO: Message: GAME@/play@Player1@festival@actionValue,3@coinValue,2@buyValue,2 sent to Player2
+2017/12/21 23:25:05 Handlers.MessageHandler method: tryReadMessage
+INFO: incoming message: GAME@play@smithy
+2017/12/21 23:25:05 Handlers.MessageHandler method: write
+INFO: The message is: GAME@/play@Player1@smithy@actionValue,2@coinValue,2@buyValue,2 It is a private message: false
+2017/12/21 23:25:05 Handlers.MessageHandler method: write
+INFO: SocketPlayerHashMap: {58560=Player1, 58566=Player2}
+2017/12/21 23:25:05 Handlers.MessageHandler method: write
+INFO: LobbyList: [Player1, Player2]
+2017/12/21 23:25:05 Handlers.MessageHandler method: writeToList
+INFO: [Player1, Player2]
+2017/12/21 23:25:05 Handlers.MessageHandler method: writeToList
+INFO: Message: GAME@/play@Player1@smithy@actionValue,2@coinValue,2@buyValue,2 sent to Player1
+2017/12/21 23:25:05 Handlers.MessageHandler method: writeToList
+INFO: Message: GAME@/play@Player1@smithy@actionValue,2@coinValue,2@buyValue,2 sent to Player2
+2017/12/21 23:25:05 Handlers.MessageHandler method: write
+INFO: The message is: GAME@/newCards@Player1@hand/village,2;festival,2;estate,1;copper,3@deck,7 It is a private message: false
+2017/12/21 23:25:05 Handlers.MessageHandler method: write
+INFO: SocketPlayerHashMap: {58560=Player1, 58566=Player2}
+2017/12/21 23:25:05 Handlers.MessageHandler method: write
+INFO: LobbyList: [Player1, Player2]
+2017/12/21 23:25:05 Handlers.MessageHandler method: writeToList
+INFO: [Player1, Player2]
+2017/12/21 23:25:05 Handlers.MessageHandler method: writeToList
+INFO: Message: GAME@/newCards@Player1@hand/village,2;festival,2;estate,1;copper,3@deck,7 sent to Player1
+2017/12/21 23:25:05 Handlers.MessageHandler method: writeToList
+INFO: Message: GAME@/newCards@Player1@hand/village,2;festival,2;estate,1;copper,3@deck,7 sent to Player2
+2017/12/21 23:25:46 Handlers.MessageHandler method: tryReadMessage
+INFO: incoming message: GAME@play@village
+2017/12/21 23:25:46 Handlers.MessageHandler method: write
+INFO: The message is: GAME@/play@Player1@village@actionValue,3@coinValue,2@buyValue,2 It is a private message: false
+2017/12/21 23:25:46 Handlers.MessageHandler method: write
+INFO: SocketPlayerHashMap: {58560=Player1, 58566=Player2}
+2017/12/21 23:25:46 Handlers.MessageHandler method: write
+INFO: LobbyList: [Player1, Player2]
+2017/12/21 23:25:46 Handlers.MessageHandler method: writeToList
+INFO: [Player1, Player2]
+2017/12/21 23:25:46 Handlers.MessageHandler method: writeToList
+INFO: Message: GAME@/play@Player1@village@actionValue,3@coinValue,2@buyValue,2 sent to Player1
+2017/12/21 23:25:46 Handlers.MessageHandler method: writeToList
+INFO: Message: GAME@/play@Player1@village@actionValue,3@coinValue,2@buyValue,2 sent to Player2
+2017/12/21 23:25:46 Handlers.MessageHandler method: write
+INFO: The message is: GAME@/newCards@Player1@hand/village,-1;festival,2;estate,1;smithy,1;copper,4@deck,6 It is a private message: false
+2017/12/21 23:25:46 Handlers.MessageHandler method: write
+INFO: SocketPlayerHashMap: {58560=Player1, 58566=Player2}
+2017/12/21 23:25:46 Handlers.MessageHandler method: write
+INFO: LobbyList: [Player1, Player2]
+2017/12/21 23:25:46 Handlers.MessageHandler method: writeToList
+INFO: [Player1, Player2]
+2017/12/21 23:25:46 Handlers.MessageHandler method: writeToList
+INFO: Message: GAME@/newCards@Player1@hand/village,-1;festival,2;estate,1;smithy,1;copper,4@deck,6 sent to Player1
+2017/12/21 23:25:46 Handlers.MessageHandler method: writeToList
+INFO: Message: GAME@/newCards@Player1@hand/village,-1;festival,2;estate,1;smithy,1;copper,4@deck,6 sent to Player2
+2017/12/21 23:25:53 Handlers.MessageHandler method: tryReadMessage
+INFO: incoming message: GAME@play@festival
+2017/12/21 23:25:53 Handlers.MessageHandler method: write
+INFO: The message is: GAME@/play@Player1@festival@actionValue,4@coinValue,4@buyValue,3 It is a private message: false
+2017/12/21 23:25:53 Handlers.MessageHandler method: write
+INFO: SocketPlayerHashMap: {58560=Player1, 58566=Player2}
+2017/12/21 23:25:53 Handlers.MessageHandler method: write
+INFO: LobbyList: [Player1, Player2]
+2017/12/21 23:25:53 Handlers.MessageHandler method: writeToList
+INFO: [Player1, Player2]
+2017/12/21 23:25:53 Handlers.MessageHandler method: writeToList
+INFO: Message: GAME@/play@Player1@festival@actionValue,4@coinValue,4@buyValue,3 sent to Player1
+2017/12/21 23:25:54 Handlers.MessageHandler method: writeToList
+INFO: Message: GAME@/play@Player1@festival@actionValue,4@coinValue,4@buyValue,3 sent to Player2
+2017/12/21 23:25:59 Handlers.MessageHandler method: tryReadMessage
+INFO: incoming message: GAME@play@festival
+2017/12/21 23:25:59 Handlers.MessageHandler method: write
+INFO: The message is: GAME@/play@Player1@festival@actionValue,5@coinValue,6@buyValue,4 It is a private message: false
+2017/12/21 23:25:59 Handlers.MessageHandler method: write
+INFO: SocketPlayerHashMap: {58560=Player1, 58566=Player2}
+2017/12/21 23:25:59 Handlers.MessageHandler method: write
+INFO: LobbyList: [Player1, Player2]
+2017/12/21 23:25:59 Handlers.MessageHandler method: writeToList
+INFO: [Player1, Player2]
+2017/12/21 23:25:59 Handlers.MessageHandler method: writeToList
+INFO: Message: GAME@/play@Player1@festival@actionValue,5@coinValue,6@buyValue,4 sent to Player1
+2017/12/21 23:25:59 Handlers.MessageHandler method: writeToList
+INFO: Message: GAME@/play@Player1@festival@actionValue,5@coinValue,6@buyValue,4 sent to Player2
+2017/12/21 23:26:03 Handlers.MessageHandler method: tryReadMessage
+INFO: incoming message: GAME@play@smithy
+2017/12/21 23:26:03 Handlers.MessageHandler method: write
+INFO: The message is: GAME@/play@Player1@smithy@actionValue,4@coinValue,6@buyValue,4 It is a private message: false
+2017/12/21 23:26:03 Handlers.MessageHandler method: write
+INFO: SocketPlayerHashMap: {58560=Player1, 58566=Player2}
+2017/12/21 23:26:03 Handlers.MessageHandler method: write
+INFO: LobbyList: [Player1, Player2]
+2017/12/21 23:26:03 Handlers.MessageHandler method: writeToList
+INFO: [Player1, Player2]
+2017/12/21 23:26:03 Handlers.MessageHandler method: writeToList
+INFO: Message: GAME@/play@Player1@smithy@actionValue,4@coinValue,6@buyValue,4 sent to Player1
+2017/12/21 23:26:03 Handlers.MessageHandler method: writeToList
+INFO: Message: GAME@/play@Player1@smithy@actionValue,4@coinValue,6@buyValue,4 sent to Player2
+2017/12/21 23:26:03 Handlers.MessageHandler method: write
+INFO: The message is: GAME@/newCards@Player1@hand/village,2;festival,2;estate,2;copper,6@deck,3 It is a private message: false
+2017/12/21 23:26:03 Handlers.MessageHandler method: write
+INFO: SocketPlayerHashMap: {58560=Player1, 58566=Player2}
+2017/12/21 23:26:03 Handlers.MessageHandler method: write
+INFO: LobbyList: [Player1, Player2]
+2017/12/21 23:26:03 Handlers.MessageHandler method: writeToList
+INFO: [Player1, Player2]
+2017/12/21 23:26:03 Handlers.MessageHandler method: writeToList
+INFO: Message: GAME@/newCards@Player1@hand/village,2;festival,2;estate,2;copper,6@deck,3 sent to Player1
+2017/12/21 23:26:03 Handlers.MessageHandler method: writeToList
+INFO: Message: GAME@/newCards@Player1@hand/village,2;festival,2;estate,2;copper,6@deck,3 sent to Player2
+2017/12/21 23:26:24 Handlers.MessageHandler method: tryReadMessage
+INFO: incoming message: GAME@playTreasure
+2017/12/21 23:26:24 Handlers.MessageHandler method: write
+INFO: The message is: GAME@/playTreasures@Player1@playedCard/copper,6@hand/estate,2@coinValue,12 It is a private message: false
+2017/12/21 23:26:24 Handlers.MessageHandler method: write
+INFO: SocketPlayerHashMap: {58560=Player1, 58566=Player2}
+2017/12/21 23:26:24 Handlers.MessageHandler method: write
+INFO: LobbyList: [Player1, Player2]
+2017/12/21 23:26:24 Handlers.MessageHandler method: writeToList
+INFO: [Player1, Player2]
+2017/12/21 23:26:24 Handlers.MessageHandler method: writeToList
+INFO: Message: GAME@/playTreasures@Player1@playedCard/copper,6@hand/estate,2@coinValue,12 sent to Player1
+2017/12/21 23:26:24 Handlers.MessageHandler method: writeToList
+INFO: Message: GAME@/playTreasures@Player1@playedCard/copper,6@hand/estate,2@coinValue,12 sent to Player2
+2017/12/21 23:27:05 Handlers.MessageHandler method: tryReadMessage
+INFO: incoming message: GAME@buy@gold
+2017/12/21 23:27:05 Handlers.MessageHandler method: write
+INFO: The message is: GAME@/buy@Player1@buyValue,3@coinValue,6@coinCards/gold,29@discard,1 It is a private message: false
+2017/12/21 23:27:05 Handlers.MessageHandler method: write
+INFO: SocketPlayerHashMap: {58560=Player1, 58566=Player2}
+2017/12/21 23:27:05 Handlers.MessageHandler method: write
+INFO: LobbyList: [Player1, Player2]
+2017/12/21 23:27:05 Handlers.MessageHandler method: writeToList
+INFO: [Player1, Player2]
+2017/12/21 23:27:05 Handlers.MessageHandler method: writeToList
+INFO: Message: GAME@/buy@Player1@buyValue,3@coinValue,6@coinCards/gold,29@discard,1 sent to Player1
+2017/12/21 23:27:05 Handlers.MessageHandler method: writeToList
+INFO: Message: GAME@/buy@Player1@buyValue,3@coinValue,6@coinCards/gold,29@discard,1 sent to Player2
+2017/12/21 23:27:06 Handlers.MessageHandler method: tryReadMessage
+INFO: incoming message: GAME@buy@gold
+2017/12/21 23:27:06 Handlers.MessageHandler method: write
+INFO: The message is: GAME@/buy@Player1@buyValue,2@coinValue,0@coinCards/gold,28@discard,2 It is a private message: false
+2017/12/21 23:27:06 Handlers.MessageHandler method: write
+INFO: SocketPlayerHashMap: {58560=Player1, 58566=Player2}
+2017/12/21 23:27:06 Handlers.MessageHandler method: write
+INFO: LobbyList: [Player1, Player2]
+2017/12/21 23:27:06 Handlers.MessageHandler method: writeToList
+INFO: [Player1, Player2]
+2017/12/21 23:27:06 Handlers.MessageHandler method: writeToList
+INFO: Message: GAME@/buy@Player1@buyValue,2@coinValue,0@coinCards/gold,28@discard,2 sent to Player1
+2017/12/21 23:27:06 Handlers.MessageHandler method: writeToList
+INFO: Message: GAME@/buy@Player1@buyValue,2@coinValue,0@coinCards/gold,28@discard,2 sent to Player2
+2017/12/21 23:27:08 Handlers.MessageHandler method: tryReadMessage
+INFO: incoming message: GAME@buy@copper
+2017/12/21 23:27:08 Handlers.MessageHandler method: write
+INFO: The message is: GAME@/buy@Player1@buyValue,1@coinValue,0@coinCards/copper,43@discard,3 It is a private message: false
+2017/12/21 23:27:08 Handlers.MessageHandler method: write
+INFO: SocketPlayerHashMap: {58560=Player1, 58566=Player2}
+2017/12/21 23:27:08 Handlers.MessageHandler method: write
+INFO: LobbyList: [Player1, Player2]
+2017/12/21 23:27:08 Handlers.MessageHandler method: writeToList
+INFO: [Player1, Player2]
+2017/12/21 23:27:08 Handlers.MessageHandler method: writeToList
+INFO: Message: GAME@/buy@Player1@buyValue,1@coinValue,0@coinCards/copper,43@discard,3 sent to Player1
+2017/12/21 23:27:08 Handlers.MessageHandler method: writeToList
+INFO: Message: GAME@/buy@Player1@buyValue,1@coinValue,0@coinCards/copper,43@discard,3 sent to Player2
+2017/12/21 23:27:08 Handlers.MessageHandler method: tryReadMessage
+INFO: incoming message: GAME@buy@copper
+2017/12/21 23:27:08 Handlers.MessageHandler method: write
+INFO: The message is: GAME@/buy@Player1@buyValue,0@coinValue,0@coinCards/copper,42@discard,4 It is a private message: false
+2017/12/21 23:27:08 Handlers.MessageHandler method: write
+INFO: SocketPlayerHashMap: {58560=Player1, 58566=Player2}
+2017/12/21 23:27:08 Handlers.MessageHandler method: write
+INFO: LobbyList: [Player1, Player2]
+2017/12/21 23:27:08 Handlers.MessageHandler method: writeToList
+INFO: [Player1, Player2]
+2017/12/21 23:27:08 Handlers.MessageHandler method: writeToList
+INFO: Message: GAME@/buy@Player1@buyValue,0@coinValue,0@coinCards/copper,42@discard,4 sent to Player1
+2017/12/21 23:27:08 Handlers.MessageHandler method: writeToList
+INFO: Message: GAME@/buy@Player1@buyValue,0@coinValue,0@coinCards/copper,42@discard,4 sent to Player2
+2017/12/21 23:27:13 Handlers.MessageHandler method: tryReadMessage
+INFO: incoming message: GAME@endTurn
+2017/12/21 23:27:13 GameLogic.GameModel method: discardHandDeckToDiscardDeck
+INFO: Removed from Hand: village amount: 2
+2017/12/21 23:27:13 GameLogic.GameModel method: discardHandDeckToDiscardDeck
+INFO: Removed from Hand: festival amount: 2
+2017/12/21 23:27:13 GameLogic.GameModel method: discardHandDeckToDiscardDeck
+INFO: Removed from Hand: estate amount: 2
+2017/12/21 23:27:13 GameLogic.GameModel method: discardHandDeckToDiscardDeck
+INFO: Removed from Hand: smithy amount: 1
+2017/12/21 23:27:13 GameLogic.GameModel method: discardHandDeckToDiscardDeck
+INFO: Removed from Hand: copper amount: 8
+2017/12/21 23:27:13 Handlers.MessageHandler method: write
+INFO: The message is: GAME@/endTurn@Player1@victoryPoints,3@discard,17 It is a private message: false
+2017/12/21 23:27:13 Handlers.MessageHandler method: write
+INFO: SocketPlayerHashMap: {58560=Player1, 58566=Player2}
+2017/12/21 23:27:13 Handlers.MessageHandler method: write
+INFO: LobbyList: [Player1, Player2]
+2017/12/21 23:27:13 Handlers.MessageHandler method: writeToList
+INFO: [Player1, Player2]
+2017/12/21 23:27:13 Handlers.MessageHandler method: writeToList
+INFO: Message: GAME@/endTurn@Player1@victoryPoints,3@discard,17 sent to Player1
+2017/12/21 23:27:13 Handlers.MessageHandler method: writeToList
+INFO: Message: GAME@/endTurn@Player1@victoryPoints,3@discard,17 sent to Player2
+2017/12/21 23:27:13 GameLogic.GameModel method: discardDecktoPlayerDeck
+INFO: Card: villageis added to playerDeck with the amount of 2
+2017/12/21 23:27:13 GameLogic.GameModel method: discardDecktoPlayerDeck
+INFO: Card: festivalis added to playerDeck with the amount of 2
+2017/12/21 23:27:13 GameLogic.GameModel method: discardDecktoPlayerDeck
+INFO: Card: goldis added to playerDeck with the amount of 2
+2017/12/21 23:27:13 GameLogic.GameModel method: discardDecktoPlayerDeck
+INFO: Card: estateis added to playerDeck with the amount of 2
+2017/12/21 23:27:13 GameLogic.GameModel method: discardDecktoPlayerDeck
+INFO: Card: smithyis added to playerDeck with the amount of 1
+2017/12/21 23:27:13 GameLogic.GameModel method: discardDecktoPlayerDeck
+INFO: Card: copperis added to playerDeck with the amount of 8
+2017/12/21 23:27:13 Handlers.MessageHandler method: write
+INFO: The message is: GAME@/newDeckValues@Player1@discard,0@deck,17 It is a private message: false
+2017/12/21 23:27:13 Handlers.MessageHandler method: write
+INFO: SocketPlayerHashMap: {58560=Player1, 58566=Player2}
+2017/12/21 23:27:13 Handlers.MessageHandler method: write
+INFO: LobbyList: [Player1, Player2]
+2017/12/21 23:27:13 Handlers.MessageHandler method: writeToList
+INFO: [Player1, Player2]
+2017/12/21 23:27:13 Handlers.MessageHandler method: writeToList
+INFO: Message: GAME@/newDeckValues@Player1@discard,0@deck,17 sent to Player1
+2017/12/21 23:27:13 Handlers.MessageHandler method: writeToList
+INFO: Message: GAME@/newDeckValues@Player1@discard,0@deck,17 sent to Player2
+2017/12/21 23:27:13 Handlers.MessageHandler method: write
+INFO: The message is: GAME@/newCards@Player1@hand/festival,1;estate,1;copper,3@deck,15 It is a private message: false
+2017/12/21 23:27:13 Handlers.MessageHandler method: write
+INFO: SocketPlayerHashMap: {58560=Player1, 58566=Player2}
+2017/12/21 23:27:13 Handlers.MessageHandler method: write
+INFO: LobbyList: [Player1, Player2]
+2017/12/21 23:27:13 Handlers.MessageHandler method: writeToList
+INFO: [Player1, Player2]
+2017/12/21 23:27:13 Handlers.MessageHandler method: writeToList
+INFO: Message: GAME@/newCards@Player1@hand/festival,1;estate,1;copper,3@deck,15 sent to Player1
+2017/12/21 23:27:13 Handlers.MessageHandler method: writeToList
+INFO: Message: GAME@/newCards@Player1@hand/festival,1;estate,1;copper,3@deck,15 sent to Player2
+2017/12/21 23:28:17 Handlers.MessageHandler method: tryReadMessage
+INFO: incoming message: GAME@play@smithy
+2017/12/21 23:28:17 Handlers.MessageHandler method: write
+INFO: The message is: GAME@/play@Player2@smithy@actionValue,0@coinValue,0@buyValue,1 It is a private message: false
+2017/12/21 23:28:17 Handlers.MessageHandler method: write
+INFO: SocketPlayerHashMap: {58560=Player1, 58566=Player2}
+2017/12/21 23:28:17 Handlers.MessageHandler method: write
+INFO: LobbyList: [Player1, Player2]
+2017/12/21 23:28:17 Handlers.MessageHandler method: writeToList
+INFO: [Player1, Player2]
+2017/12/21 23:28:17 Handlers.MessageHandler method: writeToList
+INFO: Message: GAME@/play@Player2@smithy@actionValue,0@coinValue,0@buyValue,1 sent to Player1
+2017/12/21 23:28:17 Handlers.MessageHandler method: writeToList
+INFO: Message: GAME@/play@Player2@smithy@actionValue,0@coinValue,0@buyValue,1 sent to Player2
+2017/12/21 23:28:17 Handlers.MessageHandler method: write
+INFO: The message is: GAME@/newCards@Player2@hand/village,1;estate,1;smithy,-1;copper,4@deck,9 It is a private message: false
+2017/12/21 23:28:17 Handlers.MessageHandler method: write
+INFO: SocketPlayerHashMap: {58560=Player1, 58566=Player2}
+2017/12/21 23:28:17 Handlers.MessageHandler method: write
+INFO: LobbyList: [Player1, Player2]
+2017/12/21 23:28:17 Handlers.MessageHandler method: writeToList
+INFO: [Player1, Player2]
+2017/12/21 23:28:17 Handlers.MessageHandler method: writeToList
+INFO: Message: GAME@/newCards@Player2@hand/village,1;estate,1;smithy,-1;copper,4@deck,9 sent to Player1
+2017/12/21 23:28:17 Handlers.MessageHandler method: writeToList
+INFO: Message: GAME@/newCards@Player2@hand/village,1;estate,1;smithy,-1;copper,4@deck,9 sent to Player2
+2017/12/21 23:28:21 Handlers.MessageHandler method: tryReadMessage
+INFO: incoming message: GAME@playTreasure
+2017/12/21 23:28:21 Handlers.MessageHandler method: write
+INFO: The message is: GAME@/playTreasures@Player2@playedCard/copper,4@hand/village,1;estate,1@coinValue,4 It is a private message: false
+2017/12/21 23:28:21 Handlers.MessageHandler method: write
+INFO: SocketPlayerHashMap: {58560=Player1, 58566=Player2}
+2017/12/21 23:28:21 Handlers.MessageHandler method: write
+INFO: LobbyList: [Player1, Player2]
+2017/12/21 23:28:21 Handlers.MessageHandler method: writeToList
+INFO: [Player1, Player2]
+2017/12/21 23:28:21 Handlers.MessageHandler method: writeToList
+INFO: Message: GAME@/playTreasures@Player2@playedCard/copper,4@hand/village,1;estate,1@coinValue,4 sent to Player1
+2017/12/21 23:28:21 Handlers.MessageHandler method: writeToList
+INFO: Message: GAME@/playTreasures@Player2@playedCard/copper,4@hand/village,1;estate,1@coinValue,4 sent to Player2
+2017/12/21 23:28:25 Handlers.MessageHandler method: tryReadMessage
+INFO: incoming message: GAME@buy@smithy
+2017/12/21 23:28:25 Handlers.MessageHandler method: write
+INFO: The message is: GAME@/buy@Player2@buyValue,0@coinValue,0@actionCards/smithy,6@discard,1 It is a private message: false
+2017/12/21 23:28:25 Handlers.MessageHandler method: write
+INFO: SocketPlayerHashMap: {58560=Player1, 58566=Player2}
+2017/12/21 23:28:25 Handlers.MessageHandler method: write
+INFO: LobbyList: [Player1, Player2]
+2017/12/21 23:28:25 Handlers.MessageHandler method: writeToList
+INFO: [Player1, Player2]
+2017/12/21 23:28:25 Handlers.MessageHandler method: writeToList
+INFO: Message: GAME@/buy@Player2@buyValue,0@coinValue,0@actionCards/smithy,6@discard,1 sent to Player1
+2017/12/21 23:28:25 Handlers.MessageHandler method: writeToList
+INFO: Message: GAME@/buy@Player2@buyValue,0@coinValue,0@actionCards/smithy,6@discard,1 sent to Player2
+2017/12/21 23:28:26 Handlers.MessageHandler method: tryReadMessage
+INFO: incoming message: GAME@endTurn
+2017/12/21 23:28:26 GameLogic.GameModel method: discardHandDeckToDiscardDeck
+INFO: Removed from Hand: village amount: 1
+2017/12/21 23:28:26 GameLogic.GameModel method: discardHandDeckToDiscardDeck
+INFO: Removed from Hand: estate amount: 1
+2017/12/21 23:28:26 GameLogic.GameModel method: discardHandDeckToDiscardDeck
+INFO: Removed from Hand: smithy amount: 3
+2017/12/21 23:28:26 GameLogic.GameModel method: discardHandDeckToDiscardDeck
+INFO: Removed from Hand: copper amount: 4
+2017/12/21 23:28:26 Handlers.MessageHandler method: write
+INFO: The message is: GAME@/endTurn@Player2@victoryPoints,3@discard,9 It is a private message: false
+2017/12/21 23:28:26 Handlers.MessageHandler method: write
+INFO: SocketPlayerHashMap: {58560=Player1, 58566=Player2}
+2017/12/21 23:28:26 Handlers.MessageHandler method: write
+INFO: LobbyList: [Player1, Player2]
+2017/12/21 23:28:26 Handlers.MessageHandler method: writeToList
+INFO: [Player1, Player2]
+2017/12/21 23:28:26 Handlers.MessageHandler method: writeToList
+INFO: Message: GAME@/endTurn@Player2@victoryPoints,3@discard,9 sent to Player1
+2017/12/21 23:28:26 Handlers.MessageHandler method: writeToList
+INFO: Message: GAME@/endTurn@Player2@victoryPoints,3@discard,9 sent to Player2
+2017/12/21 23:28:26 Handlers.MessageHandler method: write
+INFO: The message is: GAME@/newCards@Player2@hand/festival,1;estate,1;copper,3@deck,4 It is a private message: false
+2017/12/21 23:28:26 Handlers.MessageHandler method: write
+INFO: SocketPlayerHashMap: {58560=Player1, 58566=Player2}
+2017/12/21 23:28:26 Handlers.MessageHandler method: write
+INFO: LobbyList: [Player1, Player2]
+2017/12/21 23:28:26 Handlers.MessageHandler method: writeToList
+INFO: [Player1, Player2]
+2017/12/21 23:28:26 Handlers.MessageHandler method: writeToList
+INFO: Message: GAME@/newCards@Player2@hand/festival,1;estate,1;copper,3@deck,4 sent to Player1
+2017/12/21 23:28:26 Handlers.MessageHandler method: writeToList
+INFO: Message: GAME@/newCards@Player2@hand/festival,1;estate,1;copper,3@deck,4 sent to Player2
+2017/12/21 23:28:37 Handlers.MessageHandler method: tryReadMessage
+INFO: incoming message: GAME@play@festival
+2017/12/21 23:28:37 Handlers.MessageHandler method: write
+INFO: The message is: GAME@/play@Player1@festival@actionValue,2@coinValue,2@buyValue,2 It is a private message: false
+2017/12/21 23:28:37 Handlers.MessageHandler method: write
+INFO: SocketPlayerHashMap: {58560=Player1, 58566=Player2}
+2017/12/21 23:28:37 Handlers.MessageHandler method: write
+INFO: LobbyList: [Player1, Player2]
+2017/12/21 23:28:37 Handlers.MessageHandler method: writeToList
+INFO: [Player1, Player2]
+2017/12/21 23:28:37 Handlers.MessageHandler method: writeToList
+INFO: Message: GAME@/play@Player1@festival@actionValue,2@coinValue,2@buyValue,2 sent to Player1
+2017/12/21 23:28:37 Handlers.MessageHandler method: writeToList
+INFO: Message: GAME@/play@Player1@festival@actionValue,2@coinValue,2@buyValue,2 sent to Player2
+2017/12/21 23:28:39 Handlers.MessageHandler method: tryReadMessage
+INFO: incoming message: GAME@playTreasure
+2017/12/21 23:28:39 Handlers.MessageHandler method: write
+INFO: The message is: GAME@/playTreasures@Player1@playedCard/copper,3@hand/estate,1@coinValue,5 It is a private message: false
+2017/12/21 23:28:39 Handlers.MessageHandler method: write
+INFO: SocketPlayerHashMap: {58560=Player1, 58566=Player2}
+2017/12/21 23:28:39 Handlers.MessageHandler method: write
+INFO: LobbyList: [Player1, Player2]
+2017/12/21 23:28:39 Handlers.MessageHandler method: writeToList
+INFO: [Player1, Player2]
+2017/12/21 23:28:39 Handlers.MessageHandler method: writeToList
+INFO: Message: GAME@/playTreasures@Player1@playedCard/copper,3@hand/estate,1@coinValue,5 sent to Player1
+2017/12/21 23:28:39 Handlers.MessageHandler method: writeToList
+INFO: Message: GAME@/playTreasures@Player1@playedCard/copper,3@hand/estate,1@coinValue,5 sent to Player2
+2017/12/21 23:28:45 Handlers.MessageHandler method: tryReadMessage
+INFO: incoming message: GAME@buy@village
+2017/12/21 23:28:45 Handlers.MessageHandler method: write
+INFO: The message is: GAME@/buy@Player1@buyValue,1@coinValue,2@actionCards/village,4@discard,1 It is a private message: false
+2017/12/21 23:28:45 Handlers.MessageHandler method: write
+INFO: SocketPlayerHashMap: {58560=Player1, 58566=Player2}
+2017/12/21 23:28:45 Handlers.MessageHandler method: write
+INFO: LobbyList: [Player1, Player2]
+2017/12/21 23:28:45 Handlers.MessageHandler method: writeToList
+INFO: [Player1, Player2]
+2017/12/21 23:28:45 Handlers.MessageHandler method: writeToList
+INFO: Message: GAME@/buy@Player1@buyValue,1@coinValue,2@actionCards/village,4@discard,1 sent to Player1
+2017/12/21 23:28:45 Handlers.MessageHandler method: writeToList
+INFO: Message: GAME@/buy@Player1@buyValue,1@coinValue,2@actionCards/village,4@discard,1 sent to Player2
+2017/12/21 23:28:48 Handlers.MessageHandler method: tryReadMessage
+INFO: incoming message: GAME@buy@estate
+2017/12/21 23:28:48 Handlers.MessageHandler method: write
+INFO: The message is: GAME@/buy@Player1@buyValue,0@coinValue,0@victoryCards/estate,7@discard,2 It is a private message: false
+2017/12/21 23:28:48 Handlers.MessageHandler method: write
+INFO: SocketPlayerHashMap: {58560=Player1, 58566=Player2}
+2017/12/21 23:28:48 Handlers.MessageHandler method: write
+INFO: LobbyList: [Player1, Player2]
+2017/12/21 23:28:48 Handlers.MessageHandler method: writeToList
+INFO: [Player1, Player2]
+2017/12/21 23:28:48 Handlers.MessageHandler method: writeToList
+INFO: Message: GAME@/buy@Player1@buyValue,0@coinValue,0@victoryCards/estate,7@discard,2 sent to Player1
+2017/12/21 23:28:48 Handlers.MessageHandler method: writeToList
+INFO: Message: GAME@/buy@Player1@buyValue,0@coinValue,0@victoryCards/estate,7@discard,2 sent to Player2
+2017/12/21 23:28:52 Handlers.MessageHandler method: tryReadMessage
+INFO: incoming message: GAME@endTurn
+2017/12/21 23:28:52 GameLogic.GameModel method: discardHandDeckToDiscardDeck
+INFO: Removed from Hand: festival amount: 1
+2017/12/21 23:28:52 GameLogic.GameModel method: discardHandDeckToDiscardDeck
+INFO: Removed from Hand: estate amount: 2
+2017/12/21 23:28:52 GameLogic.GameModel method: discardHandDeckToDiscardDeck
+INFO: Removed from Hand: copper amount: 3
+2017/12/21 23:28:52 Handlers.MessageHandler method: write
+INFO: The message is: GAME@/endTurn@Player1@victoryPoints,4@discard,7 It is a private message: false
+2017/12/21 23:28:52 Handlers.MessageHandler method: write
+INFO: SocketPlayerHashMap: {58560=Player1, 58566=Player2}
+2017/12/21 23:28:52 Handlers.MessageHandler method: write
+INFO: LobbyList: [Player1, Player2]
+2017/12/21 23:28:52 Handlers.MessageHandler method: writeToList
+INFO: [Player1, Player2]
+2017/12/21 23:28:52 Handlers.MessageHandler method: writeToList
+INFO: Message: GAME@/endTurn@Player1@victoryPoints,4@discard,7 sent to Player1
+2017/12/21 23:28:52 Handlers.MessageHandler method: writeToList
+INFO: Message: GAME@/endTurn@Player1@victoryPoints,4@discard,7 sent to Player2
+2017/12/21 23:28:52 Handlers.MessageHandler method: write
+INFO: The message is: GAME@/newCards@Player1@hand/village,2;copper,3@deck,10 It is a private message: false
+2017/12/21 23:28:52 Handlers.MessageHandler method: write
+INFO: SocketPlayerHashMap: {58560=Player1, 58566=Player2}
+2017/12/21 23:28:52 Handlers.MessageHandler method: write
+INFO: LobbyList: [Player1, Player2]
+2017/12/21 23:28:52 Handlers.MessageHandler method: writeToList
+INFO: [Player1, Player2]
+2017/12/21 23:28:52 Handlers.MessageHandler method: writeToList
+INFO: Message: GAME@/newCards@Player1@hand/village,2;copper,3@deck,10 sent to Player1
+2017/12/21 23:28:52 Handlers.MessageHandler method: writeToList
+INFO: Message: GAME@/newCards@Player1@hand/village,2;copper,3@deck,10 sent to Player2
+2017/12/21 23:28:56 Handlers.MessageHandler method: tryReadMessage
+INFO: incoming message: GAME@play@festival
+2017/12/21 23:28:56 Handlers.MessageHandler method: write
+INFO: The message is: GAME@/play@Player2@festival@actionValue,2@coinValue,2@buyValue,2 It is a private message: false
+2017/12/21 23:28:56 Handlers.MessageHandler method: write
+INFO: SocketPlayerHashMap: {58560=Player1, 58566=Player2}
+2017/12/21 23:28:56 Handlers.MessageHandler method: write
+INFO: LobbyList: [Player1, Player2]
+2017/12/21 23:28:56 Handlers.MessageHandler method: writeToList
+INFO: [Player1, Player2]
+2017/12/21 23:28:56 Handlers.MessageHandler method: writeToList
+INFO: Message: GAME@/play@Player2@festival@actionValue,2@coinValue,2@buyValue,2 sent to Player1
+2017/12/21 23:28:56 Handlers.MessageHandler method: writeToList
+INFO: Message: GAME@/play@Player2@festival@actionValue,2@coinValue,2@buyValue,2 sent to Player2
+2017/12/21 23:28:57 Handlers.MessageHandler method: tryReadMessage
+INFO: incoming message: GAME@playTreasure
+2017/12
