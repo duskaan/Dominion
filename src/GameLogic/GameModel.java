@@ -158,14 +158,13 @@ public class GameModel {
         while (itr.hasNext()) {
             CardName cardName = itr.next();
             int amount = starterHandDeck.get(cardName);
-            if(amount!=0) {
-                for (int i = 0; i < amount; i++) {
-                    initCardsMessage = initCardsMessage + cardName;
-                    if (i != amount) {
-                        initCardsMessage = initCardsMessage + "@";
-                    }
+            for (int i = 0; i < amount; i++) {
+                initCardsMessage = initCardsMessage + cardName;
+                if (i != amount) {
+                    initCardsMessage = initCardsMessage + "@";
                 }
             }
+
         }
 
         return initCardsMessage;
@@ -348,6 +347,9 @@ public class GameModel {
                 }
             }
         }
+        if (playTreasureMessage.charAt(playTreasureMessage.length()-1) == '/') {
+            playTreasureMessage = playTreasureMessage + "empty";
+        }
         playTreasureMessage = playTreasureMessage + "@coinValue," + playerList.get(getCurrentPlayer()).getCoins();
 
         return playTreasureMessage;
@@ -435,29 +437,18 @@ public class GameModel {
             int curseAmount;
 
 
-            if(playerList.get(i).getPlayerDeck().get(CardName.province)==null){
-                provinceAmount=0;
-            }else{
-                provinceAmount = playerList.get(i).getPlayerDeck().get(CardName.province);
-            }
-            if(playerList.get(i).getPlayerDeck().get(CardName.estate)==null){
-                estateAmount=0;
-            }else{
-                estateAmount = playerList.get(i).getPlayerDeck().get(CardName.estate);
-            }
-            if(playerList.get(i).getPlayerDeck().get(CardName.duchy)==null){
-                duchyAmount =0;
-            }else{
-                duchyAmount =playerList.get(i).getPlayerDeck().get(CardName.duchy);
-            }
-            if(playerList.get(i).getPlayerDeck().get(CardName.curse)==null){
-                curseAmount=0;
-            }else{
-                curseAmount = playerList.get(i).getPlayerDeck().get(CardName.curse);
-            }
+
+            provinceAmount = playerList.get(i).getPlayerDeck().get(CardName.province) + playerList.get(i).getDiscardDeck().get(CardName.province) + playerList.get(i).getHandDeck().get(CardName.province);
+
+            estateAmount = playerList.get(i).getPlayerDeck().get(CardName.estate)+ playerList.get(i).getDiscardDeck().get(CardName.estate) + playerList.get(i).getHandDeck().get(CardName.estate);
+
+            duchyAmount =playerList.get(i).getPlayerDeck().get(CardName.duchy)+ playerList.get(i).getDiscardDeck().get(CardName.duchy) + playerList.get(i).getHandDeck().get(CardName.duchy);
+
+            curseAmount = playerList.get(i).getPlayerDeck().get(CardName.curse)+ playerList.get(i).getDiscardDeck().get(CardName.curse) + playerList.get(i).getHandDeck().get(CardName.curse);
 
 
-            int VictoryPoints = provinceAmount * 6 + duchyAmount * 3 + estateAmount + curseAmount * -1;
+
+            int VictoryPoints = (provinceAmount * 6) + (duchyAmount * 3) + estateAmount + (curseAmount * -1);
 
             playerList.get(i).setVictoryPoints(VictoryPoints);
             i++;
@@ -472,9 +463,14 @@ public class GameModel {
 
 
         for (CardName cardName : playerList.get(playerIndex).getPlayerDeck().keySet()) {
-            cardNames.add(cardName);
-
+            int amount = playerList.get(playerIndex).getPlayerDeck().get(cardName);
+            if(amount!=0){
+                for(int i = 0; i < amount;i++){
+                    cardNames.add(cardName);
+                }
+            }
         }
+
         CardName cardName = null;
         int cardsDrawn = 0;
         Random rand = new Random();
@@ -482,21 +478,16 @@ public class GameModel {
         while (cardsDrawn < amountToDraw) {
             cardName = cardNames.get(rand.nextInt(cardNames.size()));
 
-            if (playerList.get(playerIndex).getPlayerDeck().get(cardName) != 0) {
                 if (listOfCardsDrawnForMessage.contains(cardName)) {
                     listOfCardsDrawnForMessage.put(cardName, listOfCardsDrawnForMessage.get(cardName) + 1);
                 } else listOfCardsDrawnForMessage.put(cardName, 1);
 
                 int currentCount = playerList.get(playerIndex).getPlayerDeck().get(cardName);
                 playerList.get(playerIndex).getPlayerDeck().put(cardName, currentCount - 1);
-                if (playerList.get(playerIndex).getHandDeck().get(cardName) == null) {
-                    currentCount = 0;
-                } else {
-                    currentCount = playerList.get(playerIndex).getHandDeck().get(cardName);
-                }
+                currentCount = playerList.get(playerIndex).getHandDeck().get(cardName);
                 playerList.get(playerIndex).getHandDeck().put(cardName, currentCount + 1);
                 cardsDrawn++;
-            }
+
         }
     }
 
