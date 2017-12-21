@@ -15,9 +15,9 @@ public class Player {
     private int actions = 1;
     private int buy = 1;
 
-    private Hashtable<CardName,Integer> playerDeck;
-    private Hashtable<CardName,Integer> discardDeck;
-    private Hashtable<CardName,Integer> handDeck;
+    private Hashtable<CardName, Integer> playerDeck;
+    private Hashtable<CardName, Integer> discardDeck;
+    private Hashtable<CardName, Integer> handDeck;
 
 
     //constructor Player class
@@ -32,27 +32,28 @@ public class Player {
         fillList(handDeck);
     }
 
-    public void fillList(Hashtable<CardName,Integer> list) {
+    public void fillList(Hashtable<CardName, Integer> list) {
         list.put(CardName.gold, 0);
         list.put(CardName.silver, 0);
         list.put(CardName.copper, 0);
-        list.put(CardName.village,0);
-        list.put(CardName.woodcutter,0);
-        list.put(CardName.workshop,0);
-        list.put(CardName.smithy,0);
-        list.put(CardName.councilroom,0);
-        list.put(CardName.festival,0);
-        list.put(CardName.witch,0);
-        list.put(CardName.chancellor,0);
-        list.put(CardName.market,0);
-        list.put(CardName.laboratory,0);
-        list.put(CardName.province,0);
-        list.put(CardName.duchy,0);
-        list.put(CardName.estate,0);
-        list.put(CardName.curse,0);
+        list.put(CardName.village, 0);
+        list.put(CardName.woodcutter, 0);
+        list.put(CardName.workshop, 0);
+        list.put(CardName.smithy, 0);
+        list.put(CardName.councilroom, 0);
+        list.put(CardName.festival, 0);
+        list.put(CardName.witch, 0);
+        list.put(CardName.chancellor, 0);
+        list.put(CardName.market, 0);
+        list.put(CardName.laboratory, 0);
+        list.put(CardName.province, 0);
+        list.put(CardName.duchy, 0);
+        list.put(CardName.estate, 0);
+        list.put(CardName.curse, 0);
     }
 
-        public int getID() { return ID;
+    public int getID() {
+        return ID;
     }
 
     void setID(int ID) {
@@ -67,27 +68,27 @@ public class Player {
         this.playerName = playerName;
     }
 
-    public void endTurn(){
+    public void endTurn() {
         buy = 1;
         actions = 1;
         coins = 0;
     }
 
     void setCard(CardName cardName, int amount) {
-        playerDeck.put(cardName,amount);
+        playerDeck.put(cardName, amount);
     }
 
-    int getDeckAmount(){
+    int getDeckAmount() {
         int amount = 0;
-                for(CardName cardName:playerDeck.keySet()){
+        for (CardName cardName : playerDeck.keySet()) {
             amount = amount + playerDeck.get(cardName);
-                }
-                return amount;
+        }
+        return amount;
     }
 
-    int getDiscardAmount(){
+    int getDiscardAmount() {
         int amount = 0;
-        for (CardName cardName:discardDeck.keySet()){
+        for (CardName cardName : discardDeck.keySet()) {
             amount = amount + discardDeck.get(cardName);
         }
         return amount;
@@ -96,7 +97,6 @@ public class Player {
     public Hashtable<CardName, Integer> getPlayerDeck() {
         return playerDeck;
     }
-
 
 
     public Hashtable<CardName, Integer> getDiscardDeck() {
@@ -110,34 +110,44 @@ public class Player {
 
     public void setHandDeck(CardName cardName, int i) {
         Hashtable<CardName, Integer> handDeck = new Hashtable<>(); //TODO: Ersetzt das nicht jede Karte immer wieder mit der vorherigen?
-        handDeck.put(cardName,i);
+        handDeck.put(cardName, i);
         this.handDeck = handDeck;
     }
 
-    public void setBuyingPoints(int buyingPoints,boolean addition) {
+    public void setBuyingPoints(int buyingPoints, boolean addition) {
         if (addition) {
             this.buy = buy + buyingPoints;
         } else this.buy = buy - buyingPoints;
     }
-    public void setActionPoints(int actionPoints,boolean addition) {
+
+    public void setActionPoints(int actionPoints, boolean addition) {
         if (addition) {
             this.actions = actions + actionPoints;
         } else this.actions = actions - actionPoints;
     }
-    public void setVictoryPoints(int victoryPoints) { this.victoryPoints = victoryPoints; }
 
-    public void setCoins(int coinValue,boolean addition) {
-        if (addition){
+    public void setVictoryPoints(int victoryPoints) {
+        this.victoryPoints = victoryPoints;
+    }
+
+    public void setCoins(int coinValue, boolean addition) {
+        if (addition) {
             this.coins = coins + coinValue;
         } else this.coins = coins - coinValue;
 
     }
 
-    public int getBuy() { return buy; }
+    public int getBuy() {
+        return buy;
+    }
 
-    public int getCoins() { return coins;}
+    public int getCoins() {
+        return coins;
+    }
 
-    public int getActions(){ return actions;}
+    public int getActions() {
+        return actions;
+    }
 
     public int getVictoryPoints() {
         return victoryPoints;

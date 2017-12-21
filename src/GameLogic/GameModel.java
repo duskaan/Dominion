@@ -63,22 +63,21 @@ public class GameModel {
         coinCardList.put(CardName.gold, 0);
         coinCardList.put(CardName.silver, 0);
         coinCardList.put(CardName.copper, 0);
-        actionCardList.put(CardName.village,0);
-        actionCardList.put(CardName.woodcutter,0);
-        actionCardList.put(CardName.workshop,0);
-        actionCardList.put(CardName.smithy,0);
-        actionCardList.put(CardName.councilroom,0);
+        actionCardList.put(CardName.village, 0);
+        actionCardList.put(CardName.woodcutter, 0);
+        actionCardList.put(CardName.workshop, 0);
+        actionCardList.put(CardName.smithy, 0);
+        actionCardList.put(CardName.councilroom, 0);
         actionCardList.put(CardName.festival, 0);
-        actionCardList.put(CardName.witch,0);
-        actionCardList.put(CardName.chancellor,0);
-        actionCardList.put(CardName.market,0);
-        actionCardList.put(CardName.laboratory,0);
-        victoryCardList.put(CardName.province,0);
-        victoryCardList.put(CardName.duchy,0);
-        victoryCardList.put(CardName.estate,0);
-        victoryCardList.put(CardName.curse,0);
+        actionCardList.put(CardName.witch, 0);
+        actionCardList.put(CardName.chancellor, 0);
+        actionCardList.put(CardName.market, 0);
+        actionCardList.put(CardName.laboratory, 0);
+        victoryCardList.put(CardName.province, 0);
+        victoryCardList.put(CardName.duchy, 0);
+        victoryCardList.put(CardName.estate, 0);
+        victoryCardList.put(CardName.curse, 0);
     }
-
 
 
     //@Damiano Nardone
@@ -132,8 +131,8 @@ public class GameModel {
     //@Damiano Nardone
     //this method increases the trunCount by one each time called upon
     public void turnCount() {
-        turnCount= turnCount+1;
-        LogHandling.logOnFile(Level.INFO, "turncount is increased to "+turnCount);
+        turnCount = turnCount + 1;
+        LogHandling.logOnFile(Level.INFO, "turncount is increased to " + turnCount);
     }
 
 
@@ -150,13 +149,13 @@ public class GameModel {
     }
 
     //initCards@PlayerName@
-    public String initCardsMessage(int playerindex) {
-        String initCardsMessage = "initCards@" + playerList.get(playerindex).getName() + "@";
-        Set<CardName> keys = listOfCardsDrawnForMessage.keySet();
+    public String initCardsMessage(int playerIndex) {
+        String initCardsMessage = "initCards@" + playerList.get(playerIndex).getName() + "@";
+        Set<CardName> keys = playerList.get(playerIndex).getHandDeck().keySet();
         Iterator<CardName> itr = keys.iterator();
         while (itr.hasNext()) {
             CardName cardName = itr.next();
-            int amount = listOfCardsDrawnForMessage.get(cardName);
+            int amount = playerList.get(playerIndex).getHandDeck().get(cardName);
             for (int i = 0; i < amount; i++) {
                 initCardsMessage = initCardsMessage + cardName;
                 if (i != amount) {
@@ -179,10 +178,12 @@ public class GameModel {
         Set<CardName> keys = playerHandDeck.keySet();
         Iterator<CardName> itr = keys.iterator();
 
-        for(CardName cardName : listOfCardsDrawnForMessage.keySet()){
-            drawCardMessage = drawCardMessage + cardName + "," + listOfCardsDrawnForMessage.get(cardName) + ";";
+        for (CardName cardName : playerHandDeck.keySet()) {
+            if (playerHandDeck.get(cardName) != 0) {
+                drawCardMessage = drawCardMessage + cardName + "," + playerHandDeck.get(cardName) + ";";
+            }
         }
-        drawCardMessage = deleteLastSign(drawCardMessage,';') + "@deck,";
+        drawCardMessage = deleteLastSign(drawCardMessage, ';') + "@deck,";
 
         int amountOfDeckCards = playerList.get(playerIndex).getDeckAmount();
         drawCardMessage = drawCardMessage + amountOfDeckCards;
@@ -190,8 +191,8 @@ public class GameModel {
         return drawCardMessage;
     }
 
-    public String deleteLastSign(String message,char delimiter){
-        if (message.charAt(message.length()-1)==delimiter) {
+    public String deleteLastSign(String message, char delimiter) {
+        if (message.charAt(message.length() - 1) == delimiter) {
             message = message.substring(0, message.length() - 1);
         }
         return message;
@@ -316,7 +317,7 @@ public class GameModel {
 
         while (itr1.hasNext()) {
             CardName cardName = itr1.next();
-            if (!cardName.toString().equals("gold") && !cardName.toString().equals("silver") && !cardName.toString().equals("copper")&&cardsInPlayerDeck.get(cardName)!=0) {
+            if (!cardName.toString().equals("gold") && !cardName.toString().equals("silver") && !cardName.toString().equals("copper") && cardsInPlayerDeck.get(cardName) != 0) {
                 playTreasureMessage = playTreasureMessage + cardName.toString() + "," + cardsInPlayerDeck.get(cardName).toString() + ";";
             }
 
@@ -326,7 +327,7 @@ public class GameModel {
                 }
             }
         }
-        if (playTreasureMessage.charAt(playTreasureMessage.length()-1) == '/') {
+        if (playTreasureMessage.charAt(playTreasureMessage.length() - 1) == '/') {
             playTreasureMessage = playTreasureMessage + "empty";
         }
         playTreasureMessage = playTreasureMessage + "@coinValue," + playerList.get(getCurrentPlayer()).getCoins();
@@ -406,7 +407,7 @@ public class GameModel {
     //this method calculates the victoryPoints from the amount of province, estate, duchy and curse in the playerDeck and DiscardDeck
     //TODO MAKE THIS ALSO TAKE INTO ACCOUNT DISCARD DECK
     public void calculateVictoryPoints() {
-                int i = 0;
+        int i = 0;
         int playerSize = playerList.size();
 
         while (i < playerSize) {
@@ -416,15 +417,13 @@ public class GameModel {
             int curseAmount;
 
 
-
             provinceAmount = playerList.get(i).getPlayerDeck().get(CardName.province) + playerList.get(i).getDiscardDeck().get(CardName.province) + playerList.get(i).getHandDeck().get(CardName.province);
 
-            estateAmount = playerList.get(i).getPlayerDeck().get(CardName.estate)+ playerList.get(i).getDiscardDeck().get(CardName.estate) + playerList.get(i).getHandDeck().get(CardName.estate);
+            estateAmount = playerList.get(i).getPlayerDeck().get(CardName.estate) + playerList.get(i).getDiscardDeck().get(CardName.estate) + playerList.get(i).getHandDeck().get(CardName.estate);
 
-            duchyAmount =playerList.get(i).getPlayerDeck().get(CardName.duchy)+ playerList.get(i).getDiscardDeck().get(CardName.duchy) + playerList.get(i).getHandDeck().get(CardName.duchy);
+            duchyAmount = playerList.get(i).getPlayerDeck().get(CardName.duchy) + playerList.get(i).getDiscardDeck().get(CardName.duchy) + playerList.get(i).getHandDeck().get(CardName.duchy);
 
-            curseAmount = playerList.get(i).getPlayerDeck().get(CardName.curse)+ playerList.get(i).getDiscardDeck().get(CardName.curse) + playerList.get(i).getHandDeck().get(CardName.curse);
-
+            curseAmount = playerList.get(i).getPlayerDeck().get(CardName.curse) + playerList.get(i).getDiscardDeck().get(CardName.curse) + playerList.get(i).getHandDeck().get(CardName.curse);
 
 
             int VictoryPoints = (provinceAmount * 6) + (duchyAmount * 3) + estateAmount + (curseAmount * -1);
@@ -443,8 +442,8 @@ public class GameModel {
 
         for (CardName cardName : playerList.get(playerIndex).getPlayerDeck().keySet()) {
             int amount = playerList.get(playerIndex).getPlayerDeck().get(cardName);
-            if(amount!=0){
-                for(int i = 0; i < amount;i++){
+            if (amount != 0) {
+                for (int i = 0; i < amount; i++) {
                     cardNames.add(cardName);
                 }
             }
@@ -457,20 +456,22 @@ public class GameModel {
         while (cardsDrawn < amountToDraw) {
             cardName = cardNames.get(rand.nextInt(cardNames.size()));
 
-                if (listOfCardsDrawnForMessage.contains(cardName)) {
-                    listOfCardsDrawnForMessage.put(cardName, listOfCardsDrawnForMessage.get(cardName) + 1);
-                } else listOfCardsDrawnForMessage.put(cardName, 1);
+            /*if (listOfCardsDrawnForMessage.containsKey(cardName)) {
+                listOfCardsDrawnForMessage.put(cardName, listOfCardsDrawnForMessage.get(cardName) + 1);
+            } else {
+                listOfCardsDrawnForMessage.put(cardName, 1);
+            }*/
 
-                int currentCount = playerList.get(playerIndex).getPlayerDeck().get(cardName);
-                playerList.get(playerIndex).getPlayerDeck().put(cardName, currentCount - 1);
-                currentCount = playerList.get(playerIndex).getHandDeck().get(cardName);
-                playerList.get(playerIndex).getHandDeck().put(cardName, currentCount + 1);
-                cardsDrawn++;
-
+            int currentCount = playerList.get(playerIndex).getPlayerDeck().get(cardName);
+            playerList.get(playerIndex).getPlayerDeck().put(cardName, currentCount - 1);
+            currentCount = playerList.get(playerIndex).getHandDeck().get(cardName);
+            playerList.get(playerIndex).getHandDeck().put(cardName, currentCount + 1);
+            cardsDrawn++;
+            cardNames.remove(cardName);
         }
     }
 
-    public void clearListOfCardsDrawnForMessage(){
+    public void clearListOfCardsDrawnForMessage() {
         listOfCardsDrawnForMessage.clear();
     }
 
@@ -484,7 +485,7 @@ public class GameModel {
 
         if (victoryCardList.get(cardName) != 0) {
             while (cardsDrawn < amountToDraw) {
-                if (listOfCardsDrawnForMessage.contains(cardName)) {
+                if (listOfCardsDrawnForMessage.containsKey(cardName)) {
                     listOfCardsDrawnForMessage.put(cardName, listOfCardsDrawnForMessage.get(cardName) + 1);
                 } else listOfCardsDrawnForMessage.put(cardName, 1);
                 int currentCount = victoryCardList.get(cardName);
@@ -499,11 +500,10 @@ public class GameModel {
     //@Damiano Nardone
     //this methods check is the PlayerDeck Hashtable is empty and return a boolean if so
     public boolean checkifPlayerDeckisEmpty(int playerindex) {
-
-        boolean hasCards = false;
+        boolean hasCards = true;
         for (CardName cardName : playerList.get(playerindex).getPlayerDeck().keySet()) {
             if (playerList.get(playerindex).getPlayerDeck().get(cardName) != 0) {
-                hasCards = true;
+                hasCards = false;
             }
         }
         return hasCards;
@@ -896,7 +896,7 @@ public class GameModel {
 
     public int getCurrentPlayer() {
         int currentP = turnCount % (playerList.size());
-        LogHandling.logOnFile(Level.INFO, "currentPlayer at index: "+currentP);
+        LogHandling.logOnFile(Level.INFO, "currentPlayer at index: " + currentP);
         return currentP; //TODO IS THIS ALRIGHT
     }
 
