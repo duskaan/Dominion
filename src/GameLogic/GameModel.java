@@ -132,7 +132,8 @@ public class GameModel {
     //@Damiano Nardone
     //this method increases the trunCount by one each time called upon
     public void turnCount() {
-        turnCount = turnCount + 1;
+        turnCount= turnCount+1;
+        LogHandling.logOnFile(Level.INFO, "turncount is increased to "+turnCount);
     }
 
 
@@ -157,12 +158,10 @@ public class GameModel {
         while (itr.hasNext()) {
             CardName cardName = itr.next();
             int amount = starterHandDeck.get(cardName);
-            if (amount!=0) {
-                for (int i = 0; i < amount; i++) {
-                    initCardsMessage = initCardsMessage + cardName;
-                    if (i != amount) {
-                        initCardsMessage = initCardsMessage + "@";
-                    }
+            for (int i = 0; i < amount; i++) {
+                initCardsMessage = initCardsMessage + cardName;
+                if (i != amount) {
+                    initCardsMessage = initCardsMessage + "@";
                 }
             }
 
@@ -911,8 +910,9 @@ public class GameModel {
     }
 
     public int getCurrentPlayer() {
-        LogHandling.logOnFile(Level.INFO, "currentPlayer at index: "+turnCount % (playerList.size() - 1));
-        return turnCount % (playerList.size() - 1); //TODO IS THIS ALRIGHT
+        int currentP = turnCount % (playerList.size());
+        LogHandling.logOnFile(Level.INFO, "currentPlayer at index: "+currentP);
+        return currentP; //TODO IS THIS ALRIGHT
     }
 
     //@Damiano Nardone
