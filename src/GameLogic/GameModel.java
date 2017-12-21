@@ -19,7 +19,7 @@ public class GameModel {
     private String cardBoughtMessage;
     private String cardBought;
     private String actionCardPlayed;
-    private boolean canIPlay = true;
+    public boolean canIPlay = true;
     private Hashtable<CardName, Integer> listOfCardsDrawnForMessage;
 
 
@@ -126,13 +126,14 @@ public class GameModel {
         discardHandDeckToDiscardDeck();
         playerList.get(getCurrentPlayer()).endTurn();
         canIPlay = true;
+        playerList.get(getCurrentPlayer()).getPlayedDeck().clear();
     }
 
     //@Damiano Nardone
     //this method increases the trunCount by one each time called upon
     public void turnCount() {
         turnCount = turnCount + 1;
-        LogHandling.logOnFile(Level.INFO, "turncount is increased to " + turnCount);
+        //LogHandling.logOnFile(Level.INFO, "turncount is increased to " + turnCount);
     }
 
 
@@ -175,13 +176,22 @@ public class GameModel {
         String drawCardMessage = "newCards@" + playerList.get(playerIndex).getName() + "@hand/";
 
         Hashtable<CardName, Integer> playerHandDeck = playerList.get(playerIndex).getHandDeck();
-        Set<CardName> keys = playerHandDeck.keySet();
-        Iterator<CardName> itr = keys.iterator();
 
+        int amount = 0;
         for (CardName cardName : playerHandDeck.keySet()) {
-            if (playerHandDeck.get(cardName) != 0) {
-                drawCardMessage = drawCardMessage + cardName + "," + playerHandDeck.get(cardName) + ";";
+            if (!cardName.toString().equals(actionCardPlayed)) {
+                amount = playerHandDeck.get(cardName);
+                if (playerHandDeck.get(cardName) != 0) {
+                    drawCardMessage = drawCardMessage + cardName + "," + amount + ";";
+                }
+            } else {
+                if (playerHandDeck.get(cardName) != 0 && playerHandDeck.get(cardName) != 1) {
+                    amount = amount - 1;
+                    drawCardMessage = drawCardMessage + cardName + "," + amount + ";";
+                }
+
             }
+
         }
         drawCardMessage = deleteLastSign(drawCardMessage, ';') + "@deck,";
 
@@ -317,13 +327,17 @@ public class GameModel {
 
         while (itr1.hasNext()) {
             CardName cardName = itr1.next();
-            if (!cardName.toString().equals("gold") && !cardName.toString().equals("silver") && !cardName.toString().equals("copper") && cardsInPlayerDeck.get(cardName) != 0) {
-                playTreasureMessage = playTreasureMessage + cardName.toString() + "," + cardsInPlayerDeck.get(cardName).toString() + ";";
-            }
+            if (playerList.get(getCurrentPlayer()).getPlayedDeck().contains(cardName.toString())) {
+                playerList.get(getCurrentPlayer()).getPlayedDeck().remove(cardName.toString());
+            } else {
+                if (!cardName.toString().equals("gold") && !cardName.toString().equals("silver") && !cardName.toString().equals("copper") && cardsInPlayerDeck.get(cardName) != 0) {
+                    playTreasureMessage = playTreasureMessage + cardName.toString() + "," + cardsInPlayerDeck.get(cardName).toString() + ";";
+                }
 
-            if (!itr1.hasNext()) {
-                if (playTreasureMessage.charAt(playTreasureMessage.length() - 1) == ';') {
-                    playTreasureMessage = playTreasureMessage.substring(0, playTreasureMessage.length() - 1);
+                if (!itr1.hasNext()) {
+                    if (playTreasureMessage.charAt(playTreasureMessage.length() - 1) == ';') {
+                        playTreasureMessage = playTreasureMessage.substring(0, playTreasureMessage.length() - 1);
+                    }
                 }
             }
         }
@@ -376,6 +390,8 @@ public class GameModel {
     public String playCardMessage() {
 
         String playCardMessage = "play@" + playerList.get(getCurrentPlayer()).getName() + "@" + actionCardPlayed + "@actionValue," + playerList.get(getCurrentPlayer()).getActions();
+        playCardMessage = playCardMessage + "@coinValue," + playerList.get(getCurrentPlayer()).getCoins();
+        playCardMessage = playCardMessage + "@buyValue," + playerList.get(getCurrentPlayer()).getBuy();
         return playCardMessage;
     }
 
@@ -786,6 +802,7 @@ public class GameModel {
                     actionCardPlayed = "market";
                     break;
             }
+            playerList.get(getCurrentPlayer()).addToPlayedDeck(actionCardPlayed);
             return playCardMessage();
         } else return "Playing@ Phase is over, you are already in Buying Phase!";
     }
@@ -896,7 +913,7 @@ public class GameModel {
 
     public int getCurrentPlayer() {
         int currentP = turnCount % (playerList.size());
-        LogHandling.logOnFile(Level.INFO, "currentPlayer at index: " + currentP);
+        //LogHandling.logOnFile(Level.INFO, "currentPlayer at index: " + currentP);
         return currentP; //TODO IS THIS ALRIGHT
     }
 

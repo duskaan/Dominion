@@ -2,6 +2,7 @@ package GameLogic;
 
 import GameLogic.cards.CardName;
 
+import java.util.ArrayList;
 import java.util.Hashtable;
 
 public class Player {
@@ -18,6 +19,7 @@ public class Player {
     private Hashtable<CardName, Integer> playerDeck;
     private Hashtable<CardName, Integer> discardDeck;
     private Hashtable<CardName, Integer> handDeck;
+    private ArrayList<String> playedDeck;
 
 
     //constructor Player class
@@ -25,6 +27,7 @@ public class Player {
         playerDeck = new Hashtable<>();
         discardDeck = new Hashtable<>();
         handDeck = new Hashtable<>();
+        playedDeck = new ArrayList<>();
         this.playerName = playerName;
         this.ID = ID;
         fillList(playerDeck);
@@ -151,5 +154,12 @@ public class Player {
 
     public int getVictoryPoints() {
         return victoryPoints;
+    }
+
+    public void addToPlayedDeck(String actionCardPlayed) {
+        playedDeck.add(actionCardPlayed);
+    }
+    public ArrayList getPlayedDeck(){
+        return playedDeck;
     }
 }

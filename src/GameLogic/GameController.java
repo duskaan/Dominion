@@ -67,84 +67,81 @@ public class GameController {
 
                 case "play":
                     game.setResponseMessage(gameModel.playCard(firstSplit.get(i + 1)));
+                    if (gameModel.canIPlay) {
+                        switch (firstSplit.get(i + 1)) {
+                            case "village":
+                            case "market":
+                                for (int y = 0; y <= 1; y++) {
+                                    if (gameModel.checkifPlayerDeckisEmpty(gameModel.getCurrentPlayer())) {
+                                        game.setResponseMessage(gameModel.discardDecktoPlayerDeck(gameModel.getCurrentPlayer()));
+                                    }
+                                    if (y <= 0) {
+                                        gameModel.drawCards(1, gameModel.getCurrentPlayer());
+                                    }
+                                }
+                                game.setResponseMessage(gameModel.drawCardMessageWithIndex(gameModel.getCurrentPlayer()));
+                                gameModel.clearListOfCardsDrawnForMessage();
+                                break;
+                            case "smithy":
+                                for (int y = 0; y <= 3; y++) {
+                                    if (gameModel.checkifPlayerDeckisEmpty(gameModel.getCurrentPlayer())) {
+                                        game.setResponseMessage(gameModel.discardDecktoPlayerDeck(gameModel.getCurrentPlayer()));
+                                    }
+                                    if (y <= 2) {
+                                        gameModel.drawCards(1, gameModel.getCurrentPlayer());
+                                    }
+                                }
+                                game.setResponseMessage(gameModel.drawCardMessageWithIndex(gameModel.getCurrentPlayer()));
+                                gameModel.clearListOfCardsDrawnForMessage();
+                                break;
+                            case "laboratory":
+                                drawTwoCards();
+                                break;
 
-                    switch (firstSplit.get(i + 1)) {
-                        case "village":
-                        case "market":
-                            for (int y = 0; y <= 1; y++) {
-                                if (gameModel.checkifPlayerDeckisEmpty(gameModel.getCurrentPlayer())) {
-                                    game.setResponseMessage(gameModel.discardDecktoPlayerDeck(gameModel.getCurrentPlayer()));
+                            case "witch":
+                                drawOneCard();
+                                for (int z = 0; z < gameModel.getPlayerList().size(); z++) {
+                                    if (z != gameModel.getCurrentPlayer()) {
+                                        gameModel.drawCurse(1, z);
+                                        game.setResponseMessage(gameModel.drawCardMessageWithIndex(z));
+                                        gameModel.clearListOfCardsDrawnForMessage();
+                                    }
                                 }
-                                if (y <= 0) {
-                                    gameModel.drawCards(1, gameModel.getCurrentPlayer());
-                                }
-                            }
-                            game.setResponseMessage(gameModel.drawCardMessageWithIndex(gameModel.getCurrentPlayer()));
-                            gameModel.clearListOfCardsDrawnForMessage();
-                            break;
-                        case "smithy":
-                            for (int y = 0; y <= 3; y++) {
-                                if (gameModel.checkifPlayerDeckisEmpty(gameModel.getCurrentPlayer())) {
-                                    game.setResponseMessage(gameModel.discardDecktoPlayerDeck(gameModel.getCurrentPlayer()));
-                                }
-                                if (y <= 2) {
-                                    gameModel.drawCards(1, gameModel.getCurrentPlayer());
-                                }
-                            }
-                            game.setResponseMessage(gameModel.drawCardMessageWithIndex(gameModel.getCurrentPlayer()));
-                            gameModel.clearListOfCardsDrawnForMessage();
-                            break;
-                        case "laboratory":
-                            drawOneCard();
-                            break;
-
-                        case "witch":
-                            drawOneCard();
-                            for (int z = 0; z < gameModel.getPlayerList().size(); z++) {
-                                if (gameModel.checkifPlayerDeckisEmpty(gameModel.getCurrentPlayer())) {
-                                    game.setResponseMessage(gameModel.discardDecktoPlayerDeck(z));
-                                }
-                                if (z != gameModel.getCurrentPlayer()) {
-                                    gameModel.drawCurse(1, z);
-                                    game.setResponseMessage(gameModel.drawCardMessageWithIndex(z));
-                                    gameModel.clearListOfCardsDrawnForMessage();
-                                }
-                            }
-                            break;
+                                break;
 
 
-                        case "councilroom":
-                            for (int y = 0; y <= 4; y++) {
-                                if (gameModel.checkifPlayerDeckisEmpty(gameModel.getCurrentPlayer())) {
-                                    game.setResponseMessage(gameModel.discardDecktoPlayerDeck(gameModel.getCurrentPlayer()));
-                                }
-                                if (y <= 3) {
-                                    gameModel.drawCards(1, gameModel.getCurrentPlayer());
-                                }
-
-                            }
-                            game.setResponseMessage(gameModel.drawCardMessageWithIndex(gameModel.getCurrentPlayer()));
-                            gameModel.clearListOfCardsDrawnForMessage();
-                            for (int z = 0; z < gameModel.getPlayerList().size(); z++) {
-                                if (gameModel.checkifPlayerDeckisEmpty(z)) {
-                                    game.setResponseMessage(gameModel.discardDecktoPlayerDeck(z));
-                                }
-                                if (z != gameModel.getCurrentPlayer()) {
-                                    gameModel.drawCards(1, z);
-                                    game.setResponseMessage(gameModel.drawCardMessageWithIndex(z));
-                                    gameModel.clearListOfCardsDrawnForMessage();
+                            case "councilroom":
+                                for (int y = 0; y <= 4; y++) {
+                                    if (gameModel.checkifPlayerDeckisEmpty(gameModel.getCurrentPlayer())) {
+                                        game.setResponseMessage(gameModel.discardDecktoPlayerDeck(gameModel.getCurrentPlayer()));
+                                    }
+                                    if (y <= 3) {
+                                        gameModel.drawCards(1, gameModel.getCurrentPlayer());
+                                    }
 
                                 }
-                                if (gameModel.checkifPlayerDeckisEmpty(z)) {
-                                    game.setResponseMessage(gameModel.discardDecktoPlayerDeck(z));
+                                game.setResponseMessage(gameModel.drawCardMessageWithIndex(gameModel.getCurrentPlayer()));
+                                gameModel.clearListOfCardsDrawnForMessage();
+                                for (int z = 0; z < gameModel.getPlayerList().size(); z++) {
+                                    if (gameModel.checkifPlayerDeckisEmpty(z)) {
+                                        game.setResponseMessage(gameModel.discardDecktoPlayerDeck(z));
+                                    }
+                                    if (z != gameModel.getCurrentPlayer()) {
+                                        gameModel.drawCards(1, z);
+                                        game.setResponseMessage(gameModel.drawCardMessageWithIndex(z));
+                                        gameModel.clearListOfCardsDrawnForMessage();
+
+                                    }
+                                    if (gameModel.checkifPlayerDeckisEmpty(z)) {
+                                        game.setResponseMessage(gameModel.discardDecktoPlayerDeck(z));
+                                    }
                                 }
-                            }
-                            break;
-                        case "chancellor":
-                            game.setResponseMessage(gameModel.discardDecktoPlayerDeck(gameModel.getCurrentPlayer()));
-                            break;
+                                break;
+                            case "chancellor":
+                                game.setResponseMessage(gameModel.discardDecktoPlayerDeck(gameModel.getCurrentPlayer()));
+                                break;
+                        }
                     }
-
                     break;
             }
 
@@ -163,4 +160,17 @@ public class GameController {
         gameModel.drawCards(1, gameModel.getCurrentPlayer());
         game.setResponseMessage(gameModel.drawCardMessageWithIndex(gameModel.getCurrentPlayer()));
     }
+
+    private void drawTwoCards() {
+        for (int i = 0; i <= 3; i++) {
+            if (gameModel.checkifPlayerDeckisEmpty(gameModel.getCurrentPlayer())) {
+                game.setResponseMessage(gameModel.discardDecktoPlayerDeck(gameModel.getCurrentPlayer()));
+            }
+            if (i <= 2) {
+                gameModel.drawCards(1, gameModel.getCurrentPlayer());
+                game.setResponseMessage(gameModel.drawCardMessageWithIndex(gameModel.getCurrentPlayer()));
+            }
+        }
+    }
+
 }
