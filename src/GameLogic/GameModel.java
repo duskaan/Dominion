@@ -3,7 +3,6 @@ package GameLogic;
 import GameLogic.cards.CardName;
 import javafx.beans.property.SimpleStringProperty;
 
-import javax.smartcardio.Card;
 import java.util.*;
 
 public class GameModel {
@@ -102,6 +101,7 @@ public class GameModel {
         playerList.get(getCurrentPlayer()).endTurn();
         canIPlay = true;
     }
+
     //@Damiano Nardone
     //this method increases the trunCount by one each time called upon
     public void turnCount() {
@@ -122,24 +122,28 @@ public class GameModel {
     }
 
     //initCards@PlayerName@
-    public String initCardsMessage(int playerindex){
+    public String initCardsMessage(int playerindex) {
         String initCardsMessage = "initCards@" + playerList.get(playerindex).getName() + "@";
-        Hashtable<CardName,Integer> starterHandDeck = playerList.get(playerindex).getHandDeck();
+        Hashtable<CardName, Integer> starterHandDeck = playerList.get(playerindex).getHandDeck();
         Set<CardName> keys = starterHandDeck.keySet();
         Iterator<CardName> itr = keys.iterator();
-        while (itr.hasNext()){
-            String cardName = itr.next().toString();
+        while (itr.hasNext()) {
+            CardName cardName = itr.next();
             int amount = starterHandDeck.get(cardName);
-            for (int i = 0; i<amount;i++){
+            for (int i = 0; i < amount; i++) {
                 initCardsMessage = initCardsMessage + cardName;
-                if(itr.hasNext()){
+                if (i != amount - 1) {
                     initCardsMessage = initCardsMessage + "@";
                 }
+            }
+            if(itr.hasNext()){
+                initCardsMessage = initCardsMessage + "@";
             }
         }
 
         return initCardsMessage;
     }
+
     //@Damiano Nardone
     //this method creates the following Message for the Server to pass to the client when the client draws new cards
     //drawCardMessageWithIndex --> newCards@PlayerName1@hand/estate,2;copper,3@deck,5
@@ -256,7 +260,6 @@ public class GameModel {
     public String playTreasureMessage() {
 
         String playTreasureMessage = "playTreasures@" + playerList.get(getCurrentPlayer()).getName() + "@playedCard/";
-        String coinCard = null;
         int gold = 0;
         int silver = 0;
         int copper = 0;
@@ -265,17 +268,18 @@ public class GameModel {
         Iterator<CardName> itr = key.iterator();
 
         while (itr.hasNext()) {
-            coinCard = itr.next().toString();
+            CardName coinCard = itr.next();
+            int amount = cardsInPlayerDeck.get(coinCard);
 
-            switch (coinCard) {
+            switch (coinCard.toString()) {
                 case "gold":
-                    gold = gold + 1;
+                    gold = gold + amount;
                     break;
                 case "silver":
-                    silver = silver + 1;
+                    silver = silver + amount;
                     break;
                 case "copper":
-                    copper = copper + 1;
+                    copper = copper + amount;
                     break;
                 default:
                     break;
@@ -305,7 +309,7 @@ public class GameModel {
 
         while (itr1.hasNext()) {
             CardName cardName = itr1.next();
-            if (!cardName.toString().equals("gold") | !cardName.toString().equals("silver") | !cardName.toString().equals("copper")) {
+            if (!cardName.toString().equals("gold") && !cardName.toString().equals("silver") && !cardName.toString().equals("copper")) {
                 playTreasureMessage = playTreasureMessage + cardName.toString() + "," + cardsInPlayerDeck.get(cardName).toString() + ";";
             }
 
@@ -392,15 +396,37 @@ public class GameModel {
     //this method calculates the victoryPoints from the amount of province, estate, duchy and curse in the playerDeck and DiscardDeck
     //TODO MAKE THIS ALSO TAKE INTO ACCOUNT DISCARD DECK
     public void calculateVictoryPoints() {
-
-        int i = 0;
+                int i = 0;
         int playerSize = playerList.size();
 
         while (i < playerSize) {
-            int provinceAmount = playerList.get(i).getPlayerDeck().get(CardName.province);
-            int estateAmount = playerList.get(i).getPlayerDeck().get(CardName.estate);
-            int duchyAmount = playerList.get(i).getPlayerDeck().get(CardName.duchy);
-            int curseAmount = playerList.get(i).getPlayerDeck().get(CardName.curse);
+            int provinceAmount;
+            int estateAmount;
+            int duchyAmount;
+            int curseAmount;
+
+
+            if(playerList.get(i).getPlayerDeck().get(CardName.province)==null){
+                provinceAmount=0;
+            }else{
+                provinceAmount = playerList.get(i).getPlayerDeck().get(CardName.province);
+            }
+            if(playerList.get(i).getPlayerDeck().get(CardName.estate)==null){
+                estateAmount=0;
+            }else{
+                estateAmount = playerList.get(i).getPlayerDeck().get(CardName.estate);
+            }
+            if(playerList.get(i).getPlayerDeck().get(CardName.duchy)==null){
+                duchyAmount =0;
+            }else{
+                duchyAmount =playerList.get(i).getPlayerDeck().get(CardName.duchy);
+            }
+            if(playerList.get(i).getPlayerDeck().get(CardName.curse)==null){
+                curseAmount=0;
+            }else{
+                curseAmount = playerList.get(i).getPlayerDeck().get(CardName.curse);
+            }
+
 
             int VictoryPoints = provinceAmount * 6 + duchyAmount * 3 + estateAmount + curseAmount * -1;
 
@@ -434,9 +460,9 @@ public class GameModel {
 
                 int currentCount = playerList.get(playerIndex).getPlayerDeck().get(cardName);
                 playerList.get(playerIndex).getPlayerDeck().put(cardName, currentCount - 1);
-                if(playerList.get(playerIndex).getHandDeck().get(cardName)==null){
+                if (playerList.get(playerIndex).getHandDeck().get(cardName) == null) {
                     currentCount = 0;
-                }else{
+                } else {
                     currentCount = playerList.get(playerIndex).getHandDeck().get(cardName);
                 }
                 playerList.get(playerIndex).getHandDeck().put(cardName, currentCount + 1);
@@ -490,7 +516,7 @@ public class GameModel {
         CardName cardName = null;
 
         for (int i = 0; i < playerList.get(playerIndex).getDiscardDeck().size(); i++) {
-            cardName = cardNames.get(i);
+            cardName = cardNames.get(i); //todo fix array out of bound
 
             if (playerList.get(playerIndex).getDiscardDeck().get(cardName) != 0) {
                 int currentCount = playerList.get(playerIndex).getDiscardDeck().get(cardName);
@@ -663,13 +689,13 @@ public class GameModel {
     //this method takes specific cards for specific Hashtables to put into the Players DiscardDeck
     public void cardFromHashTableToDiscardDeck(CardName cardName, Hashtable<CardName, Integer> list) {
         System.out.println(list.toString());
-        if (list.containsKey(cardName) && list.get(cardName)!=0) {
+        if (list.containsKey(cardName) && list.get(cardName) != 0) {
             int currentCount = list.get(cardName);
             list.put(cardName, currentCount - 1);
-            if(playerList.get(getCurrentPlayer()).getDiscardDeck().containsKey(cardName)){
+            if (playerList.get(getCurrentPlayer()).getDiscardDeck().containsKey(cardName)) {
                 currentCount = playerList.get(getCurrentPlayer()).getDiscardDeck().get(cardName);
-            }else{
-                currentCount=0;
+            } else {
+                currentCount = 0;
             }
             playerList.get(getCurrentPlayer()).getDiscardDeck().put(cardName, currentCount + 1);
         }
@@ -827,6 +853,7 @@ public class GameModel {
         subtractAction(1);
         addCoins(2);
     }
+
     //@Damiano Nardone
     //subtract 1 action add 1 coins add 1 buy add 1 action
     public void playMarket() {

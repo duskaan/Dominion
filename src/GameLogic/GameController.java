@@ -21,7 +21,7 @@ public class GameController {
 
         for (int i = 0; i < gameModel.getPlayerList().size(); i++) {
             gameModel.drawCards(5, i);
-            game.setResponseMessage(gameModel.drawCardMessageWithIndex(i));
+            game.setResponseMessage(gameModel.initCardsMessage(i));
         }
 
     }

@@ -11,6 +11,7 @@ import Server.LogHandling;
 import Server.Player;
 
 import java.net.Socket;
+import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.logging.Level;
 
@@ -49,6 +50,7 @@ public class GameJoinGameMessageHandler extends GameMessageHandler {
             tempGame = iterator.next();
             LogHandling.logOnFile(Level.INFO, tempGame.getGameName());
             if (tempGame.getPlayerList().contains(player)) {
+
                 tempGame.removePlayer(player);
                 LogHandling.logOnFile(Level.INFO, player.toString() + " is removed from " + tempGame.getGameName());
             } else {
@@ -59,6 +61,7 @@ public class GameJoinGameMessageHandler extends GameMessageHandler {
                 player.setGameName(gameName);
                 LogHandling.logOnFile(Level.INFO, player.toString() + " is added to the Game " + gameName);
                 if (tempGame.getPlayerList().size() == tempGame.getMaxPlayer()) {
+                    writeToPrivate(tempGame.getPlayerList());
                     LogHandling.logOnFile(Level.INFO, gameName + " is full and will be started");
                     GameStartGameMessageHandler gameStartHandler = new GameStartGameMessageHandler();
                     gameStartHandler.setSuperHandler((GameMessageHandler) superHandler);
@@ -69,7 +72,11 @@ public class GameJoinGameMessageHandler extends GameMessageHandler {
         }
     }
 
+    private void writeToPrivate(ArrayList<Player> playerList) {
 
+
+
+    }
 
 
     public String getMessage() {

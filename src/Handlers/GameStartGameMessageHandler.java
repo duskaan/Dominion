@@ -64,7 +64,6 @@ public class GameStartGameMessageHandler extends GameMessageHandler {
         Game game = new Game(gameName, cardsInGame, playerArray);
         MessageHandler.removeFromLobbyList(playerArray);
         MessageHandler.addToGameMap(tempGame.getPlayerList(), game);
-
         write(confiqMessage, false);
         superHandler.listenForMessage(game);
         game.startGame();
@@ -73,7 +72,7 @@ public class GameStartGameMessageHandler extends GameMessageHandler {
             System.out.println(player);
             playerNames += player + "/";
         }
-        write(playerNames, false);
+        //write(playerNames, false);
 
 
 
