@@ -132,7 +132,7 @@ public class GameModel {
     //@Damiano Nardone
     //this method increases the trunCount by one each time called upon
     public void turnCount() {
-        turnCount++;
+        turnCount = turnCount + 1;
     }
 
 
@@ -157,10 +157,12 @@ public class GameModel {
         while (itr.hasNext()) {
             CardName cardName = itr.next();
             int amount = starterHandDeck.get(cardName);
-            for (int i = 0; i < amount; i++) {
-                initCardsMessage = initCardsMessage + cardName;
-                if (i != amount) {
-                    initCardsMessage = initCardsMessage + "@";
+            if (amount!=0) {
+                for (int i = 0; i < amount; i++) {
+                    initCardsMessage = initCardsMessage + cardName;
+                    if (i != amount) {
+                        initCardsMessage = initCardsMessage + "@";
+                    }
                 }
             }
 
@@ -470,9 +472,14 @@ public class GameModel {
 
 
         for (CardName cardName : playerList.get(playerIndex).getPlayerDeck().keySet()) {
-            cardNames.add(cardName);
-
+            int amount = playerList.get(playerIndex).getPlayerDeck().get(cardName);
+            if(amount!=0){
+                for(int i = 0; i < amount;i++){
+                    cardNames.add(cardName);
+                }
+            }
         }
+
         CardName cardName = null;
         int cardsDrawn = 0;
         Random rand = new Random();
@@ -480,21 +487,16 @@ public class GameModel {
         while (cardsDrawn < amountToDraw) {
             cardName = cardNames.get(rand.nextInt(cardNames.size()));
 
-            if (playerList.get(playerIndex).getPlayerDeck().get(cardName) != 0) {
                 if (listOfCardsDrawnForMessage.contains(cardName)) {
                     listOfCardsDrawnForMessage.put(cardName, listOfCardsDrawnForMessage.get(cardName) + 1);
                 } else listOfCardsDrawnForMessage.put(cardName, 1);
 
                 int currentCount = playerList.get(playerIndex).getPlayerDeck().get(cardName);
                 playerList.get(playerIndex).getPlayerDeck().put(cardName, currentCount - 1);
-                if (playerList.get(playerIndex).getHandDeck().get(cardName) == null) {
-                    currentCount = 0;
-                } else {
-                    currentCount = playerList.get(playerIndex).getHandDeck().get(cardName);
-                }
+                currentCount = playerList.get(playerIndex).getHandDeck().get(cardName);
                 playerList.get(playerIndex).getHandDeck().put(cardName, currentCount + 1);
                 cardsDrawn++;
-            }
+
         }
     }
 
