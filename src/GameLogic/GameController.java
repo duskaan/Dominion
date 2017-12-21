@@ -102,7 +102,7 @@ public class GameController {
                                 drawOneCard();
                                 for (int z = 0; z < gameModel.getPlayerList().size(); z++) {
                                     if (z != gameModel.getCurrentPlayer()) {
-                                        gameModel.drawCurse(1, z);
+                                        gameModel.drawCurse(z);
                                         game.setResponseMessage(gameModel.drawCardMessageWithIndex(z));
                                         gameModel.clearListOfCardsDrawnForMessage();
                                     }

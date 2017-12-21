@@ -493,17 +493,15 @@ public class GameModel {
 
     //@Damiano Nardone
     //this method puts Specifically the curse for a certain person into his or her discardDeck
-    public void drawCurse(int amountToDraw, int playerIndex) {
+    public void drawCurse( int playerIndex) {
         CardName cardName = null;
         int cardsDrawn = 0;
         Random rand = new Random();
         cardName = CardName.curse;
 
         if (victoryCardList.get(cardName) != 0) {
-            while (cardsDrawn < amountToDraw) {
-                if (listOfCardsDrawnForMessage.containsKey(cardName)) {
-                    listOfCardsDrawnForMessage.put(cardName, listOfCardsDrawnForMessage.get(cardName) + 1);
-                } else listOfCardsDrawnForMessage.put(cardName, 1);
+            while (cardsDrawn < 1) {
+
                 int currentCount = victoryCardList.get(cardName);
                 victoryCardList.put(cardName, currentCount - 1);
                 currentCount = playerList.get(playerIndex).getDiscardDeck().get(cardName);
