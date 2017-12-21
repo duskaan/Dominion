@@ -348,6 +348,9 @@ public class GameModel {
                 }
             }
         }
+        if (playTreasureMessage.charAt(playTreasureMessage.length()-1) == '/') {
+            playTreasureMessage = playTreasureMessage + "empty";
+        }
         playTreasureMessage = playTreasureMessage + "@coinValue," + playerList.get(getCurrentPlayer()).getCoins();
 
         return playTreasureMessage;
@@ -435,29 +438,18 @@ public class GameModel {
             int curseAmount;
 
 
-            if(playerList.get(i).getPlayerDeck().get(CardName.province)==null){
-                provinceAmount=0;
-            }else{
-                provinceAmount = playerList.get(i).getPlayerDeck().get(CardName.province);
-            }
-            if(playerList.get(i).getPlayerDeck().get(CardName.estate)==null){
-                estateAmount=0;
-            }else{
-                estateAmount = playerList.get(i).getPlayerDeck().get(CardName.estate);
-            }
-            if(playerList.get(i).getPlayerDeck().get(CardName.duchy)==null){
-                duchyAmount =0;
-            }else{
-                duchyAmount =playerList.get(i).getPlayerDeck().get(CardName.duchy);
-            }
-            if(playerList.get(i).getPlayerDeck().get(CardName.curse)==null){
-                curseAmount=0;
-            }else{
-                curseAmount = playerList.get(i).getPlayerDeck().get(CardName.curse);
-            }
+
+            provinceAmount = playerList.get(i).getPlayerDeck().get(CardName.province) + playerList.get(i).getDiscardDeck().get(CardName.province) + playerList.get(i).getHandDeck().get(CardName.province);
+
+            estateAmount = playerList.get(i).getPlayerDeck().get(CardName.estate)+ playerList.get(i).getDiscardDeck().get(CardName.estate) + playerList.get(i).getHandDeck().get(CardName.estate);
+
+            duchyAmount =playerList.get(i).getPlayerDeck().get(CardName.duchy)+ playerList.get(i).getDiscardDeck().get(CardName.duchy) + playerList.get(i).getHandDeck().get(CardName.duchy);
+
+            curseAmount = playerList.get(i).getPlayerDeck().get(CardName.curse)+ playerList.get(i).getDiscardDeck().get(CardName.curse) + playerList.get(i).getHandDeck().get(CardName.curse);
 
 
-            int VictoryPoints = provinceAmount * 6 + duchyAmount * 3 + estateAmount + curseAmount * -1;
+
+            int VictoryPoints = (provinceAmount * 6) + (duchyAmount * 3) + estateAmount + (curseAmount * -1);
 
             playerList.get(i).setVictoryPoints(VictoryPoints);
             i++;
