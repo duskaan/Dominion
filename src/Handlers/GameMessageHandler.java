@@ -43,7 +43,6 @@ public class GameMessageHandler extends MessageHandler implements Observer {
             MessageHandler handler = MessageHandlerFactory.getMessageHandler(subHandler);
             handler.handleMessage(message, this);
         } else {
-
             gameList.get(player).readMessage(message);
         }
 

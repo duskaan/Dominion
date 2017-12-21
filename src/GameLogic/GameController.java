@@ -45,8 +45,8 @@ public class GameController {
                     if (gameModel.isGameOver()) {
                         game.setResponseMessage(gameModel.endGameMessage());
                     }
-                    gameModel.endTurn();
-                    for (int y = 0; y <= 4; i++) {
+                    gameModel.endTurn(); //todo was machsch nach dem gnau?
+                    for (int y = 0; y <= 4; y++) {
                         if (gameModel.checkifPlayerDeckisEmpty()) {
                             game.setResponseMessage(gameModel.discardDecktoPlayerDeck(gameModel.getCurrentPlayer()));
                         }

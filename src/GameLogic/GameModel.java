@@ -1,9 +1,11 @@
 package GameLogic;
 
 import GameLogic.cards.CardName;
+import Server.LogHandling;
 import javafx.beans.property.SimpleStringProperty;
 
 import java.util.*;
+import java.util.logging.Level;
 
 public class GameModel {
 
@@ -157,13 +159,11 @@ public class GameModel {
             int amount = starterHandDeck.get(cardName);
             for (int i = 0; i < amount; i++) {
                 initCardsMessage = initCardsMessage + cardName;
-                if (i != amount - 1) {
+                if (i != amount) {
                     initCardsMessage = initCardsMessage + "@";
                 }
             }
-            if(itr.hasNext()){
-                initCardsMessage = initCardsMessage + "@";
-            }
+
         }
 
         return initCardsMessage;
@@ -172,22 +172,24 @@ public class GameModel {
     //@Damiano Nardone
     //this method creates the following Message for the Server to pass to the client when the client draws new cards
     //drawCardMessageWithIndex --> newCards@PlayerName1@hand/estate,2;copper,3@deck,5
-    public String drawCardMessageWithIndex(int playerindex) {
-        String drawCardMessage = "newCards@" + playerList.get(playerindex).getName() + "@hand/";
+    public String drawCardMessageWithIndex(int playerIndex) {
+        String drawCardMessage = "newCards@" + playerList.get(playerIndex).getName() + "@hand/";
 
-        Hashtable<CardName, Integer> cardsRemainingInPlayerDeck = playerList.get(playerindex).getPlayerDeck();
-        Hashtable<CardName, Integer> playerHandDeck = playerList.get(playerindex).getHandDeck();
+        Hashtable<CardName, Integer> cardsRemainingInPlayerDeck = playerList.get(playerIndex).getPlayerDeck();
+        Hashtable<CardName, Integer> playerHandDeck = playerList.get(playerIndex).getHandDeck();
         Set<CardName> keys = playerHandDeck.keySet();
         Iterator<CardName> itr = keys.iterator();
+        int addedcards = 0;
 
-        while (itr.hasNext()) {
+        while (itr.hasNext()&&addedcards<=5) {
             CardName cardName = itr.next();
             if (playerHandDeck.get(cardName) != 0) {
-                drawCardMessage = drawCardMessage + cardName + "," + playerHandDeck.get(cardName);
-            }
+                drawCardMessage = drawCardMessage + cardName + "," + playerHandDeck.get(cardName)+";";
+                addedcards= addedcards+1;
+            }/*
             if (itr.hasNext()) {
                 drawCardMessage = drawCardMessage + ";";
-            }
+            }*/
         }
         drawCardMessage = drawCardMessage + "@deck,";
 
@@ -334,7 +336,7 @@ public class GameModel {
 
         while (itr1.hasNext()) {
             CardName cardName = itr1.next();
-            if (!cardName.toString().equals("gold") && !cardName.toString().equals("silver") && !cardName.toString().equals("copper")) {
+            if (!cardName.toString().equals("gold") && !cardName.toString().equals("silver") && !cardName.toString().equals("copper")&&cardsInPlayerDeck.get(cardName)!=0) {
                 playTreasureMessage = playTreasureMessage + cardName.toString() + "," + cardsInPlayerDeck.get(cardName).toString() + ";";
             }
 
@@ -917,6 +919,7 @@ public class GameModel {
     }
 
     public int getCurrentPlayer() {
+        LogHandling.logOnFile(Level.INFO, "currentPlayer at index: "+turnCount % (playerList.size() - 1));
         return turnCount % (playerList.size() - 1); //TODO IS THIS ALRIGHT
     }
 
