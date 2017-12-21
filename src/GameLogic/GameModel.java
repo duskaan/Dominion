@@ -234,25 +234,10 @@ public class GameModel {
     //this method creates the follwing message for the server to pass to the client when the client is drawing cards
     // and has not enough left in his deck, so the discardDeck goes into the PlayerDeck
     //newDeckValue@PlayerName1@discard,10@deck,10
-    public String discardMessage() {
+    public String discardMessage(int playerindex) {
 
-        String discardMessage = "newDeckValues@" + playerList.get(getCurrentPlayer()).getName() + "@discard,";
-
-        Hashtable<CardName, Integer> playerDeck = playerList.get(getCurrentPlayer()).getPlayerDeck();
-        Hashtable<CardName, Integer> discardDeck = playerList.get(getCurrentPlayer()).getDiscardDeck();
-        int amountInDiscardDeck = 0;
-        int amountInPlayerDeck = 0;
-
-        for (CardName cardName : discardDeck.keySet()) {
-            amountInDiscardDeck = amountInDiscardDeck + discardDeck.get(cardName);
-        }
-
-        discardMessage = discardMessage + amountInDiscardDeck + "@deck,";
-
-        for (CardName cardName : playerDeck.keySet()) {
-            amountInPlayerDeck = amountInPlayerDeck + playerDeck.get(cardName);
-        }
-        discardMessage = discardMessage + amountInPlayerDeck;
+        String discardMessage = "newDeckValues@" + playerList.get(playerindex).getName() + "@discard,";
+        discardMessage = discardMessage + playerList.get(playerindex).getDiscardAmount() + "@deck," + playerList.get(playerindex).getDeckAmount();
 
         return discardMessage;
     }
@@ -534,7 +519,7 @@ public class GameModel {
         CardName cardName = null;
 
         for (int i = 0; i < playerList.get(playerIndex).getDiscardDeck().size(); i++) {
-            cardName = cardNames.get(i); //todo fix array out of bound
+            cardName = cardNames.get(i); 
 
             if (playerList.get(playerIndex).getDiscardDeck().get(cardName) != 0) {
                 int currentCount = playerList.get(playerIndex).getDiscardDeck().get(cardName);
@@ -543,7 +528,7 @@ public class GameModel {
             }
         }
 
-        return discardMessage();
+        return discardMessage(playerIndex);
 
     }
 

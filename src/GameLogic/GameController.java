@@ -51,8 +51,9 @@ public class GameController {
                             game.setResponseMessage(gameModel.discardDecktoPlayerDeck(gameModel.getCurrentPlayer()));
                         }
                         gameModel.drawCards(1, gameModel.getCurrentPlayer());
-                        game.setResponseMessage(gameModel.drawCardMessageWithIndex(gameModel.getCurrentPlayer()));
+
                     }
+                    game.setResponseMessage(gameModel.drawCardMessageWithIndex(gameModel.getCurrentPlayer()));
                     gameModel.turnCount();
                     break;
 
@@ -72,8 +73,8 @@ public class GameController {
                                     game.setResponseMessage(gameModel.discardDecktoPlayerDeck(gameModel.getCurrentPlayer()));
                                 }
                                 gameModel.drawCards(1, gameModel.getCurrentPlayer());
-                                game.setResponseMessage(gameModel.drawCardMessageWithIndex(gameModel.getCurrentPlayer()));
                             }
+                            game.setResponseMessage(gameModel.drawCardMessageWithIndex(gameModel.getCurrentPlayer()));
                             break;
                         case "smithy":
                             for (int y = 0; y <= 2; i++) {
@@ -81,8 +82,9 @@ public class GameController {
                                     game.setResponseMessage(gameModel.discardDecktoPlayerDeck(gameModel.getCurrentPlayer()));
                                 }
                                 gameModel.drawCards(1, gameModel.getCurrentPlayer());
-                                game.setResponseMessage(gameModel.drawCardMessageWithIndex(gameModel.getCurrentPlayer()));
+
                             }
+                            game.setResponseMessage(gameModel.drawCardMessageWithIndex(gameModel.getCurrentPlayer()));
                             break;
                         case "laboratory":
                             drawOneCard();
@@ -108,8 +110,8 @@ public class GameController {
                                     game.setResponseMessage(gameModel.discardDecktoPlayerDeck(gameModel.getCurrentPlayer()));
                                 }
                                 gameModel.drawCards(1, gameModel.getCurrentPlayer());
-                                game.setResponseMessage(gameModel.drawCardMessageWithIndex(gameModel.getCurrentPlayer()));
                             }
+                            game.setResponseMessage(gameModel.drawCardMessageWithIndex(gameModel.getCurrentPlayer()));
                             for (int z = 0; z < gameModel.getPlayerList().size(); z++) {
                                 if (gameModel.checkifPlayerDeckisEmpty()) {
                                     game.setResponseMessage(gameModel.discardDecktoPlayerDeck(z));
@@ -137,12 +139,10 @@ public class GameController {
     }
 
     private void drawOneCard() {
-        for (int y = 0; y <= 1; y++) {
             if (gameModel.checkifPlayerDeckisEmpty()) {
                 game.setResponseMessage(gameModel.discardDecktoPlayerDeck(gameModel.getCurrentPlayer()));
             }
             gameModel.drawCards(1, gameModel.getCurrentPlayer());
             game.setResponseMessage(gameModel.drawCardMessageWithIndex(gameModel.getCurrentPlayer()));
-        }
     }
 }
