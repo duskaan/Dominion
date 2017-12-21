@@ -152,12 +152,11 @@ public class GameModel {
     //initCards@PlayerName@
     public String initCardsMessage(int playerindex) {
         String initCardsMessage = "initCards@" + playerList.get(playerindex).getName() + "@";
-        Hashtable<CardName, Integer> starterHandDeck = playerList.get(playerindex).getHandDeck();
-        Set<CardName> keys = starterHandDeck.keySet();
+        Set<CardName> keys = listOfCardsDrawnForMessage.keySet();
         Iterator<CardName> itr = keys.iterator();
         while (itr.hasNext()) {
             CardName cardName = itr.next();
-            int amount = starterHandDeck.get(cardName);
+            int amount = listOfCardsDrawnForMessage.get(cardName);
             for (int i = 0; i < amount; i++) {
                 initCardsMessage = initCardsMessage + cardName;
                 if (i != amount) {
@@ -179,7 +178,6 @@ public class GameModel {
         Hashtable<CardName, Integer> playerHandDeck = playerList.get(playerIndex).getHandDeck();
         Set<CardName> keys = playerHandDeck.keySet();
         Iterator<CardName> itr = keys.iterator();
-        int addedcards = 0;
 
         for(CardName cardName : listOfCardsDrawnForMessage.keySet()){
             drawCardMessage = drawCardMessage + cardName + "," + listOfCardsDrawnForMessage.get(cardName) + ";";
@@ -455,11 +453,9 @@ public class GameModel {
         CardName cardName = null;
         int cardsDrawn = 0;
         Random rand = new Random();
-        listOfCardsDrawnForMessage.clear();
 
         while (cardsDrawn < amountToDraw) {
             cardName = cardNames.get(rand.nextInt(cardNames.size()));
-
 
                 if (listOfCardsDrawnForMessage.contains(cardName)) {
                     listOfCardsDrawnForMessage.put(cardName, listOfCardsDrawnForMessage.get(cardName) + 1);
@@ -472,6 +468,10 @@ public class GameModel {
                 cardsDrawn++;
 
         }
+    }
+
+    public void clearListOfCardsDrawnForMessage(){
+        listOfCardsDrawnForMessage.clear();
     }
 
     //@Damiano Nardone
@@ -498,11 +498,11 @@ public class GameModel {
 
     //@Damiano Nardone
     //this methods check is the PlayerDeck Hashtable is empty and return a boolean if so
-    public boolean checkifPlayerDeckisEmpty() {
+    public boolean checkifPlayerDeckisEmpty(int playerindex) {
 
         boolean hasCards = false;
-        for (CardName cardName : playerList.get(getCurrentPlayer()).getPlayerDeck().keySet()) {
-            if (playerList.get(getCurrentPlayer()).getPlayerDeck().get(cardName) > 0) {
+        for (CardName cardName : playerList.get(playerindex).getPlayerDeck().keySet()) {
+            if (playerList.get(playerindex).getPlayerDeck().get(cardName) != 0) {
                 hasCards = true;
             }
         }
@@ -519,7 +519,7 @@ public class GameModel {
         CardName cardName = null;
 
         for (int i = 0; i < playerList.get(playerIndex).getDiscardDeck().size(); i++) {
-            cardName = cardNames.get(i); 
+            cardName = cardNames.get(i);
 
             if (playerList.get(playerIndex).getDiscardDeck().get(cardName) != 0) {
                 int currentCount = playerList.get(playerIndex).getDiscardDeck().get(cardName);
