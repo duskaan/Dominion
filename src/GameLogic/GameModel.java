@@ -48,11 +48,36 @@ public class GameModel {
     //@Damiano Nardone
     //this methods initializes the actionCards, coinCards & victoryCards on the field. And give all the Player cards
     void init(int cardsInGame) {
+        initLists();
         initActionCards(cardsInGame);
         initCoinCardCount();
         initVictoryCards();
         initPlayers();
     }
+
+    //@Damiano
+    //this method fill all Hashtable with possible entries to avoid nullPointerExecptions
+    private void initLists() {
+        coinCardList.put(CardName.gold, 0);
+        coinCardList.put(CardName.silver, 0);
+        coinCardList.put(CardName.copper, 0);
+        actionCardList.put(CardName.village,0);
+        actionCardList.put(CardName.woodcutter,0);
+        actionCardList.put(CardName.workshop,0);
+        actionCardList.put(CardName.smithy,0);
+        actionCardList.put(CardName.councilroom,0);
+        actionCardList.put(CardName.festival, 0);
+        actionCardList.put(CardName.witch,0);
+        actionCardList.put(CardName.chancellor,0);
+        actionCardList.put(CardName.market,0);
+        actionCardList.put(CardName.laboratory,0);
+        victoryCardList.put(CardName.province,0);
+        victoryCardList.put(CardName.duchy,0);
+        victoryCardList.put(CardName.estate,0);
+        victoryCardList.put(CardName.curse,0);
+    }
+
+
 
     //@Damiano Nardone
     //this methods fill up the Hashtable actionCardList with actionCards that will be on the field
