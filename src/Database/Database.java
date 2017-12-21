@@ -56,6 +56,7 @@ public class Database {
             password = scanner.next();
             Class.forName("com.mysql.jdbc.Driver").newInstance();
             con = DriverManager.getConnection("jdbc:mysql://localhost:3306/?useSSL=false", login, password);
+            //con = DriverManager.getConnection("jdbc:mysql://https://admin.hostpoint.ch/phpmyadmin2/index.php?server=466&lang=de&collation_connection=utf8mb4_unicode_ci&token=4b5335af90facb4d1857a6fb886ace2a&reload=1?useSSL=false", login, password);
             createDatabase();
             con = DriverManager.getConnection("jdbc:mysql://localhost:3306/DominionDatabase?useSSL=false", login, password);
             createTable();
