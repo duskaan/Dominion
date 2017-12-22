@@ -2,6 +2,7 @@ package Server;
 
 import Handlers.MessageHandlerFactory;
 import Database.*;
+import javafx.application.Application;
 
 import java.util.logging.Level;
 
@@ -12,16 +13,15 @@ public class Server {
 
 
     public static void main(String[] args) {
-
+        Application.launch(ServerGUI.class, args);
         initServer();
-        //Application.launch(ServerGUI.class, args);
-        new DominionServer().start();
-        LogHandling.closeResources();
+
     }
 
-    private static void initServer() {
+    protected static void initServer() {
         addMessageHandler();
-        createDatabaseConnection();
+        new DominionServer().start();
+        LogHandling.closeResources();
 
     }
 
@@ -46,17 +46,10 @@ public class Server {
         LogHandling.logOnFile(Level.INFO, "All MessageHandlers added successfully");
     }
 
-    private static void createDatabaseConnection() {
+    protected static void createDatabaseConnection(String login, String password) {
         LogHandling.logOnFile(Level.INFO, "Creating Database connection");
         Database.getDatabase().initDatabase();
-        Database.getDatabase().createConnection();
-        test();
+        Database.getDatabase().createConnection(login, password);
         LogHandling.logOnFile(Level.INFO, "Database connection created successfully");
-    }
-    public static void test(){
-        //System.out.println(Database.getDatabase().insert("Tim", "1234"));
-        //System.out.println(Database.getDatabase().login("Tim", "1234"));
-        //Database.getDatabase().updateAfterGame("Tim",10,true);
-        //System.out.println(Database.getDatabase().getTopFive());
     }
 }

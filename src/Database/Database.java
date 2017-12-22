@@ -1,6 +1,7 @@
 package Database;
 
 import Server.LogHandling;
+import javafx.beans.property.SimpleBooleanProperty;
 
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
@@ -14,14 +15,14 @@ import java.util.logging.Level;
  * Created by Tim on 13.09.2017.
  */
 public class Database {
-    private String login = null;
-    private String password = null;
+
     private static Connection con=null;
     private PreparedStatement preparedStatement = null;
     private Properties prop = new Properties(); // Create Properties-Object
     private ResultSet resultSet = null;
     private static final Database snDatabase = null;
     private Statement stmt;
+    public static SimpleBooleanProperty isConnected;
 
 
     private Database() {
@@ -44,29 +45,33 @@ public class Database {
         }
     }
 
-    public void createConnection() {
+    public void createConnection(String login, String password) {
         try {
-            prop.load(new FileInputStream("config.properties"));
+            //prop.load(new FileInputStream("config.properties"));
             //login = prop.getProperty("login");
            // password = prop.getProperty("password");
-            Scanner scanner = new Scanner(System.in);
-            System.out.println("Please Enter your login for the database");
-            login = scanner.next();
-            System.out.println("Please Enter your password for the database");
-            password = scanner.next();
+
+
             Class.forName("com.mysql.jdbc.Driver").newInstance();
             con = DriverManager.getConnection("jdbc:mysql://localhost:3306/?useSSL=false", login, password);
             //con = DriverManager.getConnection("jdbc:mysql://https://admin.hostpoint.ch/phpmyadmin2/index.php?server=466&lang=de&collation_connection=utf8mb4_unicode_ci&token=4b5335af90facb4d1857a6fb886ace2a&reload=1?useSSL=false", login, password);
             createDatabase();
             con = DriverManager.getConnection("jdbc:mysql://localhost:3306/DominionDatabase?useSSL=false", login, password);
             createTable();
+            //isConnected=new SimpleBooleanProperty();
+            isConnected.set(true);
 
         } catch (Exception e) {
-            e.printStackTrace();
+            //isConnected =new SimpleBooleanProperty();
+            isConnected.set(false);
+            LogHandling.logOnFile(Level.SEVERE, e.getMessage());
             closeConnection();
         }
     }
-
+    public static SimpleBooleanProperty getIsConnected(){
+        isConnected=new SimpleBooleanProperty();
+        return isConnected;
+    }
 
 
     private void createDatabase() {

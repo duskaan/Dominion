@@ -50,13 +50,10 @@ public class MessageHandler implements Observer {
     }
 
     public void read() {
-        Thread thread1 = new Thread(new Runnable() {
-            @Override
-            public void run(){
-               while(true){
-                   tryReadMessage(reader);
-               }
-            }
+        Thread thread1 = new Thread(() -> {
+           while(true){
+               tryReadMessage(reader);
+           }
         });
 
         thread1.start();
