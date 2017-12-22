@@ -112,7 +112,7 @@ public class Player {
 
 
     public void setHandDeck(CardName cardName, int i) {
-        Hashtable<CardName, Integer> handDeck = new Hashtable<>(); //TODO: Ersetzt das nicht jede Karte immer wieder mit der vorherigen?
+        Hashtable<CardName, Integer> handDeck = new Hashtable<>();
         handDeck.put(cardName, i);
         this.handDeck = handDeck;
     }
