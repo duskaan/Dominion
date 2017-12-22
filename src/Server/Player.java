@@ -21,7 +21,9 @@ public class Player implements Runnable {
         this.playerName= playerName;
 
     }
-
+    //@Tim
+    //MessageHandler is created with the socket and the writers and readers are opened
+    //the MessageHandler starts listening
     @Override
     public void run() {
         messageHandler = new MessageHandler(socket);

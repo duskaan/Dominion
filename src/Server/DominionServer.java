@@ -15,9 +15,9 @@ import java.util.logging.Level;
 public class DominionServer extends Thread {
 
 	ServerSocket serverSocket;
-
-	/*starts the server with the corresponding serverSocket port for clients to address to build up a connection
-		the executors thread pool creates a pool of all the threads of this server. These threads are created in the next step*/
+	//@Tim
+	//starts the server with the corresponding serverSocket port for clients to address to build up a connection
+	//the executors thread pool creates a pool of all the threads of this server. These threads are created in the next step
 	@Override
 	public void start() {
 		try {
@@ -30,6 +30,10 @@ public class DominionServer extends Thread {
 
 		}
 	}
+	//@Tim
+	//the different clients get their own thread
+	//first the Player is added to the socketPlayerHashMap
+	//then client threads are started
 
 	private void acceptConnection(ServerSocket serverSocket) throws IOException {
 		ExecutorService executor = Executors.newSingleThreadExecutor();

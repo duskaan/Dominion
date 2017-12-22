@@ -92,7 +92,7 @@ public class ServerGUI extends Application {
         //todo write javadoc
         //todo current player in the screen
         //todo victory points of others
-        
+
 
         if (isConnected) {
 

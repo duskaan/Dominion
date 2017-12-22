@@ -38,7 +38,8 @@ public class MessageHandler implements Observer {
         LogHandling.logOnFile(Level.INFO, "MessageHandler is created for: "+socket);
     }
 
-
+    //@Tim
+    //buffered writer and reader are opened
     public void openResources() {
         try {
             reader = new BufferedReader(new InputStreamReader(socket.getInputStream()));
@@ -48,22 +49,20 @@ public class MessageHandler implements Observer {
             LogHandling.logOnFile(Level.WARNING, e.getMessage());
         }
     }
-
+    //@Tim
+    //a new thread, which starts reading as long as the server is running
     public void read() {
         Thread thread1 = new Thread(() -> {
-           while(true){
-               tryReadMessage(reader);
-           }
-        });
-
-        thread1.start();
-        /*new Thread(() -> {
             while (true) {
                 tryReadMessage(reader);
             }
-        }).start();*/
-    }
+        });
 
+        thread1.start();
+    }
+    //@Tim
+    //for every Message the correct MessageHandler is Server or Client
+    //the message is sent into the corresponding Handler
     private void tryReadMessage(BufferedReader input) {
         String message;
         try {

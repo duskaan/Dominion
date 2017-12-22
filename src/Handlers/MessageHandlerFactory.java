@@ -19,9 +19,10 @@ public class MessageHandlerFactory {
             e.printStackTrace();
         }
     }
-
-    /* asks all the added messageHandlers if they are the meant constructor, if they are, they send out a certain
-    exception which shows getMessageHandler, that this is the handler its looking for */
+    //@Tim
+    //asks all the added messageHandlers if they are the meant constructor, if they are, they send out a certain
+    //exception which shows getMessageHandler, that this is the handler its looking for
+    //the idea of MessageHandler is from
     static MessageHandler getMessageHandler(String message) {
         MessageHandler messageHandler = null;
         for (Class handler : handlers) {

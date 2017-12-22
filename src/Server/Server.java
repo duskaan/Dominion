@@ -11,20 +11,23 @@ import java.util.logging.Level;
  */
 public class Server {
 
-
+    //@Tim
+    //starts the GUI and starts the server
     public static void main(String[] args) {
         Application.launch(ServerGUI.class, args);
         initServer();
 
     }
-
+    //@Tim
+    //starts the server thread
     protected static void initServer() {
         addMessageHandler();
         new DominionServer().start();
         LogHandling.closeResources();
 
     }
-
+    //@Tim
+    //adds the different messageHandlers used for the communication with the client
     private static void addMessageHandler() {
         LogHandling.logOnFile(Level.INFO, "Adding MessageHandlers");
 
@@ -45,7 +48,8 @@ public class Server {
 
         LogHandling.logOnFile(Level.INFO, "All MessageHandlers added successfully");
     }
-
+    //@Tim
+    //takes the input from the GUI to set up a database connection
     protected static void createDatabaseConnection(String login, String password) {
         LogHandling.logOnFile(Level.INFO, "Creating Database connection");
         Database.getDatabase().initDatabase();
