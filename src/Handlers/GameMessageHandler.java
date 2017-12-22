@@ -47,8 +47,6 @@ public class GameMessageHandler extends MessageHandler {
         } else {
             gameList.get(player).readMessage(message);
         }
-
-
     }
 
     public void write(String message, Boolean privateMessage) {

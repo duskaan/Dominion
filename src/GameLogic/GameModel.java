@@ -419,7 +419,7 @@ public class GameModel {
                 discardAmount = discardAmount + cardsInDiscardDeck.get(cardName);
             }
         }*/
-        endTurnMessage = endTurnMessage + discardAmount + "curse," + curseAmount;
+        endTurnMessage = endTurnMessage + discardAmount + "@curse," + curseAmount;
 
         return endTurnMessage;
 
@@ -598,20 +598,17 @@ public class GameModel {
         for (CardName cardName : actionCardList.keySet()) {
             int numberOfActionCard = actionCardList.get(cardName);
             if (numberOfActionCard == 0) {
-
                 emptyActionCards++;
             }
         }
         if (emptyActionCards >= 3) {
             calculateVictoryPoints();
-            System.out.println("604" +(emptyActionCards >= 3));
             return true;
         }
 
         int numberOfProvinceCard = victoryCardList.get(CardName.province);
         System.out.println(numberOfProvinceCard);
         if (numberOfProvinceCard == 0) {
-            System.out.println("609: " + (numberOfProvinceCard == 0));
             calculateVictoryPoints();
             return true;
         }
