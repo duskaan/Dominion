@@ -1,8 +1,5 @@
 package Handlers;
 
-/**
- * Created by Tim on 05.12.2017.
- */
 
 import Handlers.MessageHandler;
 import Handlers.ServerMessageType;
@@ -15,8 +12,9 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.logging.Level;
 
+
 /**
- * Created by Tim on 14.09.2017.
+ * Created by Tim on 05.12.2017.
  */
 public class GameJoinGameMessageHandler extends GameMessageHandler {
 
@@ -35,12 +33,14 @@ public class GameJoinGameMessageHandler extends GameMessageHandler {
         String newMessage = CLASSNAME + message;
         superHandler.write(newMessage, privateMessage);
     }
-
+    //@Tim
+    //the player is added to the TempGame
+    //if the TempGame is full the game is started and removed from the tempGame lists
     @Override
     public void handleMessage(String msgIn, MessageHandler superHandler) throws UnknownFormatException {
         this.superHandler = superHandler;
         message = msgIn;
-        String gameName = splitMessage(message, 2);//todo set Token
+        String gameName = splitMessage(message, 2);
 
         Player player = socketPlayerHashMap.get(getClientSocket().getPort());
         Iterator<TempGame> iterator = ServerMessageHandler.gettempGameArrayList().iterator();

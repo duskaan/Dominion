@@ -24,30 +24,32 @@ public class ServerLobbyMessageHandler extends ServerMessageHandler {
     public ServerLobbyMessageHandler() {
 
 
-  }
-
-
-    public void write(String message,Boolean privateMessage) {
-        message = addDelimiter(message);
-        String newMessage = CLASSNAME + message;
-        superHandler.write(newMessage,privateMessage);
     }
 
+    public void write(String message, Boolean privateMessage) {
+        message = addDelimiter(message);
+        String newMessage = CLASSNAME + message;
+        superHandler.write(newMessage, privateMessage);
+    }
+    //@Tim
+    //the incoming message can be of type TOPFIVE or GAMELIST
+    //if topFive then the best 5 Players are sent
+    //if GameList the list of TempGames is sent
     @Override
     public void handleMessage(String msgIn, MessageHandler superHandler) throws UnknownFormatException {
         this.superHandler = superHandler;
         message = msgIn;
         String fiveOrGamesList = splitMessage(message, 2);
-        LogHandling.logOnFile(Level.INFO,"MessageType: " +fiveOrGamesList);
+        LogHandling.logOnFile(Level.INFO, "MessageType: " + fiveOrGamesList);
 
         if (fiveOrGamesList.equalsIgnoreCase("TOPFIVE")) {
             replyMessage = HandlerModel.topFiveMessage();
-            LogHandling.logOnFile(Level.INFO,"ReplyMessage is: "+ replyMessage);
-            write(replyMessage,false);
+            LogHandling.logOnFile(Level.INFO, "ReplyMessage is: " + replyMessage);
+            write(replyMessage, false);
         } else if (fiveOrGamesList.equalsIgnoreCase("GAMELIST")) {
             replyMessage = HandlerModel.gameListMessage();
-            if(replyMessage!=null){
-                write(replyMessage,false);
+            if (replyMessage != null) {
+                write(replyMessage, false);
             }
 
         }

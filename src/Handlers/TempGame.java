@@ -14,16 +14,14 @@ public class TempGame {
     private ArrayList<Player> playerList = new ArrayList<>();
     private Iterator<Player> playerIterator ;
     boolean removed ;
-
-
     private int maxPlayer;
 
-
+    //@Tim
+    //the tempGame is stored before the game can be started and is full
+    //all information needed for the game are stored in the tempGame
     public TempGame(String gameName, int cards, Player creatorPlayer, int maxPlayer) {
         this.gameName = gameName;
-
         this.playerList.add(creatorPlayer);
-
         this.cardsInGame = cards;
         this.maxPlayer = maxPlayer;
     }

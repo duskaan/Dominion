@@ -45,6 +45,9 @@ public class GameStartGameMessageHandler extends GameMessageHandler {
     }
 
 
+    //@Tim
+    //gets all necessary information from the tempGame and sends it once to the client and once to the gameLogic to create a new Game
+    //removes it from the lobby list and adds to the game
     public void startGame(TempGame tempGame) {
         String gameName = tempGame.getGameName();
         String[] playerArray = new String[tempGame.getPlayerList().size()];

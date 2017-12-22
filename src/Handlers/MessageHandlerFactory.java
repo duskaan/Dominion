@@ -10,6 +10,8 @@ public class MessageHandlerFactory {
 
     private static Set<Class> handlers = new HashSet<>();
 
+    //@Tim
+    //adds all the MessageHandler to the Set of messageHandlers
     public static void addHandler(String handlerName) {
         Class handlerClass;
         try {
@@ -22,7 +24,7 @@ public class MessageHandlerFactory {
     //@Tim
     //asks all the added messageHandlers if they are the meant constructor, if they are, they send out a certain
     //exception which shows getMessageHandler, that this is the handler its looking for
-    //the idea of MessageHandler is from
+    //the messageHandler has a boolean as className and if the className and the input message are the same, it does not return an exception
     static MessageHandler getMessageHandler(String message) {
         MessageHandler messageHandler = null;
         for (Class handler : handlers) {

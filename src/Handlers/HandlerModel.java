@@ -10,6 +10,9 @@ import java.util.logging.Level;
  * Created by Tim on 05.12.2017.
  */
 public class HandlerModel {
+    //@Tim
+    //returns the GameList
+    //if it is empty "gameList is empty" wird zurück gesendet
     public static String gameListMessage() {
         String reply = "GameList/";
         ArrayList<TempGame>list= ServerMessageHandler.gettempGameArrayList();
@@ -26,19 +29,22 @@ public class HandlerModel {
         return reply; //structure = GameName; Players in the game; max player number/GameName; Players in the game; max player number
 
     }
-
+    //@Tim
+    //returns the prepared string from the database
     public static String topFiveMessage() {
         Database database = Database.getDatabase();
         return "TOPFIVE@" + database.getTopFive();
 
     }
-
+    //@Tim
+    //tries to login into the database and returns true or false
     public static boolean tryToLogin(String userName, String password) {
         return Database.getDatabase().login(userName, password);
     }
 
 
-
+    //@Tim
+    //registers in the database and returns true or false depending if it worked or not
     public static boolean register(String userName, String password) {
         return Database.getDatabase().insert(userName, password); //only registers if the name does not exist
     }

@@ -19,6 +19,9 @@ public class LogHandling {
     static LocalDateTime date;
     static String printMessage;
 
+
+    //@Tim
+    //logs on the logger file with the date and time, which Class, which method, and the message
     public static void logOnFile(Level level, String message) {
 
         StackTraceElement[] stackTraceElements = Thread.currentThread().getStackTrace();
@@ -27,7 +30,8 @@ public class LogHandling {
 
         tryWriteOnFile(level, message, methodName, className, getDate());
     }
-
+    //@Tim
+    //writes on the file
     private static void tryWriteOnFile(Level level, String message, String methodName, String className, String date) {
 
         try {
@@ -41,7 +45,8 @@ public class LogHandling {
         } catch (IOException e) {
         }
     }
-
+    //@Tim
+    //gets the date and time
     public static String getDate() {
 
         date = LocalDateTime.now();

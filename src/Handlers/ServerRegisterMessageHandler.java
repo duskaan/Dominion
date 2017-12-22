@@ -22,13 +22,15 @@ public class ServerRegisterMessageHandler extends ServerMessageHandler {
 	public ServerRegisterMessageHandler() {
 
 	}
-	//gets the username and password from the message and
+	//@Tim
+	//gets the username and password from the message and tries to register
+	//if successfull it sends the topFive and GameList
 	@Override
 	public void handleMessage(String msgIn, MessageHandler superHandler) throws UnknownFormatException {
 		this.superHandler = superHandler;
 		message = msgIn;
-		String userName = splitMessage(message, 2);//todo set token
-		String password = splitMessage(message, 3);//todo set token
+		String userName = splitMessage(message, 2);
+		String password = splitMessage(message, 3);
 		Boolean successful = HandlerModel.register(userName, password);
 		LogHandling.logOnFile(Level.INFO,"Successful: "+successful.toString());
 		Player player = socketPlayerHashMap.get(superHandler.getClientSocket().getPort());

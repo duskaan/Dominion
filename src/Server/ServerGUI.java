@@ -86,19 +86,13 @@ public class ServerGUI extends Application {
         Database.getIsConnected().addListener((observable, oldValue, newValue)-> showAlert(newValue));
     }
     private void showAlert(boolean isConnected) {
-
-        Alert alert = new Alert(Alert.AlertType.NONE); //todo delete unnecessary logs
-        //todo get chat to work
-        //todo write javadoc
-        //todo current player in the screen
-        //todo victory points of others
+        Alert alert = new Alert(Alert.AlertType.NONE);
 
 
         if (isConnected) {
-
             alert.setAlertType(Alert.AlertType.INFORMATION);
             alert.setTitle("Database Connection Successful");
-            alert.setContentText("please start the clients");
+            alert.setContentText("Please close this window and start the clients");
             alert.showAndWait();
         }
         if(!isConnected){

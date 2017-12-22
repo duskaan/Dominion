@@ -466,7 +466,6 @@ public class GameModel {
 
     //@Damiano Nardone
     //this method calculates the victoryPoints from the amount of province, estate, duchy and curse in the playerDeck and DiscardDeck
-    //TODO MAKE THIS ALSO TAKE INTO ACCOUNT DISCARD DECK
     public void calculateVictoryPoints() {
         int i = 0;
         int playerSize = playerList.size();
@@ -955,7 +954,7 @@ public class GameModel {
     public int getCurrentPlayer() {
         int currentP = turnCount % (playerList.size());
         //LogHandling.logOnFile(Level.INFO, "currentPlayer at index: " + currentP);
-        return currentP; //TODO IS THIS ALRIGHT
+        return currentP;
     }
 
     //@Damiano Nardone

@@ -44,7 +44,10 @@ public class Database {
             ex.printStackTrace();
         }
     }
-
+    //@Tim
+    //creates a database connection with the login and password provided in the GUI
+    //furthermore it tries to create the database and the table if it does already exist
+    //if it is created the boolean Property is set to True
     public void createConnection(String login, String password) {
         try {
             //prop.load(new FileInputStream("config.properties"));
@@ -68,12 +71,15 @@ public class Database {
             closeConnection();
         }
     }
+    //@Tim
+    //returns the simplebooleanProperty to add an observer
     public static SimpleBooleanProperty getIsConnected(){
         isConnected=new SimpleBooleanProperty();
         return isConnected;
     }
 
-
+    //@Tim
+    //creates the database
     private void createDatabase() {
         //String dropQuery = "DROP DATABASE if Exists DominionDatabase";
         String query = "CREATE DATABASE DominionDatabase";
@@ -89,7 +95,8 @@ public class Database {
             LogHandling.logOnFile(Level.INFO, "Database already exists");
         }
     }
-
+    //@Tim
+    //creates the table if it does not already exist
     private void createTable() {
         //String dropQuery = "DROP TABLE IF EXISTS Users;";
         String query = "CREATE TABLE Player (Username varchar(255) NOT NULL, Password varchar(255) NOT NULL, GamesPlayed int(10), GamesWon int(10), Highscore int(10));";
@@ -103,6 +110,9 @@ public class Database {
         }
 
     }
+    //@Tim
+    //inserts the userName and password if the userName does not already exists
+    //returns if the insert was successful
     public boolean insert(String insertUserName, String insertUserPassword) {
 
         boolean successful = false;
@@ -114,7 +124,9 @@ public class Database {
         LogHandling.logOnFile(Level.INFO, "insert "+successful+" Name: "+insertUserName+" Password: "+insertUserPassword);
         return successful;
     }
-
+    //@Tim
+    //inserts with a prepared statement
+    //if not successful, returns false
     private boolean tryInsert(String insertUserName, String insertUserPassword) {
         String query = "INSERT INTO player(userName,password,gamesPlayed,gamesWon,HighScore) VALUES(?, ?, ?, ?,?)";
 
@@ -135,7 +147,9 @@ public class Database {
         }
         return successful;
     }
-
+    //@Tim
+    //checks if the userName is already in the table
+    //if it is it returns true
     private boolean search(String userName) { //not finished yet
         boolean found = false;
         try {
@@ -148,7 +162,9 @@ public class Database {
         }
         return found;
     }
-
+    //@Tim
+    //checks if the password matches to the userName
+    //returns true if it matches
     public boolean login(String userName, String password) {
 
         boolean successful = false;
@@ -166,7 +182,8 @@ public class Database {
 
         return successful;
     }
-
+    //@Tim
+    //closes connection
     private void closeConnection() {
         try {
             if (preparedStatement != null)
@@ -178,8 +195,9 @@ public class Database {
             e.printStackTrace();
         }
     }
-
-    public void updateAfterGame(String inUserName, int highScore, boolean won) {
+    //@Tim
+    //updates the player in the table after the game
+    public void updateAfterGame(String inUserName, int highScore, String playerWon) {
         int newHighScore;
         resultSet = getResultSet(inUserName);
 
@@ -187,7 +205,7 @@ public class Database {
             if(resultSet.next()){
             int newGamesPlayed = resultSet.getInt("gamesPlayed") + 1;
             int newGamesWon = resultSet.getInt("gamesWon");
-            if (won) {
+            if (inUserName.equalsIgnoreCase(playerWon)) {
                 newGamesWon++;
             }
             if (highScore > resultSet.getInt("HighScore")) {
@@ -200,7 +218,8 @@ public class Database {
             e.printStackTrace();
         }
     }
-
+    //@Tim
+    //returns a Resultset with a select statement, where the userName is set
     public ResultSet getResultSet(String userName) {
         try {
             String query = "SELECT * FROM player WHERE userName = ?";
@@ -213,7 +232,8 @@ public class Database {
         }
         return resultSet;
     }
-
+    //@Tim
+    //returns the TopFive Players with the highest highscore
     public String getTopFive() {
         String returnMessage = "";
         try {
@@ -235,7 +255,8 @@ public class Database {
 
     }
 
-
+    //@Tim
+    //updates after the game with the new values
     private void update(String userName, int newGamesPlayed, int newGamesWon, int newHighScore) {
         String query = "UPDATE player SET gamesPlayed =?, gamesWon= ?, Highscore=? WHERE userName = ? ";
         try {
@@ -250,7 +271,6 @@ public class Database {
             e.printStackTrace();
         }
     }
-
     public static Database getDatabase() {
         if (snDatabase == null) {
             return new Database();

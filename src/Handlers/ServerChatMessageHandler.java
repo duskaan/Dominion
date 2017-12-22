@@ -29,17 +29,14 @@ public class ServerChatMessageHandler extends ServerMessageHandler {
         this.superHandler = superHandler;
         message = msgIn;
 
-        String chatMessage = splitMessage(message, 2); //todo set token
-
+        String chatMessage = splitMessage(message, 2);
         sendChat(chatMessage);
-
-        //code with observable and observer -- notify and update() -- send this with it write getMessage Method to return the string to the model
 
 
     }
-
+    //@Tim
+    //sends: playerName: message
     private void sendChat(String chatMessage) {
-
         write(socketPlayerHashMap.get(superHandler.getClientSocket().getPort()).getPlayerName()+": "+chatMessage, false);
     }
 
