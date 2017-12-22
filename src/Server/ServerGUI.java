@@ -21,10 +21,11 @@ import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 
 public class ServerGUI extends Application {
+    Stage primaryStage;
 
     @Override
     public void start(Stage primaryStage) throws Exception {
-
+        this.primaryStage=primaryStage;
 
         //starting point for the application
         //this is where we put the code for the user interface
@@ -56,8 +57,11 @@ public class ServerGUI extends Application {
         loginButton.setOnAction(e -> {
             listenForConnection();
             createDatabaseConnection(userNameField.getText(), passwordField.getText());
-            initServer();
-
+            if(Database.isConnected.getValue()){
+                initServer();
+            }else{
+                showAlert(false);
+            }
         });
 
         componentLayout.getChildren().addAll(userPassBox, loginButton);
@@ -87,21 +91,19 @@ public class ServerGUI extends Application {
     }
     private void showAlert(boolean isConnected) {
         Alert alert = new Alert(Alert.AlertType.NONE);
-
-
         if (isConnected) {
             alert.setAlertType(Alert.AlertType.INFORMATION);
             alert.setTitle("Database Connection Successful");
             alert.setContentText("Please close this window and start the clients");
             alert.showAndWait();
+            primaryStage.close();
         }
         if(!isConnected){
             alert.setAlertType(Alert.AlertType.ERROR);
             alert.setTitle("Database Connection Failed");
-            alert.setContentText("Please Try again");
+            alert.setContentText("Please use your Database userName and Password");
             alert.showAndWait();
         }
-
     }
 }
 

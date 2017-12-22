@@ -54,6 +54,10 @@ public class Server {
         LogHandling.logOnFile(Level.INFO, "Creating Database connection");
         Database.getDatabase().initDatabase();
         Database.getDatabase().createConnection(login, password);
-        LogHandling.logOnFile(Level.INFO, "Database connection created successfully");
+        if(Database.isConnected.getValue()){
+            LogHandling.logOnFile(Level.INFO, "Database connection created successfully");
+        }else{
+            LogHandling.logOnFile(Level.INFO, "Database connection could not be established");
+        }
     }
 }
