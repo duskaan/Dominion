@@ -210,8 +210,14 @@ public class GameModel {
                         drawCardMessage = drawCardMessage + cardNameInHand + "," + amount + ";";
                     }
                 } else {
+                    int amountAlreadyPlayed = 0;
+                    for (String cardName:alreadyPlayedCards){
+                        if (cardNameInHand.toString().equals(cardName)){
+                            amountAlreadyPlayed = amountAlreadyPlayed + 1;
+                        }
+                    }
                     if (playerHandDeck.get(cardNameInHand) != 0 && playerHandDeck.get(cardNameInHand) != 1) {
-                        amount = playerHandDeck.get(cardNameInHand) - 1;
+                        amount = playerHandDeck.get(cardNameInHand) - amountAlreadyPlayed;
                         drawCardMessage = drawCardMessage + cardNameInHand + "," + amount + ";";
                     }
                 }
@@ -223,12 +229,152 @@ public class GameModel {
                         drawCardMessage = drawCardMessage + cardNameInHand + "," + amount + ";";
                     }
                 } else {
+                    int amountAlreadyPlayed = 0;
+                    for (String cardName:alreadyPlayedCards){
+                        if (cardNameInHand.toString().equals(cardName)){
+                            amountAlreadyPlayed = amountAlreadyPlayed + 1;
+                        }
+                    }
                     if (playerHandDeck.get(cardNameInHand) != 0 && playerHandDeck.get(cardNameInHand) != 1) {
-                        amount = playerHandDeck.get(cardNameInHand) - 1;
+                        amount = playerHandDeck.get(cardNameInHand) - amountAlreadyPlayed;
                         drawCardMessage = drawCardMessage + cardNameInHand + "," + amount + ";";
                     }
                 }
             }
+            if (alreadyPlayedCards.size() == 4){
+                if (!cardNameInHand.toString().equals(alreadyPlayedCards.get(0)) && !cardNameInHand.toString().equals(alreadyPlayedCards.get(1)) && !cardNameInHand.toString().equals(alreadyPlayedCards.get(2)) && !cardNameInHand.toString().equals(alreadyPlayedCards.get(3))) {
+                    amount = playerHandDeck.get(cardNameInHand);
+                    if (playerHandDeck.get(cardNameInHand) != 0) {
+                        drawCardMessage = drawCardMessage + cardNameInHand + "," + amount + ";";
+                    }
+                } else {
+                    int amountAlreadyPlayed = 0;
+                    for (String cardName:alreadyPlayedCards){
+                        if (cardNameInHand.toString().equals(cardName)){
+                            amountAlreadyPlayed = amountAlreadyPlayed + 1;
+                        }
+                    }
+                    if (playerHandDeck.get(cardNameInHand) != 0 && playerHandDeck.get(cardNameInHand) != 1) {
+                        amount = playerHandDeck.get(cardNameInHand) - amountAlreadyPlayed;
+                        drawCardMessage = drawCardMessage + cardNameInHand + "," + amount + ";";
+                    }
+                }
+            }
+            if (alreadyPlayedCards.size() == 5){
+                if (!cardNameInHand.toString().equals(alreadyPlayedCards.get(0)) && !cardNameInHand.toString().equals(alreadyPlayedCards.get(1)) && !cardNameInHand.toString().equals(alreadyPlayedCards.get(2)) && !cardNameInHand.toString().equals(alreadyPlayedCards.get(3))&& !cardNameInHand.toString().equals(alreadyPlayedCards.get(4))) {
+                    amount = playerHandDeck.get(cardNameInHand);
+                    if (playerHandDeck.get(cardNameInHand) != 0) {
+                        drawCardMessage = drawCardMessage + cardNameInHand + "," + amount + ";";
+                    }
+                } else {
+                    int amountAlreadyPlayed = 0;
+                    for (String cardName:alreadyPlayedCards){
+                        if (cardNameInHand.toString().equals(cardName)){
+                            amountAlreadyPlayed = amountAlreadyPlayed + 1;
+                        }
+                    }
+                    if (playerHandDeck.get(cardNameInHand) != 0 && playerHandDeck.get(cardNameInHand) != 1) {
+                        amount = playerHandDeck.get(cardNameInHand) - amountAlreadyPlayed;
+                        drawCardMessage = drawCardMessage + cardNameInHand + "," + amount + ";";
+                    }
+                }
+            }
+            if (alreadyPlayedCards.size() == 6){
+                if (!cardNameInHand.toString().equals(alreadyPlayedCards.get(0)) && !cardNameInHand.toString().equals(alreadyPlayedCards.get(1)) && !cardNameInHand.toString().equals(alreadyPlayedCards.get(2)) && !cardNameInHand.toString().equals(alreadyPlayedCards.get(3))&& !cardNameInHand.toString().equals(alreadyPlayedCards.get(4))&& !cardNameInHand.toString().equals(alreadyPlayedCards.get(5))) {
+                    amount = playerHandDeck.get(cardNameInHand);
+                    if (playerHandDeck.get(cardNameInHand) != 0) {
+                        drawCardMessage = drawCardMessage + cardNameInHand + "," + amount + ";";
+                    }
+                } else {
+                    int amountAlreadyPlayed = 0;
+                    for (String cardName:alreadyPlayedCards){
+                        if (cardNameInHand.toString().equals(cardName)){
+                            amountAlreadyPlayed = amountAlreadyPlayed + 1;
+                        }
+                    }
+                    if (playerHandDeck.get(cardNameInHand) != 0 && playerHandDeck.get(cardNameInHand) != 1) {
+                        amount = playerHandDeck.get(cardNameInHand) - amountAlreadyPlayed;
+                        drawCardMessage = drawCardMessage + cardNameInHand + "," + amount + ";";
+                    }
+                }
+            }
+            if (alreadyPlayedCards.size() == 7){
+                if (!cardNameInHand.toString().equals(alreadyPlayedCards.get(0)) && !cardNameInHand.toString().equals(alreadyPlayedCards.get(1)) && !cardNameInHand.toString().equals(alreadyPlayedCards.get(2)) && !cardNameInHand.toString().equals(alreadyPlayedCards.get(3))&& !cardNameInHand.toString().equals(alreadyPlayedCards.get(4))&& !cardNameInHand.toString().equals(alreadyPlayedCards.get(5))&& !cardNameInHand.toString().equals(alreadyPlayedCards.get(6))) {
+                    amount = playerHandDeck.get(cardNameInHand);
+                    if (playerHandDeck.get(cardNameInHand) != 0) {
+                        drawCardMessage = drawCardMessage + cardNameInHand + "," + amount + ";";
+                    }
+                } else {
+                    int amountAlreadyPlayed = 0;
+                    for (String cardName:alreadyPlayedCards){
+                        if (cardNameInHand.toString().equals(cardName)){
+                            amountAlreadyPlayed = amountAlreadyPlayed + 1;
+                        }
+                    }
+                    if (playerHandDeck.get(cardNameInHand) != 0 && playerHandDeck.get(cardNameInHand) != 1) {
+                        amount = playerHandDeck.get(cardNameInHand) - amountAlreadyPlayed;
+                        drawCardMessage = drawCardMessage + cardNameInHand + "," + amount + ";";
+                    }
+                }
+            }
+            if (alreadyPlayedCards.size() == 8){
+                if (!cardNameInHand.toString().equals(alreadyPlayedCards.get(0)) && !cardNameInHand.toString().equals(alreadyPlayedCards.get(1)) && !cardNameInHand.toString().equals(alreadyPlayedCards.get(2)) && !cardNameInHand.toString().equals(alreadyPlayedCards.get(3))&& !cardNameInHand.toString().equals(alreadyPlayedCards.get(4))&& !cardNameInHand.toString().equals(alreadyPlayedCards.get(5))&& !cardNameInHand.toString().equals(alreadyPlayedCards.get(6))&& !cardNameInHand.toString().equals(alreadyPlayedCards.get(7))) {
+                    amount = playerHandDeck.get(cardNameInHand);
+                    if (playerHandDeck.get(cardNameInHand) != 0) {
+                        drawCardMessage = drawCardMessage + cardNameInHand + "," + amount + ";";
+                    }
+                } else {
+                    int amountAlreadyPlayed = 0;
+                    for (String cardName:alreadyPlayedCards){
+                        if (cardNameInHand.toString().equals(cardName)){
+                            amountAlreadyPlayed = amountAlreadyPlayed + 1;
+                        }
+                    }
+                    if (playerHandDeck.get(cardNameInHand) != 0 && playerHandDeck.get(cardNameInHand) != 1) {
+                        amount = playerHandDeck.get(cardNameInHand) - amountAlreadyPlayed;
+                        drawCardMessage = drawCardMessage + cardNameInHand + "," + amount + ";";
+                    }
+                }
+            }
+            if (alreadyPlayedCards.size() == 9){
+                if (!cardNameInHand.toString().equals(alreadyPlayedCards.get(0)) && !cardNameInHand.toString().equals(alreadyPlayedCards.get(1)) && !cardNameInHand.toString().equals(alreadyPlayedCards.get(2)) && !cardNameInHand.toString().equals(alreadyPlayedCards.get(3))&& !cardNameInHand.toString().equals(alreadyPlayedCards.get(4))&& !cardNameInHand.toString().equals(alreadyPlayedCards.get(5))&& !cardNameInHand.toString().equals(alreadyPlayedCards.get(6))&& !cardNameInHand.toString().equals(alreadyPlayedCards.get(7))&& !cardNameInHand.toString().equals(alreadyPlayedCards.get(8))) {
+                    amount = playerHandDeck.get(cardNameInHand);
+                    if (playerHandDeck.get(cardNameInHand) != 0) {
+                        drawCardMessage = drawCardMessage + cardNameInHand + "," + amount + ";";
+                    }
+                } else {
+                    int amountAlreadyPlayed = 0;
+                    for (String cardName:alreadyPlayedCards){
+                        if (cardNameInHand.toString().equals(cardName)){
+                            amountAlreadyPlayed = amountAlreadyPlayed + 1;
+                        }
+                    }
+                    if (playerHandDeck.get(cardNameInHand) != 0 && playerHandDeck.get(cardNameInHand) != 1) {
+                        amount = playerHandDeck.get(cardNameInHand) - amountAlreadyPlayed;
+                        drawCardMessage = drawCardMessage + cardNameInHand + "," + amount + ";";
+                    }
+                }
+            }
+            if (alreadyPlayedCards.size() == 10){
+                if (!cardNameInHand.toString().equals(alreadyPlayedCards.get(0)) && !cardNameInHand.toString().equals(alreadyPlayedCards.get(1)) && !cardNameInHand.toString().equals(alreadyPlayedCards.get(2)) && !cardNameInHand.toString().equals(alreadyPlayedCards.get(3))&& !cardNameInHand.toString().equals(alreadyPlayedCards.get(4))&& !cardNameInHand.toString().equals(alreadyPlayedCards.get(5))&& !cardNameInHand.toString().equals(alreadyPlayedCards.get(6))&& !cardNameInHand.toString().equals(alreadyPlayedCards.get(7))&& !cardNameInHand.toString().equals(alreadyPlayedCards.get(8))&& !cardNameInHand.toString().equals(alreadyPlayedCards.get(9))) {
+                    amount = playerHandDeck.get(cardNameInHand);
+                    if (playerHandDeck.get(cardNameInHand) != 0) {
+                        drawCardMessage = drawCardMessage + cardNameInHand + "," + amount + ";";
+                    }
+                } else {
+                    int amountAlreadyPlayed = 0;
+                    for (String cardName:alreadyPlayedCards){
+                        if (cardNameInHand.toString().equals(cardName)){
+                            amountAlreadyPlayed = amountAlreadyPlayed + 1;
+                        }
+                    }
+                    if (playerHandDeck.get(cardNameInHand) != 0 && playerHandDeck.get(cardNameInHand) != 1) {
+                        amount = playerHandDeck.get(cardNameInHand) - amountAlreadyPlayed;
+                        drawCardMessage = drawCardMessage + cardNameInHand + "," + amount + ";";
+                    }
+                }
+            }
+
         }
         drawCardMessage = deleteLastSign(drawCardMessage, ';') + "@deck,";
 
@@ -295,22 +441,16 @@ public class GameModel {
     public String endGameMessage() {
 
         String endMessage = "end@";
-        int winnerAmount = 0;
-        int amount = 0;
-        String winner = null;
         calculateVictoryPoints();
         Iterator<Player> itr1 = playerList.iterator();
 
-        for (Player player:playerList){
-            endMessage = endMessage + player.getName() + "," + player.getVictoryPoints() + "@";
-            winnerAmount = player.getVictoryPoints();
-            if (winnerAmount>amount){
-                amount = winnerAmount;
-                winner = player.getName();
+        while (itr1.hasNext()){
+            Player playerName = itr1.next();
+            endMessage = endMessage + playerName + "," + playerName.getVictoryPoints();
+            if (itr1.hasNext()){
+                endMessage = endMessage + "@";
             }
         }
-        endMessage = endMessage + winner + "," + amount;
-
         return endMessage;
     }
 
@@ -365,15 +505,22 @@ public class GameModel {
         }
 
         playTreasureMessage = playTreasureMessage + "@hand/";
+        ArrayList<String> alreadyPlayedCards = playerList.get(getCurrentPlayer()).getPlayedDeck();
         Set<CardName> key1 = cardsInPlayerHandDeck.keySet();
         Iterator<CardName> itr1 = key1.iterator();
 
         while (itr1.hasNext()) {
             CardName cardName = itr1.next();
             if (playerList.get(getCurrentPlayer()).getPlayedDeck().contains(cardName.toString())) {
-                playerList.get(getCurrentPlayer()).getPlayedDeck().remove(cardName.toString());//TODO WHY
+                //playerList.get(getCurrentPlayer()).getPlayedDeck().remove(cardName.toString());//TODO WHY
                 if (cardsInPlayerHandDeck.get(cardName) > 1){
-                    playTreasureMessage = playTreasureMessage + cardName.toString() + "," + (cardsInPlayerHandDeck.get(cardName)-1) + ";";
+                    int amountPlayed = 0;
+                    for (String cardNameAlreadyPlayed: alreadyPlayedCards){
+                        if (cardNameAlreadyPlayed.equals(cardName)) {
+                            amountPlayed = amountPlayed + 1;
+                        }
+                    }
+                    playTreasureMessage = playTreasureMessage + cardName.toString() + "," + (cardsInPlayerHandDeck.get(cardName)-amountPlayed) + ";";
                 }
             } else {
                 if (!cardName.toString().equals("gold") && !cardName.toString().equals("silver") && !cardName.toString().equals("copper") && cardsInPlayerHandDeck.get(cardName) != 0) {
@@ -456,10 +603,17 @@ public class GameModel {
             return true;
         }
 
-        Integer numberOfProvinceCard = victoryCardList.get(CardName.province);
+        int numberOfProvinceCard = victoryCardList.get(CardName.province);
+        System.out.println(numberOfProvinceCard);
         if (numberOfProvinceCard == 0) {
             calculateVictoryPoints();
             return true;
+        }
+
+        for (CardName cardName : victoryCardList.keySet()) {
+            if (cardName.toString().equals(CardName.province) && victoryCardList.get(cardName)==0) {
+                return true;
+            }
         }
         return false;
     }
