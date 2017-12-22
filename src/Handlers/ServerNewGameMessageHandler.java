@@ -22,20 +22,20 @@ public class ServerNewGameMessageHandler extends ServerMessageHandler {
             throw new UnknownFormatException(message);
         }
     }
-
-
     public void write(String message, Boolean privateMessage) {
         message = addDelimiter(message);
         String newMessage = CLASSNAME + message;
         superHandler.write(newMessage, privateMessage);
     }
-
+    //@Tim
+    //creates a new TempGame with the gameName, cardNumbers and Maxplayers
+    //sends an updated gamelist to all clients in the lobby
     @Override
     public void handleMessage(String msgIn, MessageHandler superHandler) throws UnknownFormatException {
         this.superHandler = superHandler;
         message = msgIn;
-        String gameName = splitMessage(message, 2); //todo define position
-        int cardNumbers = Integer.parseInt(splitMessage(message, 3)); //todo define position
+        String gameName = splitMessage(message, 2);
+        int cardNumbers = Integer.parseInt(splitMessage(message, 3));
         int maxPlayers = Integer.parseInt(splitMessage(message, 4));
 
         Player player = socketPlayerHashMap.get(getClientSocket().getPort());

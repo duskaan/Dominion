@@ -40,7 +40,7 @@ public class ServerMessageHandler extends MessageHandler {
     }
 
 
-    @Override //explain
+    @Override
     public void write(String message,Boolean privateMessage) {
         message = addDelimiter(message);
         String newMessage = CLASSNAME + message;
@@ -53,16 +53,5 @@ public class ServerMessageHandler extends MessageHandler {
     public static ArrayList<TempGame> gettempGameArrayList() {
         return tempGameArrayList;
     }
-
-    public synchronized static String removeTempGame(String gameName){
-        Iterator<TempGame> iterator= tempGameArrayList.iterator();
-        while(iterator.hasNext()) {
-            if (iterator.next().getGameName().equalsIgnoreCase(gameName)) {
-                iterator.remove();
-            }
-        }
-        return HandlerModel.gameListMessage();
-    }
-
 }
 

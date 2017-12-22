@@ -34,7 +34,6 @@ public class DominionServer extends Thread {
 	//the different clients get their own thread
 	//first the Player is added to the socketPlayerHashMap
 	//then client threads are started
-
 	private void acceptConnection(ServerSocket serverSocket) throws IOException {
 		ExecutorService executor = Executors.newSingleThreadExecutor();
 		while (true) {

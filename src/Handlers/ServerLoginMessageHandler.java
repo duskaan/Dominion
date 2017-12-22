@@ -27,16 +27,18 @@ public class ServerLoginMessageHandler extends ServerMessageHandler  {
         String newMessage = CLASSNAME + message;
         superHandler.write(newMessage,privateMessage);
     }
-
+    //@Tim
+    //tries to login with the playerName and password
+    //creates the message to send the updated topFive and the gameList to all clients
     @Override
     public  void handleMessage(String msgIn, MessageHandler superHandler) throws UnknownFormatException {
         this.superHandler = superHandler;
         message = msgIn;
-        String playerName = splitMessage(message, 2);//todo set token
+        String playerName = splitMessage(message, 2);
         Player player = socketPlayerHashMap.get(getClientSocket().getPort());
 
 
-        String password = splitMessage(message, 3); //todo set token
+        String password = splitMessage(message, 3);
         boolean successful = HandlerModel.tryToLogin(playerName, password);
         String returnMessage= null;
         if(successful){

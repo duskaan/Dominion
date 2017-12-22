@@ -1,74 +1,22 @@
-2017/12/22 10:03:58 Server.Server method: createDatabaseConnection
+2017/12/22 13:11:21 Server.Server method: createDatabaseConnection
 INFO: Creating Database connection
-2017/12/22 10:03:59 Database.Database method: createDatabase
+2017/12/22 13:11:21 Database.Database method: createDatabase
 INFO: Database already exists
-2017/12/22 10:03:59 Database.Database method: createTable
+2017/12/22 13:11:21 Database.Database method: createTable
 INFO: Database already exists
-2017/12/22 10:04:00 Server.Server method: createDatabaseConnection
+2017/12/22 13:11:23 Server.Server method: createDatabaseConnection
 INFO: Database connection created successfully
-2017/12/22 10:04:00 Server.Server method: addMessageHandler
+2017/12/22 13:11:23 Server.Server method: addMessageHandler
 INFO: Adding MessageHandlers
-2017/12/22 10:04:00 Server.Server method: addMessageHandler
+2017/12/22 13:11:23 Server.Server method: addMessageHandler
 INFO: All MessageHandlers added successfully
-2017/12/22 10:04:00 Server.DominionServer method: start
+2017/12/22 13:11:23 Server.DominionServer method: start
 INFO: ServerSocket created on address: 0.0.0.0/0.0.0.0
-2017/12/22 10:04:09 Server.DominionServer method: acceptConnection
+2017/12/22 13:11:28 Server.DominionServer method: acceptConnection
 INFO: Client connection accepted: /127.0.0.1
-2017/12/22 10:04:09 Server.DominionServer method: acceptConnection
+2017/12/22 13:11:28 Server.DominionServer method: acceptConnection
 INFO: notInitialized
-2017/12/22 10:04:09 Handlers.MessageHandler method: <init>
-INFO: MessageHandler is created for: Socket[addr=/127.0.0.1,port=62572,localport=9000]
-2017/12/22 10:04:09 Handlers.MessageHandler method: openResources
-INFO: Resources are opened
-2017/12/22 10:04:14 Handlers.MessageHandler method: tryReadMessage
-INFO: incoming message: SERVER@LOGIN@Tim@1234
-2017/12/22 10:04:14 Database.Database method: login
-INFO: Login with Name: Tim and Password: 1234 was successful
-2017/12/22 10:04:14 Handlers.MessageHandler method: write
-INFO: The message is: SERVER@LOGIN@successful@Tim It is a private message: true
-2017/12/22 10:04:14 Handlers.MessageHandler method: write
-INFO: SocketPlayerHashMap: {62572=Tim}
-2017/12/22 10:04:14 Handlers.MessageHandler method: writeToList
-INFO: [Tim]
-2017/12/22 10:04:14 Handlers.MessageHandler method: writeToList
-INFO: Message: SERVER@LOGIN@successful@Tim sent to Tim
-2017/12/22 10:04:14 Handlers.ServerLobbyMessageHandler method: handleMessage
-INFO: MessageType: TOPFIVE
-2017/12/22 10:04:14 Handlers.ServerLobbyMessageHandler method: handleMessage
-INFO: ReplyMessage is: TOPFIVE@Tim;Damiano;Stefan;Loris;Hermann;
-2017/12/22 10:04:14 Handlers.MessageHandler method: write
-INFO: The message is: SERVER@LOBBY@TOPFIVE@Tim;Damiano;Stefan;Loris;Hermann; It is a private message: false
-2017/12/22 10:04:14 Handlers.MessageHandler method: write
-INFO: SocketPlayerHashMap: {62572=Tim}
-2017/12/22 10:04:14 Handlers.MessageHandler method: write
-INFO: LobbyList: [Tim]
-2017/12/22 10:04:14 Handlers.MessageHandler method: writeToList
-INFO: [Tim]
-2017/12/22 10:04:14 Handlers.MessageHandler method: writeToList
-INFO: Message: SERVER@LOBBY@TOPFIVE@Tim;Damiano;Stefan;Loris;Hermann; sent to Tim
-2017/12/22 10:04:14 Handlers.ServerLobbyMessageHandler method: handleMessage
-INFO: MessageType: GAMELIST
-2017/12/22 10:04:14 Handlers.HandlerModel method: gameListMessage
-WARNING: gameList is empty
-2017/12/22 10:04:16 Handlers.MessageHandler method: tryReadMessage
-INFO: incoming message: SERVER@NEWGAME@wad@10@2
-2017/12/22 10:04:16 Handlers.ServerLobbyMessageHandler method: handleMessage
-INFO: MessageType: GAMELIST
-2017/12/22 10:04:16 Handlers.MessageHandler method: write
-INFO: The message is: SERVER@LOBBY@GameList/wad/ It is a private message: false
-2017/12/22 10:04:16 Handlers.MessageHandler method: write
-INFO: SocketPlayerHashMap: {62572=Tim}
-2017/12/22 10:04:16 Handlers.MessageHandler method: write
-INFO: LobbyList: [Tim]
-2017/12/22 10:04:16 Handlers.MessageHandler method: writeToList
-INFO: [Tim]
-2017/12/22 10:04:16 Handlers.MessageHandler method: writeToList
-INFO: Message: SERVER@LOBBY@GameList/wad/ sent to Tim
-2017/12/22 10:04:21 Server.DominionServer method: acceptConnection
-INFO: Client connection accepted: /127.0.0.1
-2017/12/22 10:04:21 Server.DominionServer method: acceptConnection
-INFO: notInitialized
-2017/12/22 10:04:21 Handlers.MessageHandler method: <init>
-INFO: MessageHandler is created for: Socket[addr=/127.0.0.1,port=62578,localport=9000]
-2017/12/22 10:04:21 Handlers.MessageHandler method: openResources
+2017/12/22 13:11:28 Handlers.MessageHandler method: <init>
+INFO: MessageHandler is created for: Socket[addr=/127.0.0.1,port=64059,localport=9000]
+2017/12/22 13:11:28 Handlers.MessageHandler method: openResources
 INFO: Resources are opened

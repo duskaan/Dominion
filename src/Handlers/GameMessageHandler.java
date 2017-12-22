@@ -15,7 +15,7 @@ import javafx.beans.value.ObservableValue;
 /**
  * Created by Tim on 23.08.2017.
  */
-public class GameMessageHandler extends MessageHandler implements Observer {
+public class GameMessageHandler extends MessageHandler {
     private MessageHandler superHandler;
 
     private final String CLASSNAME = MessageType.GAME.toString();
@@ -31,7 +31,9 @@ public class GameMessageHandler extends MessageHandler implements Observer {
     public GameMessageHandler() {
 
     }
-
+    //@Tim
+    //it sends the message to the subHandler if it is a JoinGame,
+    //else it sends the message to the corresponding game
     @Override
     public void handleMessage(String message, MessageHandler superHandler) throws UnknownFormatException {
         this.superHandler = superHandler;
@@ -56,25 +58,28 @@ public class GameMessageHandler extends MessageHandler implements Observer {
     }
 
 
-    @Override
-    public void update(Observable o, Object arg) {
-        String response = (String) arg;
-        if (splitMessage(response, 0).equalsIgnoreCase("end")) {
-            endGame();
-        }
-        write(response, false);
-        //todo what to do with the response?
-    }
 
-    private void endGame() {
 
-        topFiveUpdate();
+    private void endGame(String newValue) {
+        //endGame@player1,33@player2,11@winner,player1
+        String player1Highscore =splitMessage(newValue,2);
+        String player2Highscore =splitMessage(newValue,2);
+        String playerWon = splitMessage(newValue, 4);
+
+        String[] player1Parts = split(player1Highscore, ",");
+        String[] player2Parts =split(player2Highscore,",");
+        String[] playerWinner =split(playerWon,",");
+
+        Database.getDatabase().updateAfterGame(player1Parts[0],Integer.parseInt(player1Parts[1]),playerWinner[1]);
+        Database.getDatabase().updateAfterGame(player2Parts[0],Integer.parseInt(player2Parts[1]),playerWinner[1]);
+        //topFiveUpdate();
 
         //showLobby();
-        addAndRemoveFromLists();
+        addAndRemoveFromLists(); //todo set time when to do this
 
     }
-
+    //@Tim
+    //removes it from the gamelist and adds it to the lobbylist
     private void addAndRemoveFromLists() {
         Player player = socketPlayerHashMap.get(getClientSocket().getPort());
         ArrayList<Player> list = getKeyByValue(gameList, gameList.get(player));
@@ -84,32 +89,42 @@ public class GameMessageHandler extends MessageHandler implements Observer {
 
     private void topFiveUpdate() {
 
-        //Database.getDatabase().updateAfterGame();
     }
-
+    //@Tim
+    //removes players from finished Game from the gameList
     private void deleteGameFromList(ArrayList<Player> listToRemove) {
 
         for (int i = 0; listToRemove.size() > i; i++) {
             gameList.remove(listToRemove.get(i));
         }
     }
+    //@Tim
+    //adds players from finished game
     private void addLobbyList(ArrayList<Player> listToAdd) {
         for (int i = 0; listToAdd.size() > i; i++) {
             lobbyList.add(listToAdd.get(i));
         }
     }
-    //sobald nachricht hierhin kommt muss geprüft werden ob game = null ist. wenn ja dann wird diese method ausgelöst?
+
 
     public Socket getClientSocket() {
         return superHandler.getClientSocket();
     }
 
+    //@Tim
+    //listens if the gamelogic changes the message it is checked if it is an end message
+    //if it is not it is send to the clients of that game
+    //the / is added to make it easier to split the message at the client side
     void listenForMessage(Game game) {
         game.getGameResponseMessage().addListener((observable, oldValue, newValue) -> {
             if (splitMessage(newValue, 0).equalsIgnoreCase("end")) {
-                endGame();
+                endGame(newValue);
             }
             write("/"+newValue, false);
         });
+    }
+
+    private String[] split(String message, String splitter) {
+        return message.split(splitter);
     }
 }
