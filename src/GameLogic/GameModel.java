@@ -180,22 +180,55 @@ public class GameModel {
         String drawCardMessage = "newCards@" + playerList.get(playerIndex).getName() + "@hand/";
 
         Hashtable<CardName, Integer> playerHandDeck = playerList.get(playerIndex).getHandDeck();
+        ArrayList<String > alreadyPlayedCards = playerList.get(playerIndex).getPlayedDeck();
 
         int amount = 0;
-        for (CardName cardName : playerHandDeck.keySet()) {
-            if (!cardName.toString().equals(actionCardPlayed)) {
-                amount = playerHandDeck.get(cardName);
-                if (playerHandDeck.get(cardName) != 0) {
-                    drawCardMessage = drawCardMessage + cardName + "," + amount + ";";
-                }
-            } else {
-                if (playerHandDeck.get(cardName) != 0 && playerHandDeck.get(cardName) != 1) {
-                    amount = amount - 1;
-                    drawCardMessage = drawCardMessage + cardName + "," + amount + ";";
-                }
-
+        for (CardName cardNameInHand : playerHandDeck.keySet()) {
+            if (alreadyPlayedCards.size()==0){
+                    amount = playerHandDeck.get(cardNameInHand);
+                    if (amount != 0) {
+                        drawCardMessage = drawCardMessage + cardNameInHand + "," + amount + ";";
+                    }
             }
-
+            if (alreadyPlayedCards.size() == 1) {
+                if (!cardNameInHand.toString().equals(alreadyPlayedCards.get(0))) {
+                    amount = playerHandDeck.get(cardNameInHand);
+                    if (amount!= 0) {
+                        drawCardMessage = drawCardMessage + cardNameInHand + "," + amount + ";";
+                    }
+                } else {
+                    if (playerHandDeck.get(cardNameInHand) != 0 && playerHandDeck.get(cardNameInHand) != 1) {
+                        amount = playerHandDeck.get(cardNameInHand) - 1;
+                        drawCardMessage = drawCardMessage + cardNameInHand + "," + amount + ";";
+                    }
+                }
+            }
+            if (alreadyPlayedCards.size() == 2) {
+                if (!cardNameInHand.toString().equals(alreadyPlayedCards.get(0)) && !cardNameInHand.toString().equals(alreadyPlayedCards.get(1))) {
+                    amount = playerHandDeck.get(cardNameInHand);
+                    if (playerHandDeck.get(cardNameInHand) != 0) {
+                        drawCardMessage = drawCardMessage + cardNameInHand + "," + amount + ";";
+                    }
+                } else {
+                    if (playerHandDeck.get(cardNameInHand) != 0 && playerHandDeck.get(cardNameInHand) != 1) {
+                        amount = playerHandDeck.get(cardNameInHand) - 1;
+                        drawCardMessage = drawCardMessage + cardNameInHand + "," + amount + ";";
+                    }
+                }
+            }
+            if (alreadyPlayedCards.size() == 3){
+                if (!cardNameInHand.toString().equals(alreadyPlayedCards.get(0)) && !cardNameInHand.toString().equals(alreadyPlayedCards.get(1)) && !cardNameInHand.toString().equals(alreadyPlayedCards.get(2))) {
+                    amount = playerHandDeck.get(cardNameInHand);
+                    if (playerHandDeck.get(cardNameInHand) != 0) {
+                        drawCardMessage = drawCardMessage + cardNameInHand + "," + amount + ";";
+                    }
+                } else {
+                    if (playerHandDeck.get(cardNameInHand) != 0 && playerHandDeck.get(cardNameInHand) != 1) {
+                        amount = playerHandDeck.get(cardNameInHand) - 1;
+                        drawCardMessage = drawCardMessage + cardNameInHand + "," + amount + ";";
+                    }
+                }
+            }
         }
         drawCardMessage = deleteLastSign(drawCardMessage, ';') + "@deck,";
 
@@ -262,16 +295,22 @@ public class GameModel {
     public String endGameMessage() {
 
         String endMessage = "end@";
+        int winnerAmount = 0;
+        int amount = 0;
+        String winner = null;
         calculateVictoryPoints();
         Iterator<Player> itr1 = playerList.iterator();
 
-        while (itr1.hasNext()) {
-            Player playerName = itr1.next();
-            endMessage = endMessage + playerName.getName() + "," + playerName.getVictoryPoints();
-            if (itr1.hasNext()) {
-                endMessage = endMessage + "@";
+        for (Player player:playerList){
+            endMessage = endMessage + player.getName() + "," + player.getVictoryPoints() + "@";
+            winnerAmount = player.getVictoryPoints();
+            if (winnerAmount>amount){
+                amount = winnerAmount;
+                winner = player.getName();
             }
         }
+        endMessage = endMessage + winner + "," + amount;
+
         return endMessage;
     }
 
@@ -285,13 +324,13 @@ public class GameModel {
         int gold = 0;
         int silver = 0;
         int copper = 0;
-        Hashtable<CardName, Integer> cardsInPlayerDeck = playerList.get(getCurrentPlayer()).getHandDeck();
-        Set<CardName> key = cardsInPlayerDeck.keySet();
+        Hashtable<CardName, Integer> cardsInPlayerHandDeck = playerList.get(getCurrentPlayer()).getHandDeck();
+        Set<CardName> key = cardsInPlayerHandDeck.keySet();
         Iterator<CardName> itr = key.iterator();
 
         while (itr.hasNext()) {
             CardName coinCard = itr.next();
-            int amount = cardsInPlayerDeck.get(coinCard);
+            int amount = cardsInPlayerHandDeck.get(coinCard);
 
             switch (coinCard.toString()) {
                 case "gold":
@@ -326,22 +365,24 @@ public class GameModel {
         }
 
         playTreasureMessage = playTreasureMessage + "@hand/";
-        Set<CardName> key1 = cardsInPlayerDeck.keySet();
+        Set<CardName> key1 = cardsInPlayerHandDeck.keySet();
         Iterator<CardName> itr1 = key1.iterator();
 
         while (itr1.hasNext()) {
             CardName cardName = itr1.next();
             if (playerList.get(getCurrentPlayer()).getPlayedDeck().contains(cardName.toString())) {
-                playerList.get(getCurrentPlayer()).getPlayedDeck().remove(cardName.toString());
-            } else {
-                if (!cardName.toString().equals("gold") && !cardName.toString().equals("silver") && !cardName.toString().equals("copper") && cardsInPlayerDeck.get(cardName) != 0) {
-                    playTreasureMessage = playTreasureMessage + cardName.toString() + "," + cardsInPlayerDeck.get(cardName).toString() + ";";
+                playerList.get(getCurrentPlayer()).getPlayedDeck().remove(cardName.toString());//TODO WHY
+                if (cardsInPlayerHandDeck.get(cardName) > 1){
+                    playTreasureMessage = playTreasureMessage + cardName.toString() + "," + (cardsInPlayerHandDeck.get(cardName)-1) + ";";
                 }
-
-                if (!itr1.hasNext()) {
-                    if (playTreasureMessage.charAt(playTreasureMessage.length() - 1) == ';') {
-                        playTreasureMessage = playTreasureMessage.substring(0, playTreasureMessage.length() - 1);
-                    }
+            } else {
+                if (!cardName.toString().equals("gold") && !cardName.toString().equals("silver") && !cardName.toString().equals("copper") && cardsInPlayerHandDeck.get(cardName) != 0) {
+                    playTreasureMessage = playTreasureMessage + cardName.toString() + "," + cardsInPlayerHandDeck.get(cardName).toString() + ";";
+                }
+            }
+            if (!itr1.hasNext()) {
+                if (playTreasureMessage.charAt(playTreasureMessage.length() - 1) == ';') {
+                    playTreasureMessage = playTreasureMessage.substring(0, playTreasureMessage.length() - 1);
                 }
             }
         }
@@ -390,7 +431,7 @@ public class GameModel {
     //@Damiano Nardone
     //this method created the following message for the server to pass on to the client
     //when the client plays a card so the actionValue is updated
-    //play@PlayerName1@village@actionValue,0
+    //play@PlayerName1@village@actionValue,0@coinValue,2@buyValue,4
     public String playCardMessage() {
 
         String playCardMessage = "play@" + playerList.get(getCurrentPlayer()).getName() + "@" + actionCardPlayed + "@actionValue," + playerList.get(getCurrentPlayer()).getActions();
@@ -559,7 +600,7 @@ public class GameModel {
 
         switch (cardName) { // addBuy methode mit boolean im if statement
             case "gold":
-                if (playerList.get(getCurrentPlayer()).getBuy() >= 1 && playerList.get(getCurrentPlayer()).getCoins() >= 6) {
+                if (playerList.get(getCurrentPlayer()).getBuy() >= 1 && playerList.get(getCurrentPlayer()).getCoins() >= 6 && coinCardList.get(CardName.gold) != 0) {
                     subtractBuy(1);
                     subtractCoins(6);
                     cardFromHashTableToDiscardDeck(CardName.gold, coinCardList);
@@ -568,7 +609,7 @@ public class GameModel {
                 } else return "Not@ enough Coins or Buys left!";
                 break;
             case "silver":
-                if (playerList.get(getCurrentPlayer()).getBuy() >= 1 && playerList.get(getCurrentPlayer()).getCoins() >= 3) {
+                if (playerList.get(getCurrentPlayer()).getBuy() >= 1 && playerList.get(getCurrentPlayer()).getCoins() >= 3 && coinCardList.get(CardName.silver) != 0) {
                     subtractBuy(1);
                     subtractCoins(3);
                     cardFromHashTableToDiscardDeck(CardName.silver, coinCardList);
@@ -577,7 +618,7 @@ public class GameModel {
                 } else return "Not@ enough Coins or Buys left!";
                 break;
             case "copper":
-                if (playerList.get(getCurrentPlayer()).getBuy() >= 1) {
+                if (playerList.get(getCurrentPlayer()).getBuy() >= 1 && coinCardList.get(CardName.copper) != 0) {
                     subtractBuy(1);
                     cardFromHashTableToDiscardDeck(CardName.copper, coinCardList);
                     cardBoughtMessage = "coinCards/copper,";
@@ -585,7 +626,7 @@ public class GameModel {
                 } else return "Not@ enough Buys left!";
                 break;
             case "province":
-                if (playerList.get(getCurrentPlayer()).getBuy() >= 1 && playerList.get(getCurrentPlayer()).getCoins() >= 8) {
+                if (playerList.get(getCurrentPlayer()).getBuy() >= 1 && playerList.get(getCurrentPlayer()).getCoins() >= 8 && victoryCardList.get(CardName.province) != 0) {
                     subtractBuy(1);
                     subtractCoins(8);
                     cardFromHashTableToDiscardDeck(CardName.province, victoryCardList);
@@ -594,7 +635,7 @@ public class GameModel {
                 } else return "Not@ enough Coins or Buys left!";
                 break;
             case "duchy":
-                if (playerList.get(getCurrentPlayer()).getBuy() >= 1 && playerList.get(getCurrentPlayer()).getCoins() >= 5) {
+                if (playerList.get(getCurrentPlayer()).getBuy() >= 1 && playerList.get(getCurrentPlayer()).getCoins() >= 5 && victoryCardList.get(CardName.duchy) != 0) {
                     subtractBuy(1);
                     subtractCoins(5);
                     cardFromHashTableToDiscardDeck(CardName.duchy, victoryCardList);
@@ -603,7 +644,7 @@ public class GameModel {
                 } else return "Not@ enough Coins or Buys left!";
                 break;
             case "estate":
-                if (playerList.get(getCurrentPlayer()).getBuy() >= 1 && playerList.get(getCurrentPlayer()).getCoins() >= 2) {
+                if (playerList.get(getCurrentPlayer()).getBuy() >= 1 && playerList.get(getCurrentPlayer()).getCoins() >= 2 && victoryCardList.get(CardName.estate) != 0) {
                     subtractBuy(1);
                     subtractCoins(2);
                     cardFromHashTableToDiscardDeck(CardName.estate, victoryCardList);
@@ -612,7 +653,7 @@ public class GameModel {
                 } else return "Not@ enough Coins or Buys left!";
                 break;
             case "village":
-                if (playerList.get(getCurrentPlayer()).getBuy() >= 1 && playerList.get(getCurrentPlayer()).getCoins() >= 3) {
+                if (playerList.get(getCurrentPlayer()).getBuy() >= 1 && playerList.get(getCurrentPlayer()).getCoins() >= 3 && actionCardList.get(CardName.village) != 0) {
                     subtractBuy(1);
                     subtractCoins(3);
                     cardFromHashTableToDiscardDeck(CardName.village, actionCardList);
@@ -621,7 +662,7 @@ public class GameModel {
                 } else return "Not@ enough Coins or Buys left!";
                 break;
             case "woodcutter":
-                if (playerList.get(getCurrentPlayer()).getBuy() >= 1 && playerList.get(getCurrentPlayer()).getCoins() >= 3) {
+                if (playerList.get(getCurrentPlayer()).getBuy() >= 1 && playerList.get(getCurrentPlayer()).getCoins() >= 3 && actionCardList.get(CardName.woodcutter) != 0) {
                     subtractBuy(1);
                     subtractCoins(3);
                     cardFromHashTableToDiscardDeck(CardName.woodcutter, actionCardList);
@@ -630,7 +671,7 @@ public class GameModel {
                 } else return "Not@ enough Coins or Buys left!";
                 break;
             case "workshop":
-                if (playerList.get(getCurrentPlayer()).getBuy() >= 1 && playerList.get(getCurrentPlayer()).getCoins() >= 3) {
+                if (playerList.get(getCurrentPlayer()).getBuy() >= 1 && playerList.get(getCurrentPlayer()).getCoins() >= 3 && actionCardList.get(CardName.workshop) != 0) {
                     subtractBuy(1);
                     subtractCoins(3);
                     cardFromHashTableToDiscardDeck(CardName.workshop, actionCardList);
@@ -639,7 +680,7 @@ public class GameModel {
                 } else return "Not@ enough Coins or Buys left!";
                 break;
             case "smithy":
-                if (playerList.get(getCurrentPlayer()).getBuy() >= 1 && playerList.get(getCurrentPlayer()).getCoins() >= 4) {
+                if (playerList.get(getCurrentPlayer()).getBuy() >= 1 && playerList.get(getCurrentPlayer()).getCoins() >= 4 && actionCardList.get(CardName.smithy) != 0) {
                     subtractBuy(1);
                     subtractCoins(4);
                     cardFromHashTableToDiscardDeck(CardName.smithy, actionCardList);
@@ -648,7 +689,7 @@ public class GameModel {
                 } else return "Not@ enough Coins or Buys left!";
                 break;
             case "councilroom":
-                if (playerList.get(getCurrentPlayer()).getBuy() >= 1 && playerList.get(getCurrentPlayer()).getCoins() >= 5) {
+                if (playerList.get(getCurrentPlayer()).getBuy() >= 1 && playerList.get(getCurrentPlayer()).getCoins() >= 5 && actionCardList.get(CardName.councilroom) != 0) {
                     subtractBuy(1);
                     subtractCoins(5);
                     cardFromHashTableToDiscardDeck(CardName.councilroom, actionCardList);
@@ -657,7 +698,7 @@ public class GameModel {
                 } else return "Not@ enough Coins or Buys left!";
                 break;
             case "festival":
-                if (playerList.get(getCurrentPlayer()).getBuy() >= 1 && playerList.get(getCurrentPlayer()).getCoins() >= 5) {
+                if (playerList.get(getCurrentPlayer()).getBuy() >= 1 && playerList.get(getCurrentPlayer()).getCoins() >= 5 && actionCardList.get(CardName.festival) != 0) {
                     subtractBuy(1);
                     subtractCoins(5);
                     cardFromHashTableToDiscardDeck(CardName.festival, actionCardList);
@@ -666,7 +707,7 @@ public class GameModel {
                 } else return "Not@ enough Coins or Buys left!";
                 break;
             case "laboratory":
-                if (playerList.get(getCurrentPlayer()).getBuy() >= 1 && playerList.get(getCurrentPlayer()).getCoins() >= 5) {
+                if (playerList.get(getCurrentPlayer()).getBuy() >= 1 && playerList.get(getCurrentPlayer()).getCoins() >= 5 && actionCardList.get(CardName.laboratory) != 0) {
                     subtractBuy(1);
                     subtractCoins(5);
                     cardFromHashTableToDiscardDeck(CardName.laboratory, actionCardList);
@@ -675,7 +716,7 @@ public class GameModel {
                 } else return "Not@ enough Coins or Buys left!";
                 break;
             case "witch":
-                if (playerList.get(getCurrentPlayer()).getBuy() >= 1 && playerList.get(getCurrentPlayer()).getCoins() >= 5) {
+                if (playerList.get(getCurrentPlayer()).getBuy() >= 1 && playerList.get(getCurrentPlayer()).getCoins() >= 5 && actionCardList.get(CardName.witch) != 0) {
                     subtractBuy(1);
                     subtractCoins(5);
                     cardFromHashTableToDiscardDeck(CardName.witch, actionCardList);
@@ -684,7 +725,7 @@ public class GameModel {
                 } else return "Not @enough Coins or Buys left!";
                 break;
             case "chancellor":
-                if (playerList.get(getCurrentPlayer()).getBuy() >= 1 && playerList.get(getCurrentPlayer()).getCoins() >= 3) {
+                if (playerList.get(getCurrentPlayer()).getBuy() >= 1 && playerList.get(getCurrentPlayer()).getCoins() >= 3 && actionCardList.get(CardName.chancellor) != 0) {
                     subtractBuy(1);
                     subtractCoins(3);
                     cardFromHashTableToDiscardDeck(CardName.chancellor, actionCardList);
@@ -693,7 +734,7 @@ public class GameModel {
                 } else return "Not@ enough Coins or Buys left!";
                 break;
             case "market":
-                if (playerList.get(getCurrentPlayer()).getBuy() >= 1 && playerList.get(getCurrentPlayer()).getCoins() >= 5) {
+                if (playerList.get(getCurrentPlayer()).getBuy() >= 1 && playerList.get(getCurrentPlayer()).getCoins() >= 5 && actionCardList.get(CardName.market) != 0) {
                     subtractBuy(1);
                     subtractCoins(5);
                     cardFromHashTableToDiscardDeck(CardName.market, actionCardList);
