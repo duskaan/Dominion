@@ -61,14 +61,12 @@ public class Database {
             createDatabase();
             con = DriverManager.getConnection("jdbc:mysql://localhost:3306/DominionDatabase?useSSL=false", login, password);
             createTable();
-            //isConnected=new SimpleBooleanProperty();
             isConnected.set(true);
 
         } catch (Exception e) {
-            //isConnected =new SimpleBooleanProperty();
             isConnected.set(false);
             LogHandling.logOnFile(Level.SEVERE, e.getMessage());
-            closeConnection();
+            //closeConnection();
         }
     }
     //@Tim
@@ -197,7 +195,7 @@ public class Database {
     }
     //@Tim
     //updates the player in the table after the game
-    public void updateAfterGame(String inUserName, int highScore, String playerWon) {
+    public void updateAfterGame(String inUserName, int highScore, int gameHighScore) {
         int newHighScore;
         resultSet = getResultSet(inUserName);
 
@@ -205,7 +203,7 @@ public class Database {
             if(resultSet.next()){
             int newGamesPlayed = resultSet.getInt("gamesPlayed") + 1;
             int newGamesWon = resultSet.getInt("gamesWon");
-            if (inUserName.equalsIgnoreCase(playerWon)) {
+            if (highScore==gameHighScore) {
                 newGamesWon++;
             }
             if (highScore > resultSet.getInt("HighScore")) {

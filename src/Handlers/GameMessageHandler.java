@@ -6,12 +6,11 @@ import Server.Player;
 
 import java.io.Serializable;
 import java.net.Socket;
-import java.util.ArrayList;
-import java.util.Iterator;
-import java.util.Observable;
-import java.util.Observer;
+import java.util.*;
+
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
+
 /**
  * Created by Tim on 23.08.2017.
  */
@@ -31,6 +30,7 @@ public class GameMessageHandler extends MessageHandler {
     public GameMessageHandler() {
 
     }
+
     //@Tim
     //it sends the message to the subHandler if it is a JoinGame,
     //else it sends the message to the corresponding game
@@ -51,33 +51,34 @@ public class GameMessageHandler extends MessageHandler {
 
     }
 
-    public void write(String message,Boolean privateMessage) {
+    public void write(String message, Boolean privateMessage) {
         message = addDelimiter(message);
         String newMessage = CLASSNAME + message;
-        superHandler.write(newMessage,privateMessage);
+        superHandler.write(newMessage, privateMessage);
     }
-
-
 
 
     private void endGame(String newValue) {
-        //endGame@player1,33@player2,11@winner,player1
-        String player1Highscore =splitMessage(newValue,2);
-        String player2Highscore =splitMessage(newValue,2);
-        String playerWon = splitMessage(newValue, 4);
-
-        String[] player1Parts = split(player1Highscore, ",");
-        String[] player2Parts =split(player2Highscore,",");
-        String[] playerWinner =split(playerWon,",");
-
-        Database.getDatabase().updateAfterGame(player1Parts[0],Integer.parseInt(player1Parts[1]),playerWinner[1]);
-        Database.getDatabase().updateAfterGame(player2Parts[0],Integer.parseInt(player2Parts[1]),playerWinner[1]);
-        //topFiveUpdate();
-
-        //showLobby();
+        //endGame@player1,33@player2,11
+        String[] messageParts = split(newValue, "@");
+        String[] subArray = Arrays.copyOfRange(messageParts, 1, messageParts.length);
+        //[player1,33] [player2,11]
+        String[] playerNames = new String[subArray.length];
+        Integer[] playerScores = new Integer[subArray.length];
+        int highScore = 0;
+        for (int i = 0; i < subArray.length; i++) {
+            playerNames[i] = split(subArray[i], ",")[0];
+            playerScores[i] = Integer.parseInt(split(subArray[i], ",")[1]);
+            if (playerScores[i] > highScore) {
+                highScore = playerScores[i];
+            }
+        }
+        for (int i = 1; i < playerNames.length; i++) {
+            Database.getDatabase().updateAfterGame(playerNames[i], playerScores[i], highScore);
+        }
         addAndRemoveFromLists(); //todo set time when to do this
-
     }
+
     //@Tim
     //removes it from the gamelist and adds it to the lobbylist
     private void addAndRemoveFromLists() {
@@ -90,6 +91,7 @@ public class GameMessageHandler extends MessageHandler {
     private void topFiveUpdate() {
 
     }
+
     //@Tim
     //removes players from finished Game from the gameList
     private void deleteGameFromList(ArrayList<Player> listToRemove) {
@@ -98,6 +100,7 @@ public class GameMessageHandler extends MessageHandler {
             gameList.remove(listToRemove.get(i));
         }
     }
+
     //@Tim
     //adds players from finished game
     private void addLobbyList(ArrayList<Player> listToAdd) {
@@ -120,7 +123,7 @@ public class GameMessageHandler extends MessageHandler {
             if (splitMessage(newValue, 0).equalsIgnoreCase("end")) {
                 endGame(newValue);
             }
-            write("/"+newValue, false);
+            write("/" + newValue, false);
         });
     }
 
