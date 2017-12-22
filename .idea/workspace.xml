@@ -2,15 +2,13 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="0d54a2ae-c16c-4767-9a73-fda32c2f12cf" name="Default" comment="">
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/Dominion/Handlers/MessageHandler.class" afterPath="$PROJECT_DIR$/out/production/Dominion/Handlers/MessageHandler.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/Dominion/Handlers/MessageHandlerFactory.class" afterPath="$PROJECT_DIR$/out/production/Dominion/Handlers/MessageHandlerFactory.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/Dominion/Server/DominionServer.class" afterPath="$PROJECT_DIR$/out/production/Dominion/Server/DominionServer.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/Dominion/Server/Player.class" afterPath="$PROJECT_DIR$/out/production/Dominion/Server/Player.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/Dominion/Server/Server.class" afterPath="$PROJECT_DIR$/out/production/Dominion/Server/Server.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/Dominion/Server/ServerGUI.class" afterPath="$PROJECT_DIR$/out/production/Dominion/Server/ServerGUI.class" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/config.properties" afterPath="$PROJECT_DIR$/config.properties" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/logger.txt" afterPath="$PROJECT_DIR$/logger.txt" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/Handlers/MessageHandler.java" afterPath="$PROJECT_DIR$/src/Handlers/MessageHandler.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/Handlers/MessageHandlerFactory.java" afterPath="$PROJECT_DIR$/src/Handlers/MessageHandlerFactory.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/Server/DominionServer.java" afterPath="$PROJECT_DIR$/src/Server/DominionServer.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/Server/Player.java" afterPath="$PROJECT_DIR$/src/Server/Player.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/Server/Server.java" afterPath="$PROJECT_DIR$/src/Server/Server.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/Server/ServerGUI.java" afterPath="$PROJECT_DIR$/src/Server/ServerGUI.java" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -151,8 +149,8 @@
       <file leaf-file-name="Server.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/Server/Server.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="278">
-              <caret line="32" column="0" lean-forward="true" selection-start-line="32" selection-start-column="0" selection-end-line="32" selection-end-column="0" />
+            <state relative-caret-position="182">
+              <caret line="34" column="55" lean-forward="false" selection-start-line="34" selection-start-column="55" selection-end-line="34" selection-end-column="55" />
               <folding />
             </state>
           </provider>
@@ -947,7 +945,7 @@
       <workItem from="1513693262475" duration="8566000" />
       <workItem from="1513783890585" duration="27496000" />
       <workItem from="1513865646154" duration="4176000" />
-      <workItem from="1513870421588" duration="32460000" />
+      <workItem from="1513870421588" duration="32563000" />
     </task>
     <task id="LOCAL-00001" summary="update">
       <created>1511614825884</created>
@@ -1159,11 +1157,18 @@
       <option name="project" value="LOCAL" />
       <updated>1513903648322</updated>
     </task>
-    <option name="localTasksCounter" value="31" />
+    <task id="LOCAL-00031" summary="update with javadoc">
+      <created>1513933785922</created>
+      <option name="number" value="00031" />
+      <option name="presentableId" value="LOCAL-00031" />
+      <option name="project" value="LOCAL" />
+      <updated>1513933785922</updated>
+    </task>
+    <option name="localTasksCounter" value="32" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="453932000" />
+    <option name="totallyTimeSpent" value="454035000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -1221,7 +1226,8 @@
   <component name="VcsManagerConfiguration">
     <MESSAGE value="update" />
     <MESSAGE value="update new" />
-    <option name="LAST_COMMIT_MESSAGE" value="update new" />
+    <MESSAGE value="update with javadoc" />
+    <option name="LAST_COMMIT_MESSAGE" value="update with javadoc" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -1631,8 +1637,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/Server/Server.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="278">
-          <caret line="32" column="0" lean-forward="true" selection-start-line="32" selection-start-column="0" selection-end-line="32" selection-end-column="0" />
+        <state relative-caret-position="182">
+          <caret line="34" column="55" lean-forward="false" selection-start-line="34" selection-start-column="55" selection-end-line="34" selection-end-column="55" />
           <folding />
         </state>
       </provider>
