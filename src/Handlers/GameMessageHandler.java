@@ -62,9 +62,9 @@ public class GameMessageHandler extends MessageHandler {
 
     private void endGame(String newValue) {
         //endGame@player1,33@player2,11@winner,player1
-        String player1Highscore =splitMessage(newValue,2);
+        String player1Highscore =splitMessage(newValue,1);
         String player2Highscore =splitMessage(newValue,2);
-        String playerWon = splitMessage(newValue, 4);
+        String playerWon = splitMessage(newValue, 3);
 
         String[] player1Parts = split(player1Highscore, ",");
         String[] player2Parts =split(player2Highscore,",");
