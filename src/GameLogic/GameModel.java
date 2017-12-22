@@ -20,7 +20,7 @@ public class GameModel {
     private String cardBought;
     private String actionCardPlayed;
     public boolean canIPlay = true;
-    private Hashtable<CardName, Integer> listOfCardsDrawnForMessage;
+
 
 
     GameModel(String gameName, SimpleStringProperty gameResponseMessage) {
@@ -29,7 +29,6 @@ public class GameModel {
         actionCardList = new Hashtable<>();
         coinCardList = new Hashtable<>();
         victoryCardList = new Hashtable<>();
-        listOfCardsDrawnForMessage = new Hashtable<>();
 
     }
 
@@ -152,7 +151,8 @@ public class GameModel {
             }
         }
     }
-
+    //@damiano
+    //this message sends the initial cards for a player according to index
     //initCards@PlayerName@
     public String initCardsMessage(int playerIndex) {
         String initCardsMessage = "initCards@" + playerList.get(playerIndex).getName() + "@";
@@ -384,6 +384,8 @@ public class GameModel {
         return drawCardMessage;
     }
 
+    //@Damiano
+    //this method deletes the last sign depending on the delimiter
     public String deleteLastSign(String message, char delimiter) {
         if (message.charAt(message.length() - 1) == delimiter) {
             message = message.substring(0, message.length() - 1);
@@ -405,6 +407,7 @@ public class GameModel {
         endTurnMessage = endTurnMessage + "@discard,";
 
         int discardAmount = playerList.get(getCurrentPlayer()).getDiscardAmount();
+        int curseAmount = victoryCardList.get(CardName.curse);
 /*
         for (CardName cardName : cardsOnHand.keySet()) {
             if (cardsOnHand.get(cardName) != 0) {
@@ -416,7 +419,7 @@ public class GameModel {
                 discardAmount = discardAmount + cardsInDiscardDeck.get(cardName);
             }
         }*/
-        endTurnMessage = endTurnMessage + discardAmount;
+        endTurnMessage = endTurnMessage + discardAmount + "curse," + curseAmount;
 
         return endTurnMessage;
 
@@ -691,9 +694,6 @@ public class GameModel {
         }
     }
 
-    public void clearListOfCardsDrawnForMessage() {
-        listOfCardsDrawnForMessage.clear();
-    }
 
     //@Damiano Nardone
     //this method puts Specifically the curse for a certain person into his or her discardDeck

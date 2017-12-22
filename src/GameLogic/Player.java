@@ -34,7 +34,8 @@ public class Player {
         fillList(discardDeck);
         fillList(handDeck);
     }
-
+    //@Damiano
+    //this message fills all the list with the cardNames put at the moment 0 amount
     public void fillList(Hashtable<CardName, Integer> list) {
         list.put(CardName.gold, 0);
         list.put(CardName.silver, 0);
@@ -71,6 +72,8 @@ public class Player {
         this.playerName = playerName;
     }
 
+    //@Damiano
+    //this message resets the buy action coins to initial state after one round
     public void endTurn() {
         buy = 1;
         actions = 1;
@@ -156,10 +159,14 @@ public class Player {
         return victoryPoints;
     }
 
+    //@damiano
+    //this method add cardName to playedCardDeck
     public void addToPlayedDeck(String actionCardPlayed) {
         playedDeck.add(actionCardPlayed);
     }
     public ArrayList getPlayedDeck(){
         return playedDeck;
     }
+
+
 }
