@@ -64,16 +64,16 @@ public class GameModel {
         coinCardList.put(CardName.silver, 0);
         coinCardList.put(CardName.copper, 0);
 
-        actionCardList.put(CardName.village, 0);
-        actionCardList.put(CardName.woodcutter, 0);
-        actionCardList.put(CardName.workshop, 0);
-        actionCardList.put(CardName.smithy, 0);
-        actionCardList.put(CardName.councilroom, 0);
-        actionCardList.put(CardName.festival, 0);
-        actionCardList.put(CardName.witch, 0);
-        actionCardList.put(CardName.chancellor, 0);
-        actionCardList.put(CardName.market, 0);
-        actionCardList.put(CardName.laboratory, 0);
+        actionCardList.put(CardName.village, 10);
+        actionCardList.put(CardName.woodcutter, 10);
+        actionCardList.put(CardName.workshop, 10);
+        actionCardList.put(CardName.smithy, 10);
+        actionCardList.put(CardName.councilroom, 10);
+        actionCardList.put(CardName.festival, 10);
+        actionCardList.put(CardName.witch, 10);
+        actionCardList.put(CardName.chancellor, 10);
+        actionCardList.put(CardName.market, 10);
+        actionCardList.put(CardName.laboratory, 10);
 
         victoryCardList.put(CardName.province, 0);
         victoryCardList.put(CardName.duchy, 0);
@@ -445,8 +445,8 @@ public class GameModel {
         Iterator<Player> itr1 = playerList.iterator();
 
         while (itr1.hasNext()){
-            Player playerName = itr1.next();
-            endMessage = endMessage + playerName + "," + playerName.getVictoryPoints();
+            Player player = itr1.next();
+            endMessage = endMessage + player.getName() + "," + player.getVictoryPoints();
             if (itr1.hasNext()){
                 endMessage = endMessage + "@";
             }
@@ -516,7 +516,7 @@ public class GameModel {
                 if (cardsInPlayerHandDeck.get(cardName) > 1){
                     int amountPlayed = 0;
                     for (String cardNameAlreadyPlayed: alreadyPlayedCards){
-                        if (cardNameAlreadyPlayed.equals(cardName)) {
+                        if (cardNameAlreadyPlayed.equals(cardName.toString())) {
                             amountPlayed = amountPlayed + 1;
                         }
                     }
@@ -593,28 +593,31 @@ public class GameModel {
         int emptyActionCards = 0;
 
         for (CardName cardName : actionCardList.keySet()) {
-            Integer numberOfActionCard = actionCardList.get(cardName);
+            int numberOfActionCard = actionCardList.get(cardName);
             if (numberOfActionCard == 0) {
+
                 emptyActionCards++;
             }
         }
         if (emptyActionCards >= 3) {
             calculateVictoryPoints();
+            System.out.println("604" +(emptyActionCards >= 3));
             return true;
         }
 
         int numberOfProvinceCard = victoryCardList.get(CardName.province);
         System.out.println(numberOfProvinceCard);
         if (numberOfProvinceCard == 0) {
+            System.out.println("609: " + (numberOfProvinceCard == 0));
             calculateVictoryPoints();
             return true;
         }
 
-        for (CardName cardName : victoryCardList.keySet()) {
-            if (cardName.toString().equals(CardName.province) && victoryCardList.get(cardName)==0) {
-                return true;
-            }
+        if (victoryCardList.get(CardName.province)==0){
+            System.out.println("617" + (victoryCardList.get(CardName.province)==0));
+            return true;
         }
+
         return false;
     }
 
