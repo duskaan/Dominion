@@ -20,6 +20,7 @@ public class GameModel {
     private String cardBought;
     private String actionCardPlayed;
     public boolean canIPlay = true;
+    private boolean canIPlayTreasures = true;
 
 
 
@@ -127,6 +128,7 @@ public class GameModel {
         discardHandDeckToDiscardDeck();
         playerList.get(getCurrentPlayer()).endTurn();
         canIPlay = true;
+        canIPlayTreasures = true;
         playerList.get(getCurrentPlayer()).getPlayedDeck().clear();
         actionCardPlayed=null;
     }
@@ -419,7 +421,7 @@ public class GameModel {
                 discardAmount = discardAmount + cardsInDiscardDeck.get(cardName);
             }
         }*/
-        endTurnMessage = endTurnMessage + discardAmount + "curse," + curseAmount;
+        endTurnMessage = endTurnMessage + discardAmount + "@curse," + curseAmount;
 
         return endTurnMessage;
 
@@ -462,7 +464,7 @@ public class GameModel {
     //playsTreasures to update his hand and coins
     //playTreasures@PlayerName1@playedCard/copper,3;gold,3@hand/copper,2,silver,3@coinValue,1
     public String playTreasureMessage() {
-
+        canIPlayTreasures = false;
         String playTreasureMessage = "playTreasures@" + playerList.get(getCurrentPlayer()).getName() + "@playedCard/";
         int gold = 0;
         int silver = 0;
@@ -923,7 +925,7 @@ public class GameModel {
         canIPlay = false;
         Boolean areThereTreasures = false;
         Hashtable<CardName, Integer> tempHandDeck = playerList.get(getCurrentPlayer()).getHandDeck();
-
+    if (canIPlayTreasures) {
         for (Map.Entry<CardName, Integer> entry : tempHandDeck.entrySet()) {
             switch (entry.getKey().toString()) {
 
@@ -947,6 +949,7 @@ public class GameModel {
         if (areThereTreasures) {
             return playTreasureMessage();
         } else return "No@ Coins on Hand!";
+    } return "";
     }
 
     //@Damiano Nardone
